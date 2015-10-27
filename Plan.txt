@@ -1,8 +1,13 @@
 基本的模块：
-database.hpp
-命名空间:NDatabase
-头文件引用标记:DEF_DATABASE
-定义了所需要的数据结构及相应的询问函数/方法
+library.hpp
+命名空间:Nlibrary
+头文件引用标记:DEF_LIBRARY
+定义了完成书籍管理所需要的类。
+
+users.hpp
+命名空间:Nusers
+头文件引用标记:DEF_USERS
+定义了完成用户管理所需要的类。
 
 iosystem.hpp
 命名空间:Nios
@@ -10,14 +15,14 @@ iosystem.hpp
 定义了输入输出的函数/方法，以及加密算法。
 
 GUI.hpp *
-命名空间:NGUI
+命名空间:Ngui
 头文件引用标记:DEF_GUI
 定义了实现可视化界面的一些函数/方法
 *可能的话需要对Linux(Debian/Unity)、Windows分别实现该库
 *这样做的目的是保证程序的可移植性。在跨平台/采用不同的GUI方案时，只需重新编写GUI.hpp即可，在main.cpp里无需修改。
 
 Plugin.hpp ##
-命名空间:NPlugin
+命名空间:Nplugin
 头文件引用标记:DEF_PLUGIN
 实现插件功能。
 插件使用Lisperarian脚本语言编写。这个库里包含对解释器的实现。
@@ -27,6 +32,12 @@ Plugin.hpp ##
 main.cpp
 主程序，作用是把各个库文件串联起来形成可用程序。
 
-各位同学如果有什么好主意可以在群中提出，大家一起协商可以增进效率(^ˍ^) 
-当任务划分完成后，请组长安排具体计划及分工。
-诸位加油。
+
+******************************************************************
+功能的具体归属类
+添加图书 	TLibrary
+删除图书 	TLibrary
+借阅        TLibrary
+续借        TLibrary
+
+“请求”(Request)
