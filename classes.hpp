@@ -4,9 +4,13 @@ It can also be used as a plan or catalog of the project.
 ***********************************************************/
 #ifndef DEF_CLASSES
 #define DEF_CLASSES
+namespace Nios
+{
+	
+}
 namespace Nlibrary
 {
-	struct Tnode
+	struct Tbook
 	{
 		string title;//Allow Chinese here
 		long long ISBN;
@@ -15,7 +19,7 @@ namespace Nlibrary
 		string description;
 		int avaliableNum;
 		int lowerBoundOfAuthority;
-	}
+	};
 	typedef map<long long, Tnode> TInnerStruct;
 	class TLibrary
 	{
@@ -24,9 +28,13 @@ namespace Nlibrary
 		TPlan aboutOneWeek;
 	public:
 		
-		int AddBook(Tnode inPendingBook);
+		int AddBook(Tbook inPendingBook);
 		int DeleteBookByISBN(long long targetBook);
 		int BorrowOneSpecificBook(long long ISBN, long long UserID);
 	};
+}
+namespace Nusers
+{
+	
 }
 #endif
