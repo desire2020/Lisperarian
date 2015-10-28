@@ -1,9 +1,7 @@
+#include "stdincs.hpp"
 #include "constants.hpp"
 #include "globalvar.hpp"
-#include "iosystem.hpp"
-#include "library.hpp"
-#include "users.hpp"
-
+#include "classes.hpp"
 
 int main()
 {
