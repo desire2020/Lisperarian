@@ -28,7 +28,7 @@ namespace Nlibrary
 		TPlan aboutOneWeek;
 	public:
 		
-		int AddBook(Tbook inPendingBook);
+		int AddBook(TBook inPendingBook);
 		int DeleteBookByISBN(long long targetBook);
 		int BorrowOneSpecificBook(long long ISBN, long long UserID);
 	};
