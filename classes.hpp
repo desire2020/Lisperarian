@@ -10,7 +10,7 @@ namespace Nios
 }
 namespace Nlibrary
 {
-	struct Tbook
+	struct TBook
 	{
 		string title;//Allow Chinese here
 		long long ISBN;
@@ -20,7 +20,7 @@ namespace Nlibrary
 		int avaliableNum;
 		int lowerBoundOfAuthority;
 	};
-	typedef map<long long, Tnode> TInnerStruct;
+	typedef map<long long, TBook> TInnerStruct;
 	class TLibrary
 	{
 	private:
