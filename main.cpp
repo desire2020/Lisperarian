@@ -2,10 +2,13 @@
 #include "constants.hpp"
 #include "globalvar.hpp"
 #include "classes.hpp"
-
+int Initialization()
+{
+	
+}
 int main()
 {
-	LoadExistingData();
+	Initialization();
 	while(true)
 	{
 		GetRequest();
