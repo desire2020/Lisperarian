@@ -5,4 +5,6 @@ This header file defines a few varibles used in the project.
 #define DEF_GLOBALVAR
 static int keepPeriod;
 ifstream fileSettings("settings.ini");
+Nlibrary :: TLibrary ELibrary;
+Nusers :: TUsers EUsers;
 #endif

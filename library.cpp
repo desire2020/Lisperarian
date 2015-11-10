@@ -87,14 +87,31 @@ namespace Nlibrary
 		else
 		{
 			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) != 
-			else
+			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
 			{
 				(*it).avaliableNum--;
-				(*it).whoaccu
+				(*it).occupyingUsers.insert(UserID);
+				EUsers.BorrowOneSpecificBook(ISBN, userID);
 			}
 		}
 	}
-	};
+	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long UserID)
+	{
+		TInnerStruct :: iterator it;
+		it = ISBNTree.find(targetBook);
+		if (it == ISBNTree.end())
+			return -1;
+		else
+		{
+			if ((*it).avaliableNum == 0) return -1;
+			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
+			{
+				(*it).avaliableNum--;
+				(*it).occupyingUsers.insert(UserID);
+				EUsers.BorrowOneSpecificBook(ISBN, userID);
+			}
+		}
+	}
+};
 	
 }

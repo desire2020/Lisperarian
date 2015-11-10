@@ -6,6 +6,11 @@ int Initialization()
 {
 	
 }
+int Finalization()
+{
+	fileSettings.close();
+	return 0;
+}
 int main()
 {
 	Initialization();
@@ -14,4 +19,5 @@ int main()
 		GetRequest();
 		
 	}
+	Finalization();
 }

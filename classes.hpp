@@ -6,6 +6,13 @@ It can also be used as a plan or catalog of the project.
 #define DEF_CLASSES
 namespace Nios
 {
+	int RefreshUserSys();
+	int InitUserSys();
+	int RefreshBookSys();
+	int InitUserSys();
+}
+namespace Nlog
+{
 	
 }
 namespace Nlibrary
