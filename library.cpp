@@ -54,12 +54,24 @@ Character	Hashvalue
 #include "stdincs.hpp"
 namespace Nlibrary
 {
-	int TLibrary :: AddBook(Tbook inPendingBook)
+	char* ISBNStr()
 	{
+		static string p = "";
+		long long PS = ISBN;
+		for (int i = 0; i < ISBNLEN; i++)
+		{
+			p = char(PS % 10 + '0') + p;
+		}
+	}
+	int TLibrary :: AddBook(Tbook inPendingBook, long long userID)
+	{
+		ofstream fo;
 		TInnerStruct :: iterator it;
 		it = ISBNTree.find(inPendingBook.ISBN);
 		if (it == ISBNTree.end())
+		{
 			ISBNTree[inPendingBook.ISBN] = inPendingBook;
+			fo.open("\books\"+
 		else
 		{
 			inPendingBook.avaliableNum += (*it).avaliableNum;
@@ -67,7 +79,7 @@ namespace Nlibrary
 		}
 			return 0;
 	}
-	int TLibrary :: DeleteBookByISBN(long long targetBook)
+	int TLibrary :: DeleteBookByISBN(long long targetBook, long long userID)
 	{
 		TInnerStruct :: iterator it;
 		it = ISBNTree.find(targetBook);
@@ -76,6 +88,7 @@ namespace Nlibrary
 		else
 		{
 				ISBNTree.erase(it);
+				
 		}
 	}
 	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long UserID)
@@ -109,6 +122,23 @@ namespace Nlibrary
 				(*it).avaliableNum--;
 				(*it).occupyingUsers.insert(UserID);
 				EUsers.BorrowOneSpecificBook(ISBN, userID);
+			}
+		}
+	}
+	int TLibrary :: ReturnOneSpecificBook(long long ISBN, long long UserID)
+	{
+		TInnerStruct :: iterator it;
+		it = ISBNTree.find(targetBook);
+		if (it == ISBNTree.end())
+			return -1;
+		else
+		{
+			if ((*it).avaliableNum == 0) return -1;
+			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
+			{
+				(*it).avaliableNum++;
+				(*it).occupyingUsers.delete(UserID);
+				EUsers.ReturnOneSpecificBook(ISBN, userID);
 			}
 		}
 	}

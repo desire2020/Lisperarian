@@ -6,6 +6,7 @@ It can also be used as a plan or catalog of the project.
 #define DEF_CLASSES
 namespace Nios
 {
+	int CypInit();
 	int RefreshUserSys();
 	int InitUserSys();
 	int RefreshBookSys();
@@ -13,7 +14,7 @@ namespace Nios
 }
 namespace Nlog
 {
-	
+	int RecordEvent(const int Event, long long ID1, long long ID2);
 }
 namespace Nlibrary
 {
@@ -34,11 +35,12 @@ namespace Nlibrary
 	private:
 		TInnerStruct ISBNTree;
 	public:
+		string ISBNStr();
 		int AddBook(TBook inPendingBook, long long userID);
 		int DeleteBookByISBN(long long tgISBN, long long userID);
 		int BorrowOneSpecificBook(long long tgISBN, long long userID);
 		int ReturnOneSpecificBook(long long tgISBN, long long userID);
-		int SetLowerBoundOfAuthority(long long tgISBN, long long userID, int authority);
+		int EditBookProperty(long long tgISBN, long long userID, const TBook newBook);
 	};
 }
 namespace Nusers
@@ -53,7 +55,7 @@ namespace Nusers
 		long long userID;
 		TPassword userPassword;
 		set<long long> occupiedBooks;
-		int authority;
+		int authority;//it's minus when the user is banned
 		TInformation privateInf;
 	}
 	typedef map<long long, TUser> TInnerStruct;
