@@ -46,17 +46,20 @@ namespace Nlibrary
 namespace Nusers
 {
 	typedef string TPassword;
-	struct TInformation
+	struct PrivateInformation
 	{
+		string realName;
+		long long telephoneNumber;
+		long long identificationNumer;
 	}
 	struct TUser
 	{
-		string userName;
+		string userNickname;
 		long long userID;
 		TPassword userPassword;
 		set<long long> occupiedBooks;
 		int authority;//it's minus when the user is banned
-		TInformation privateInf;
+		PrivateInformation privateInf;
 	}
 	typedef map<long long, TUser> TInnerStruct;
 	class TUsers

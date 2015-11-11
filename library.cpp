@@ -61,7 +61,9 @@ namespace Nlibrary
 		for (int i = 0; i < ISBNLEN; i++)
 		{
 			p = char(PS % 10 + '0') + p;
+
 		}
+		return p.c_str();
 	}
 	int TLibrary :: AddBook(Tbook inPendingBook, long long userID)
 	{
@@ -70,12 +72,11 @@ namespace Nlibrary
 		it = ISBNTree.find(inPendingBook.ISBN);
 		if (it == ISBNTree.end())
 		{
-			ISBNTree[inPendingBook.ISBN] = inPendingBook;
+			ISBNTree[inPendingBook.ISBN] = inPendingBook;		
 			fo.open("\books\"+
 		else
 		{
-			inPendingBook.avaliableNum += (*it).avaliableNum;
-			(*it) = inPendingBook;
+			(*it).avaliableNum += inPendingBook.avaliableNum;	
 		}
 			return 0;
 	}
@@ -87,59 +88,38 @@ namespace Nlibrary
 			return -1;
 		else
 		{
-				ISBNTree.erase(it);
+				ISBNTree.erase(it);								
 				
 		}
 	}
-	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long UserID)
+	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
+		it = ISBNTree.find(ISBN);							
 		if (it == ISBNTree.end())
 			return -1;
 		else
 		{
 			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
+			if ((*it).occupyingUsers.find(userID) == (*it).occupyingUsers.end())
 			{
 				(*it).avaliableNum--;
-				(*it).occupyingUsers.insert(UserID);
-				EUsers.BorrowOneSpecificBook(ISBN, userID);
+				(*it).occupyingUsers.insert(userID);
 			}
 		}
 	}
-	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long UserID)
+	int TLibrary :: ReturnOneSpecificBook(long long ISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
-		if (it == ISBNTree.end())
-			return -1;
-		else
+		it = ISBNTree.find(ISBN);							
+		if (it != ISBNTree.end())
 		{
-			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
-			{
-				(*it).avaliableNum--;
-				(*it).occupyingUsers.insert(UserID);
-				EUsers.BorrowOneSpecificBook(ISBN, userID);
-			}
-		}
-	}
-	int TLibrary :: ReturnOneSpecificBook(long long ISBN, long long UserID)
-	{
-		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
-		if (it == ISBNTree.end())
-			return -1;
-		else
-		{
-			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
+			if ((*it).occupyingUsers.find(userID) != (*it).occupyingUsers.end())
 			{
 				(*it).avaliableNum++;
-				(*it).occupyingUsers.delete(UserID);
-				EUsers.ReturnOneSpecificBook(ISBN, userID);
+				(*it).occupyingUsers.erase((*it).occupyingUsers.find(userID));			
 			}
+			else return -1;
 		}
 	}
 };
