@@ -4,14 +4,6 @@ It can also be used as a plan or catalog of the project.
 ***********************************************************/
 #ifndef DEF_CLASSES
 #define DEF_CLASSES
-namespace Nios
-{
-	int CypInit();
-	int RefreshUserSys();
-	int InitUserSys();
-	int RefreshBookSys();
-	int InitUserSys();
-}
 namespace Nlog
 {
 	int RecordEvent(const int Event, long long ID1, long long ID2);
@@ -20,7 +12,7 @@ namespace Nlibrary
 {
 	struct TBook
 	{
-		string title;//Allow Chinese here
+		string title;
 		long long ISBN;
 		string indexname;
 		string author;
@@ -46,17 +38,20 @@ namespace Nlibrary
 namespace Nusers
 {
 	typedef string TPassword;
-	struct TInformation
+	struct PrivateInformation
 	{
+		string realName;
+		long long telephoneNumber;
+		long long identificationNumer;
 	}
 	struct TUser
 	{
-		string userName;
+		string userNickname;
 		long long userID;
 		TPassword userPassword;
 		set<long long> occupiedBooks;
 		int authority;//it's minus when the user is banned
-		TInformation privateInf;
+		PrivateInformation privateInf;
 	}
 	typedef map<long long, TUser> TInnerStruct;
 	class TUsers
@@ -70,10 +65,23 @@ namespace Nusers
 		TUsers GetUser(long long userID);
 		int ChangePassword(long long UID, TPassword newPassword);
 		int ChangeUserName(long long UID, string newName);
-		int ChangePrivateInf(long long UID, TInformation newInf);
+		int ChangePrivateInf(long long UID, PrivateInformation newInf);
 		int BorrowOneSpecificBook(long long tgISBN, long long userID);
 		int ReturnOneSpecificBook(long long tgISBN, long long userID);
+		int SetUserAuthority(long long tgISBN, int newAuthority);
 	}
 	
+}
+namespace Nios
+{
+	string SysDateStr();
+	string SysInfEncry(const string &originStr);
+	int GetRequest();
+	int PrintString(const string &inPending);
+	int CypInit();
+	int RefreshUserSys(const TUsers &inProgressLib);
+	int InitUserSys(TUsers &inProgressLib);
+	int RefreshBookSys(const TLibrary &inProgressLib);
+	int InitBookSys(TLibrary &inProgressLib);
 }
 #endif

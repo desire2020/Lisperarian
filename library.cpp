@@ -54,7 +54,7 @@ Character	Hashvalue
 #include "stdincs.hpp"
 namespace Nlibrary
 {
-	char* ISBNStr()
+	string ISBNStr()
 	{
 		static string p = "";
 		long long PS = ISBN;
@@ -62,6 +62,7 @@ namespace Nlibrary
 		{
 			p = char(PS % 10 + '0') + p;
 		}
+		return p;
 	}
 	int TLibrary :: AddBook(Tbook inPendingBook, long long userID)
 	{
@@ -71,7 +72,9 @@ namespace Nlibrary
 		if (it == ISBNTree.end())
 		{
 			ISBNTree[inPendingBook.ISBN] = inPendingBook;
-			fo.open("\books\"+
+			fo.open("\\books\\" + ISBNStr + ".log", ios :: app | ios :: out);
+			fo << Nios :: SysDateStr() << ': User ' << userID << "add the book." << endl;
+			fo.close();
 		else
 		{
 			inPendingBook.avaliableNum += (*it).avaliableNum;
@@ -79,10 +82,10 @@ namespace Nlibrary
 		}
 			return 0;
 	}
-	int TLibrary :: DeleteBookByISBN(long long targetBook, long long userID)
+	int TLibrary :: DeleteBookByISBN(long long tgISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
+		it = ISBNTree.find(tgISBN);
 		if (it == ISBNTree.end())
 			return -1;
 		else
@@ -91,56 +94,36 @@ namespace Nlibrary
 				
 		}
 	}
-	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long UserID)
+	int TLibrary :: BorrowOneSpecificBook(long long tgISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
+		it = ISBNTree.find(tgISBN);
 		if (it == ISBNTree.end())
 			return -1;
 		else
 		{
 			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
+			if ((*it).occupyingUsers.find(userID) == (*it).occupyingUsers.end())
 			{
 				(*it).avaliableNum--;
-				(*it).occupyingUsers.insert(UserID);
-				EUsers.BorrowOneSpecificBook(ISBN, userID);
+				(*it).occupyingUsers.insert(userID);
 			}
 		}
 	}
-	int TLibrary :: BorrowOneSpecificBook(long long ISBN, long long UserID)
+
+	int TLibrary :: ReturnOneSpecificBook(long long tgISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
-		if (it == ISBNTree.end())
-			return -1;
-		else
+		it = ISBNTree.find(tgISBN);
+		if (it != ISBNTree.end())
 		{
-			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
-			{
-				(*it).avaliableNum--;
-				(*it).occupyingUsers.insert(UserID);
-				EUsers.BorrowOneSpecificBook(ISBN, userID);
-			}
-		}
-	}
-	int TLibrary :: ReturnOneSpecificBook(long long ISBN, long long UserID)
-	{
-		TInnerStruct :: iterator it;
-		it = ISBNTree.find(targetBook);
-		if (it == ISBNTree.end())
-			return -1;
-		else
-		{
-			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(UserID) == (*it).occupyingUsers.end())
+			if ((*it).occupyingUsers.find(userID) != (*it).occupyingUsers.end())
 			{
 				(*it).avaliableNum++;
-				(*it).occupyingUsers.delete(UserID);
-				EUsers.ReturnOneSpecificBook(ISBN, userID);
+				(*it).occupyingUsers.erase((*it).occupyingUsers.find(userID));
 			}
 		}
+		else return -2;
 	}
 };
 	

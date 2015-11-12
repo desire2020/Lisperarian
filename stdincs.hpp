@@ -8,4 +8,7 @@
 #include <algorithm>
 #include <set>
 #include <fstream>
+#include "classes.hpp"
+#include "globalvar.hpp"
+#include "constants.hpp"
 #endif
