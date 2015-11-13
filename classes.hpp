@@ -58,16 +58,16 @@ namespace Nusers
 	private:
 		TInnerStruct UIDTree;
 	public:
-		int AddUser(TUser inPendingUser, long long userID);
+		int AddUser(TUser inPendingUser, long long UID);
 		int DeleteUserByUID(long long tgUID, long long userID);
 		bool TestPassword(long long UID, TPassword passGiven);
-		TUsers GetUser(long long userID);
+		TUsers GetUser(long long UID);
 		int ChangePassword(long long UID, TPassword newPassword);
 		int ChangeUserName(long long UID, string newName);
 		int ChangePrivateInf(long long UID, PrivateInformation newInf);
-		int BorrowOneSpecificBook(long long tgISBN, long long userID);
-		int ReturnOneSpecificBook(long long tgISBN, long long userID);
-		int SetUserAuthority(long long tgISBN, int newAuthority);
+		int BorrowOneSpecificBook(long long tgISBN, long long UID);
+		int ReturnOneSpecificBook(long long tgISBN, long long UID);
+		int SetUserAuthority(long long UID, int newAuthority);
 	}
 	
 }
@@ -75,6 +75,7 @@ namespace Nios
 {
 	string SysDateStr();
 	string SysInfEncry(const string &originStr);
+	string SysInfDecry(const string &encriedStr);
 	int GetRequest();
 	int PrintString(const string &inPending);
 	int CypInit();
