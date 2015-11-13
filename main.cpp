@@ -25,8 +25,27 @@ int SignIn()
 	Nusers :: TUser inPending;
 	inPending.userNickname = Nios :: GetLine();
 	inPending.userPassword = Nios :: GetLine();
+	inPending.occupiedBooks.clear();
+	inPending.privateInf.realName = Nios :: GetLine();
+	do
+	{
+	inPending.privateInf.telephoneNumber = Nios :: GetNum();
+	}
+	while(inPending.privateInf.telephoneNumber == -1);
+	inPending.privateInf.identificationNumber = Nios :: GetLine();
+	EUsers.AddUser(inPending, 0);
+	RecordEvent
+	return 0;
 }
 int Login()
+{
+	long long inputUserID;
+	string inputPassword;
+	inputUserID = Nios :: GetNum();
+	inputPassword = Nios :: GetLine();
+	if 
+}
+int Logout()
 {
 	
 }
