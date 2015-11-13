@@ -76,7 +76,7 @@ namespace Nusers
 }
 namespace Nios
 {
-	string SysDateStr();
+	string SysDateStr();//yyyy mm dd
 	string SysInfEncry(const string &originStr);
 	string SysInfDecry(const string &encriedStr);
 	int GetRequest();
