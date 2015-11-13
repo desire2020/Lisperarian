@@ -41,7 +41,20 @@ namespace Nusers
 		if (!strcmp(passGiven , encryptingWithMd5(UIDTree[UID].userPassword))) return false;
 		return true;
 	}
-	TUser TUsers :: GetUser(long long UID) {
+	TUser TUsers :: GetUser(long long UID) 
+	{
+		return UIDTree[UID];
+	}
+	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
+	{
+		TInnerStruct :: iterator it;
+		it = UIDTree.find(UID);
+		if (it == UIDTree.end()) return -1;
+		else (*it).userPassword = encryptingWitMd5(newPassword);
+		return 0;
+	}
+	int ChangeUserNickname(long long UID, string newName) 
+	{
 		
 	}
 }

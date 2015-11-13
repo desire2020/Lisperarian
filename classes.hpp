@@ -36,7 +36,10 @@ namespace Nlibrary
 }
 namespace Nusers
 {
+	const long long INITOFSUM = 1e5;
+	long long presentUID;
 	typedef string TPassword;
+	TPassword encryptingWithMd5(TPassword userPassword);
 	struct PrivateInformation
 	{
 		string realName;
@@ -61,9 +64,9 @@ namespace Nusers
 		int AddUser(TUser inPendingUser, long long UID);
 		int DeleteUserByUID(long long tgUID, long long UID);
 		bool TestPassword(long long UID, TPassword passGiven);
-		TUsers GetUser(long long UID);
+		TUser GetUser(long long UID);
 		int ChangePassword(long long UID, TPassword newPassword);
-		int ChangeUserName(long long UID, string newName);
+		int ChangeUserNickname(long long UID, string newName);
 		int ChangePrivateInf(long long UID, PrivateInformation newInf);
 		int BorrowOneSpecificBook(long long tgISBN, long long UID);
 		int ReturnOneSpecificBook(long long tgISBN, long long UID);
