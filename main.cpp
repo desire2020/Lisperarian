@@ -15,6 +15,10 @@ int Finalization()
 	fileSettings.close();
 	return 0;
 }
+bool CheckAuthority(int Event, const Nusers :: TUser &inOp)
+{
+	
+}
 int Login()
 {
 	
@@ -26,7 +30,7 @@ int main()
 	while(true)
 	{
 		p = Nios :: GetRequest();
-		if (CheckAuthority(p, ))
+		if (CheckAuthority(p, inOperation))
 		switch p
 		{
 			case 0 : SignIn(); break;
