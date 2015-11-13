@@ -38,8 +38,16 @@ int main()
 			case 2 : Logout(); break;
 			case 3 : AddBook(); break;
 			case 4 : DelBook(); break;
-			case 5 : 
+			case 5 : BorBook(); break;
+			case 6 : RetBook(); break; 
+			case 7 : EditBook(); break;
+			case 8 : DelUser(); break;
+			case 9 : BanUser(); break;
+			case 10 : ChangeNickName(); break;
+			case 11 : ChangePassword(); break;
+			default : break;
 		}
+		
 	}
 	Finalization();
 }

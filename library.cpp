@@ -77,11 +77,10 @@ namespace Nlibrary
 			fo.close();
 		else
 		{
-			inPendingBook.avaliableNum += (*it).avaliableNum;
+			(*it).avaliableNum += inPendingBook.avaliableNum;
 			fo.open(("\\books\\" + NumStr(inPendingBook.ISBN) + ".log").c_str(), ios :: app | ios :: out);
-			fo << SysInfEncry(Nios :: SysDateStr() + ": User " + NumStr(userID) + "add the book.") << endl;
+			fo << SysInfEncry(Nios :: SysDateStr() + ": User " + NumStr(userID) + "add " + NumStr(userID) + " books.") << endl;
 			fo.close();
-			(*it) = inPendingBook;
 		}
 			return 0;
 	}
@@ -153,6 +152,7 @@ namespace Nlibrary
 				
 			}
 		}
+		return 0;
 	}
 };
 	
