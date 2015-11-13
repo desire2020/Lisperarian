@@ -59,7 +59,7 @@ namespace Nusers
 		TInnerStruct UIDTree;
 	public:
 		int AddUser(TUser inPendingUser, long long UID);
-		int DeleteUserByUID(long long tgUID, long long userID);
+		int DeleteUserByUID(long long tgUID, long long UID);
 		bool TestPassword(long long UID, TPassword passGiven);
 		TUsers GetUser(long long UID);
 		int ChangePassword(long long UID, TPassword newPassword);
