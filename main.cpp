@@ -22,9 +22,9 @@ bool CheckAuthority(int Event, const Nusers :: TUser &inOp)
 }
 int SignIn()
 {
-	Nios :: PrintString("欢迎使用Lisperarian图书管理系统");
-	Nios :: PrintString("您将作为普通用户进行注册，如需申请管理员账号请联系馆长。");
-	Nios :: 
+	Nusers :: TUser inPending;
+	inPending.userNickname = Nios :: GetLine();
+	inPending.userPassword = Nios :: GetLine();
 }
 int Login()
 {

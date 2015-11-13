@@ -44,7 +44,7 @@ namespace Nusers
 	{
 		string realName;
 		long long telephoneNumber;
-		long long identificationNumer;
+		string identificationNumer;
 	}
 	struct TUser
 	{
@@ -81,6 +81,7 @@ namespace Nios
 	string SysInfDecry(const string &encriedStr);
 	int GetRequest();
 	int PrintString(const string &inPending);
+	string GetLine();
 	int CypInit();
 	int RefreshUserSys(const TUsers &inProgressLib);
 	int InitUserSys(TUsers &inProgressLib);
