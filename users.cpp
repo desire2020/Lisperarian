@@ -13,6 +13,13 @@ namespace Nusers
 	{
 		
 	}
+	bool TUsers :: checkUID(long long UID) 
+	{
+		TInnerStruct :: iterator it;
+		it = UIDTree.find(UID);
+		if (it == UIDTree.end()) return false;
+		return true;
+	}
 	int TUsers :: AddUser(TUser inPendingUser , long long UID) 
 	{
 		TUser &temp = inPendingUser;
@@ -22,18 +29,10 @@ namespace Nusers
 	}
 	int TUsers :: DeleteUserByUID(long long tgUID, long long UID) 
 	{
+		if (!checkUID(tgUID)) return -1;
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
-		if (it == UIDTree.end()) 
-		{
-			
-			return -1;
-		}
-		else 
-		{
-			
-			UIDTree.erase(it);
-		}
+		UIDTree.erase(it);
 		return 0;
 	}
 	bool TUsers :: TestPassword(long long UID, TPassword passGiven)
@@ -43,17 +42,13 @@ namespace Nusers
 	}
 	TUser TUsers :: GetUser(long long UID) 
 	{
-		TInnerStruct :: iterator it;
-		it = UIDTree.find(UID);
-		if (it == UIDTree.end()) return -1;
-		return *it;
+		if (!checkUID(UID)) return -1;
+		return UIDTree[UID];
 	}
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
-		TInnerStruct :: iterator it;
-		it = UIDTree.find(UID);
-		if (it == UIDTree.end()) return -1;
-		else (*it).userPassword = encryptingWitMd5(newPassword);
+		if (!checkUID(UID)) return -1;
+		UIDTree[UID].userPassword = encryptingWitMd5(newPassword);
 		return 0;
 	}
 	int TUsers :: ChangeUserNickname(long long UID, string newName) 
@@ -68,5 +63,36 @@ namespace Nusers
 		temp.privateInf = newInf;
 		return 0;
 	}
-	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID);
+	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID) 
+	{
+		UIDandISBN temp = make_pair(UID, tgISBN);
+		TInnerUIDandISBN :: iterator it;
+		it = UIDandISBNTree.find(temp);
+		if (it == UIDandISBNTree.end()) 
+		{
+			UIDandISBNTree[temp] = PresentTime();
+			GetUser(UID).occupiedBooks.insert(tgISBN);
+			return 0;
+		}
+		else return -1;
+	}
+	int TUsers :: ReturnOneSpecificBook(long long tgISBN, long long UID) 
+	{
+		UIDandISBN temp = make_pair(UID, tgISBN);
+		TInnerUIDandISBN :: iterator it;
+		it = UIDandISBNTree.find(temp);
+		if (it == UIDandISBNTree.end()) return -1;
+		else 
+		{
+			UIDandISBNTree.erase(it);
+			GetUser(UID).occupiedBooks.erase(tgISBN);
+			return 0;
+		}
+	}
+	int TUesrs :: SetUserAuthority(long long UID, int newAuthority) 
+	{
+		if (!checkUID(UID)) return -1;
+		GetUser(UID).authority = newAuthority;
+		return 0;
+	}
 }

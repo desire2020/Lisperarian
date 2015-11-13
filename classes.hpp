@@ -46,6 +46,13 @@ namespace Nusers
 		long long telephoneNumber;
 		string identificationNumber;
 	}
+	typedef pair<long long, long long> UIDandISBN;
+	struct TTime 
+	{
+		long long year, month, day;
+	}
+	typedef map<UIDandISBN , TTime> TInnerUIDandISBNTree;
+	TInnerUIDISBNTree UIDandISBNTree;
 	struct TUser
 	{
 		string userNickname;
