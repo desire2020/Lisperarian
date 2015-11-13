@@ -26,7 +26,7 @@ namespace Nlibrary
 	private:
 		TInnerStruct ISBNTree;
 	public:
-		string ISBNStr();
+		string NumStr(long long tgNum);
 		int AddBook(TBook inPendingBook, long long userID);
 		int DeleteBookByISBN(long long tgISBN, long long userID);
 		int BorrowOneSpecificBook(long long tgISBN, long long userID);

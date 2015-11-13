@@ -54,10 +54,10 @@ Character	Hashvalue
 #include "stdincs.hpp"
 namespace Nlibrary
 {
-	string ISBNStr()
+	string NumStr(long long tgNum)
 	{
 		static string p = "";
-		long long PS = ISBN;
+		long long PS = tgNum;
 		for (int i = 0; i < ISBNLEN; i++)
 		{
 			p = char(PS % 10 + '0') + p;
@@ -72,14 +72,14 @@ namespace Nlibrary
 		if (it == ISBNTree.end())
 		{
 			ISBNTree[inPendingBook.ISBN] = inPendingBook;
-			fo.open("\\books\\" + ISBNStr + ".log", ios :: app | ios :: out);
-			fo << Nios :: SysDateStr() << ': User ' << userID << "add the book." << endl;
+			fo.open(("\\books\\" + NumStr(inPendingBook.ISBN) + ".log").c_str(), ios :: app | ios :: out);
+			fo << SysInfEncry(Nios :: SysDateStr() + ": User " + NumStr(userID) + "add the book.") << endl;
 			fo.close();
 		else
 		{
 			inPendingBook.avaliableNum += (*it).avaliableNum;
-			fo.open("\\books\\" + ISBNStr + ".log", ios :: app | ios :: out);
-			fo << Nios :: SysDateStr() << ': User ' << userID << "add " << it -> avaliableNum << " book." << endl;
+			fo.open(("\\books\\" + NumStr(inPendingBook.ISBN) + ".log").c_str(), ios :: app | ios :: out);
+			fo << SysInfEncry(Nios :: SysDateStr() + ": User " + NumStr(userID) + "add the book.") << endl;
 			fo.close();
 			(*it) = inPendingBook;
 		}
@@ -145,7 +145,12 @@ namespace Nlibrary
 			}
 			else
 			{
-				 it -> title = newBook
+				 it -> title = newBook.title;
+				 it -> indexname = newBook.indexname;
+				 it -> author = newBook.author;
+				 it -> description = newBook.description;
+				 it -> lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;
+				
 			}
 		}
 	}
