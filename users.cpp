@@ -43,7 +43,10 @@ namespace Nusers
 	}
 	TUser TUsers :: GetUser(long long UID) 
 	{
-		return UIDTree[UID];
+		TInnerStruct :: iterator it;
+		it = UIDTree.find(UID);
+		if (it == UIDTree.end()) return -1;
+		return *it;
 	}
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
@@ -53,8 +56,17 @@ namespace Nusers
 		else (*it).userPassword = encryptingWitMd5(newPassword);
 		return 0;
 	}
-	int ChangeUserNickname(long long UID, string newName) 
+	int TUsers :: ChangeUserNickname(long long UID, string newName) 
 	{
-		
+		TUser &temp = UIDTree[UID];
+		temp.userNickname = newName;
+		return 0;
 	}
+	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newInf) 
+	{
+		TUser &temp = UIDTree[UID];
+		temp.privateInf = newInf;
+		return 0;
+	}
+	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID);
 }

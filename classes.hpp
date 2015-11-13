@@ -44,7 +44,7 @@ namespace Nusers
 	{
 		string realName;
 		long long telephoneNumber;
-		string identificationNumer;
+		string identificationNumber;
 	}
 	struct TUser
 	{
