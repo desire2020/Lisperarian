@@ -78,6 +78,9 @@ namespace Nlibrary
 		else
 		{
 			inPendingBook.avaliableNum += (*it).avaliableNum;
+			fo.open("\\books\\" + ISBNStr + ".log", ios :: app | ios :: out);
+			fo << Nios :: SysDateStr() << ': User ' << userID << "add " << it -> avaliableNum << " book." << endl;
+			fo.close();
 			(*it) = inPendingBook;
 		}
 			return 0;

@@ -11,4 +11,5 @@
 #include "classes.hpp"
 #include "globalvar.hpp"
 #include "constants.hpp"
+using namespace std;
 #endif
