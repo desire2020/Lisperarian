@@ -84,8 +84,7 @@ namespace Nusers
 		if (it == UIDandISBNTree.end()) return -1;
 		else 
 		{
-			UIDandISBNTree.erase(it);
-			GetUser(UID).occupiedBooks.erase(tgISBN);
+			GetUser(UID).occupiedBooks.erase(GetUser(UID).occupiedBooks.find(tgISBN));
 			return 0;
 		}
 	}
