@@ -14,7 +14,6 @@ namespace Nlibrary
 	{
 		string title;
 		long long ISBN;
-		string indexname;
 		string author;
 		string description;
 		int avaliableNum;
@@ -32,7 +31,7 @@ namespace Nlibrary
 		int DeleteBookByISBN(long long tgISBN, long long userID);
 		int BorrowOneSpecificBook(long long tgISBN, long long userID);
 		int ReturnOneSpecificBook(long long tgISBN, long long userID);
-		int EditBookProperty(long long tgISBN, long long userID, const TBook newBook);
+		int EditBookProperty(long long tgISBN, long long userID, const TBook &newBook);
 	};
 }
 namespace Nusers

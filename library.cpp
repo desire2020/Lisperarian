@@ -128,6 +128,27 @@ namespace Nlibrary
 		}
 		else return -2;
 	}
+	
+	int TLibrary :: EditBookProperty(long long tgISBN, long long userID, const TBook &newBook)
+	{
+		TInnerStruct :: iterator it;
+		it = ISBNTree.find(tgISBN);
+		if (tgISBN != newBook.ISBN)
+		{
+			return -1;
+		}
+		else
+		{
+			if (it == ISBNTree.end())
+			{
+				return -1;
+			}
+			else
+			{
+				 it -> title = newBook
+			}
+		}
+	}
 };
 	
 }
