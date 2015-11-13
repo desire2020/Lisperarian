@@ -11,5 +11,4 @@ ypes of users.
 #define nil NULL
 const int ISBNLEN = 13;
 const int FLAG_GUEST = 0, FLAG_USER = 1, FLAG_POWERUSER = 2, FLAG_ADMIN = 3; 
-const int DELETE_BOOK 
 #endif

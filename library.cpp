@@ -25,17 +25,12 @@ namespace Nlibrary
 		if (it == ISBNTree.end())
 		{
 			ISBNTree[inPendingBook.ISBN] = inPendingBook;
-			fo.open(("\\books\\" + NumStr(inPendingBook.ISBN) + ".log").c_str(), ios :: app | ios :: out);
-			fo << SysInfEncry(Nios :: SysDateStr() + ": User " + NumStr(userID) + "add the book.") << endl;
-			fo.close();
+		}
 		else
 		{
 			(*it).avaliableNum += inPendingBook.avaliableNum;
-			fo.open(("\\books\\" + NumStr(inPendingBook.ISBN) + ".log").c_str(), ios :: app | ios :: out);
-			fo << SysInfEncry(Nios :: SysDateStr() + ": User " + NumStr(userID) + "add " + NumStr(userID) + " books.") << endl;
-			fo.close();
 		}
-			return 0;
+		return 0;
 	}
 	int TLibrary :: DeleteBookByISBN(long long tgISBN, long long userID)
 	{
@@ -62,6 +57,8 @@ namespace Nlibrary
 			{
 				(*it).avaliableNum--;
 				(*it).occupyingUsers.insert(userID);
+				fo.open(("\\books\\" + NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
+				fo << Nios :: SysDateStr() << " " << NumStr(userID) << endl;
 			}
 		}
 	}
@@ -101,7 +98,7 @@ namespace Nlibrary
 				 it -> indexname = newBook.indexname;
 				 it -> author = newBook.author;
 				 it -> description = newBook.description;
-				 it -> lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;5
+				 it -> lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;
 			}
 		}
 		return 0;
