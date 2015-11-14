@@ -84,6 +84,7 @@ namespace Nusers
 namespace Nios
 {
 	string SysDateStr();//yyyy mm dd
+	Nusers :: TTime PresentTime();
 	string SysInfEncry(const string &originStr);
 	string SysInfDecry(const string &encriedStr);
 	int GetRequest();

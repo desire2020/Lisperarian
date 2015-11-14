@@ -47,8 +47,13 @@ namespace Nlibrary
 	int TLibrary :: BorrowOneSpecificBook(long long tgISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
+		TUser currentUser;
+		currentUser = EUsers.GetUser(userID);
 		it = ISBNTree.find(tgISBN);
 		if (it == ISBNTree.end())
+			return -2;
+		else
+		if (currentUser.authority < it -> authority)
 			return -1;
 		else
 		{
