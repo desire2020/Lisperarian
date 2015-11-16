@@ -1,6 +1,6 @@
 /*****************************
  调用说明：
- Log_Record(int log_type, char[] id1, char[]id2)
+ Log_Record(int log_type, long long id1; long long id2)
 /*****************************
  日志记录类型：
  0:新用户注册。
@@ -40,63 +40,65 @@ namespace Nlog
         second = time(NULL); //获取目前秒时间
         local = localtime(&second); //转为本地时间
         strftime(buf, 64, "%Y-%m-%d %H:%M:%S", local);
-        printf("%s%s", buf, "    ");
+        fout << buf << "    ";
     }
     
     /*-------------------------------------*
-     * 函数 : Log_Record(int log_type, char[] id1, char[]id2)
+     * 函数 : Log_Record(int log_type, long long id1<< long long id2
      * 功能 : 日志信息接受、处理、输出
      *-------------------------------------*/
     
-    void Log_Record(int log_type, char id1[], char id2[])
+    void Log_Record(int log_type, long long id1, long long id2)
     {
+        fout.open("syslog.log");
         TimeString();
         switch (log_type) {
             case 0:
-                printf("%s%s%s%s","UserID : ", id1, "    ", "Registration Completed");
+                fout<<"UserID : "<< id1<<"    "<<"Registration Completed";
                 break;
             case 1:
-                printf("%s%s%s%s","UserID : ", id1, "    ", "Login Completed");
+                fout<<"UserID : "<< id1<< "    "<< "Login Completed";
                 break;
             case 2:
-                printf("%s%s%s%s","UserID : ", id1, "    ", "Logout Completed");
+                fout<<"UserID : "<< id1<< "    "<< "Logout Completed";
                 break;
             case 3:
-                printf("%s%s%s%s%s","ISBN : ", id1, "    is borrowed by   ","UserID : ", id2);
+                fout<<"ISBN : "<< id1<< "    is borrowed by   "<<"UserID : "<< id2;
                 break;
             case 4:
-                printf("%s%s%s%s%s","ISBN : ", id1, "    is returned by   ","UserID : ", id2);
+                fout<<"ISBN : "<< id1<< "    is returned by   "<<"UserID : "<< id2;
                 break;
             case 5:
-                if (!strcmp(id1,id2))
-                    printf("%s%s%s%s%s","UserID : ", id1, "    Nickname is changed by   ","UserID : ", id2);
+                if (id1 != id2)
+                    fout<<"UserID : "<< id1<< "    Nickname is changed by   "<<"UserID : "<< id2;
                 else
-                    printf("%s%s%s%s%s","UserID : ", id1, "    Nickname is changed by   ","AdminID : ", id2);
+                    fout<<"UserID : "<< id1<< "    Nickname is changed by   "<<"AdminID : "<< id2;
                 break;
             case 6:
-                if (!strcmp(id1,id2))
-                    printf("%s%s%s%s%s","UserID : ", id1, "    Passward is changed by   ","UserID : ", id2);
+                if (id1 != id2)
+                    fout<<"UserID : "<< id1<< "    Passward is changed by   "<<"UserID : "<< id2;
                 else
-                    printf("%s%s%s%s%s","UserID : ", id1, "    Passward is changed by   ","AdminID : ", id2);
+                    fout<<"UserID : "<< id1<< "    Passward is changed by   "<<"AdminID : "<< id2;
                 break;
             case 7:
-                printf("%s%s%s%s%s","ISBN : ", id1, "    is added by   ","AdminID : ", id2);
+                fout<<"ISBN : "<< id1<< "    is added by   "<<"AdminID : "<< id2;
                 break;
             case 8:
-                printf("%s%s%s%s%s","ISBN : ", id1, "    is deleted by   ","AdminID : ", id2);
+                fout<<"ISBN : "<< id1<< "    is deleted by   "<<"AdminID : "<< id2;
                 break;
             case 9:
-                printf("%s%s%s%s%s","ISBN : ", id1, "    is set by   ","AdminID : ", id2);
+                fout<<"ISBN : "<< id1<< "    is set by   "<<"AdminID : "<< id2;
                 break;
             case 10:
-                printf("%s%s%s%s%s","UserID : ", id1, "    is deleted by   ","AdminID : ", id2);
+                fout<<"UserID : "<< id1<< "    is deleted by   "<<"AdminID : "<< id2;
                 break;
             case 11:
-                printf("%s%s%s%s%s","UserID : ", id1, "    UserMode is changed by   ","AdminID : ", id2);
+                fout<<"UserID : "<< id1<< "    UserMode is changed by   "<<"AdminID : "<< id2;
                 break;
                 
         }
-        printf("\n");
+        fout<<"\n";
+        fout.close();
     }
 }
 
