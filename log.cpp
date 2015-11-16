@@ -1,6 +1,6 @@
 /*****************************
  调用说明：
- Log_Record(int log_type, long long id1; long long id2)
+ RecordEvent(int Event, long long ID1; long long ID2)
 /*****************************
  日志记录类型：
  0:新用户注册。
@@ -24,7 +24,7 @@
 #include <fstream>
 namespace Nlog
 {
-    int log_type;
+    int Event;
     char buf[128]= {0};
     
     /*-------------------------------------*
@@ -44,56 +44,56 @@ namespace Nlog
     }
     
     /*-------------------------------------*
-     * 函数 : Log_Record(int log_type, long long id1<< long long id2
+     * 函数 : RecordEvent(int Event, long long ID1<< long long ID2
      * 功能 : 日志信息接受、处理、输出
      *-------------------------------------*/
     
-    void Log_Record(int log_type, long long id1, long long id2)
+    void RecordEvent(int Event, long long ID1, long long ID2)
     {
         fout.open("syslog.log");
         TimeString();
-        switch (log_type) {
+        switch (Event) {
             case 0:
-                fout<<"UserID : "<< id1<<"    "<<"Registration Completed";
+                fout<<"UserID : "<< ID1<<"    "<<"Registration Completed";
                 break;
             case 1:
-                fout<<"UserID : "<< id1<< "    "<< "Login Completed";
+                fout<<"UserID : "<< ID1<< "    "<< "Login Completed";
                 break;
             case 2:
-                fout<<"UserID : "<< id1<< "    "<< "Logout Completed";
+                fout<<"UserID : "<< ID1<< "    "<< "Logout Completed";
                 break;
             case 3:
-                fout<<"ISBN : "<< id1<< "    is borrowed by   "<<"UserID : "<< id2;
+                fout<<"ISBN : "<< ID1<< "    is borrowed by   "<<"UserID : "<< ID2;
                 break;
             case 4:
-                fout<<"ISBN : "<< id1<< "    is returned by   "<<"UserID : "<< id2;
+                fout<<"ISBN : "<< ID1<< "    is returned by   "<<"UserID : "<< ID2;
                 break;
             case 5:
-                if (id1 != id2)
-                    fout<<"UserID : "<< id1<< "    Nickname is changed by   "<<"UserID : "<< id2;
+                if (ID1 != ID2)
+                    fout<<"UserID : "<< ID1<< "    Nickname is changed by   "<<"UserID : "<< ID2;
                 else
-                    fout<<"UserID : "<< id1<< "    Nickname is changed by   "<<"AdminID : "<< id2;
+                    fout<<"UserID : "<< ID1<< "    Nickname is changed by   "<<"AdminID : "<< ID2;
                 break;
             case 6:
-                if (id1 != id2)
-                    fout<<"UserID : "<< id1<< "    Passward is changed by   "<<"UserID : "<< id2;
+                if (ID1 != ID2)
+                    fout<<"UserID : "<< ID1<< "    Passward is changed by   "<<"UserID : "<< ID2;
                 else
-                    fout<<"UserID : "<< id1<< "    Passward is changed by   "<<"AdminID : "<< id2;
+                    fout<<"UserID : "<< ID1<< "    Passward is changed by   "<<"AdminID : "<< ID2;
                 break;
             case 7:
-                fout<<"ISBN : "<< id1<< "    is added by   "<<"AdminID : "<< id2;
+                fout<<"ISBN : "<< ID1<< "    is added by   "<<"AdminID : "<< ID2;
                 break;
             case 8:
-                fout<<"ISBN : "<< id1<< "    is deleted by   "<<"AdminID : "<< id2;
+                fout<<"ISBN : "<< ID1<< "    is deleted by   "<<"AdminID : "<< ID2;
                 break;
             case 9:
-                fout<<"ISBN : "<< id1<< "    is set by   "<<"AdminID : "<< id2;
+                fout<<"ISBN : "<< ID1<< "    is set by   "<<"AdminID : "<< ID2;
                 break;
             case 10:
-                fout<<"UserID : "<< id1<< "    is deleted by   "<<"AdminID : "<< id2;
+                fout<<"UserID : "<< ID1<< "    is deleted by   "<<"AdminID : "<< ID2;
                 break;
             case 11:
-                fout<<"UserID : "<< id1<< "    UserMode is changed by   "<<"AdminID : "<< id2;
+                fout<<"UserID : "<< ID1<< "    UserMode is changed by   "<<"AdminID : "<< ID2;
                 break;
                 
         }
