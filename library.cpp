@@ -7,7 +7,7 @@ Namespace: Nlibrary;
 #include "stdincs.hpp"
 namespace Nlibrary
 {
-	string NumStr(long long tgNum)
+	string TLibrary :: NumStr(long long tgNum)
 	{
 		static string p = "";
 		long long PS = tgNum;
@@ -41,7 +41,7 @@ namespace Nlibrary
 		else
 		{
 				ISBNTree.erase(it);
-				
+				return 0;
 		}
 	}
 	int TLibrary :: BorrowOneSpecificBook(long long tgISBN, long long userID)
@@ -100,7 +100,6 @@ namespace Nlibrary
 			else
 			{
 				 it -> title = newBook.title;
-				 it -> indexname = newBook.indexname;
 				 it -> author = newBook.author;
 				 it -> description = newBook.description;
 				 it -> lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;

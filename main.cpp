@@ -128,6 +128,71 @@ int RetBook()
 }
 int ChangeNickName()
 {
+	string inputNewNickname;
+	long long targetUID;
+	targetUID = Nios :: GetNum();
+	if (!(EUsers.CheckUID(targetUID))) return -1;
+	if (((inOperation.authority == 1) && (inOperation.userID == UID)) || (inOperation.authority >= 2))
+	{
+		inputNewNickname = Nios :: GetLine();
+		EUsers.ChangeUserNickname(targetUID, inputNewNickname);
+		RecordEvent(5, targetUID, inOperation.userID);
+		return 0;
+	}
+	return -1;
+}
+int ChangePassword()
+{
+	TPassword inputNewPassword, inputNewPassword2;
+	long long targetUID;
+	targetUID = Nios :: GetNum();
+	if (!(EUsers.CheckUID(targetUID))) return -1;
+	if (((inOperation.authority == 1) && (inOperation.userID == UID)) || (inOperation.authority >= 2))
+	{
+		inputNewPassword = Nios :: GetLine();
+		inputNewPassword2 = Nios :: GetLine();
+		if (inputNewPassword == inputNewPassword2)
+		{	
+			EUsers.ChangePassword(targetUID, inputNewPassword);
+			RecordEvent(6, targetUID, inOperation.userID);
+			return 0;
+		}
+		else
+			return -1;
+	}
+	return -1;
+}
+int AddBook()
+{
+	TBook inputNewBook;
+	inputNewBook.title = Nios :: GetLine();
+	inputNewBook.ISBN = Nios :: GetNum();
+	inputNewBook.author = Nios :: GetLine();
+	inputNewBook.description = Nios :: GetLine();
+	inputNewBook.avaliableNum = int(Nios :: GetNum());
+	inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
+	inputNewBook.occupyingUsers.clear();
+	ELibrary.AddBook(inputNewBook, inOperation.userID);
+	RecordEvent(7, inputNewBook.ISBN, inOperation.userID);
+	return 0;
+}
+int EditBook()
+{
+	long long targetISBN;
+	TBook inputNewBook;
+	targetISBN = Nios :: GetLine();
+	inputNewBook.title = Nios :: GetLine();
+	inputNewBook.author = Nios :: GetLine();
+	inputNewBook.description = Nios :: GetLine();
+	inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
+	ELibrary.AddBook(inputNewBook, inOperation.userID);
+	RecordEvent(8, inputNewBook.ISBN, inOperation.userID);
+	return 0;
+}
+int DelUser()
+{
+	long long targetISBN;
+	targetISBN = Nios :: GetNum();
 	
 }
 int main()
@@ -138,7 +203,7 @@ int main()
 	{
 		p = Nios :: GetRequest();
 		if (CheckAuthority(p, inOperation))
-		switch p
+		switch(p)
 		{
 			case 0 : SignIn(); break;
 			case 1 : Login(); break;
@@ -157,4 +222,5 @@ int main()
 		
 	}
 	Finalization();
+	return 0;
 }
