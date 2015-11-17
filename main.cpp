@@ -1,3 +1,12 @@
+/****************************************
+这里是主程序，负责将已经实现的各模块有机
+组合起来。
+两种不同的错误返回值的说明：
+-1 ：系统错误，可能是由于指定了不合法或不
+存在的操作对象
+-2 ：操作流程中错误，这可能是由于密码有错
+或两次密码输入不一致等等
+****************************************/
 #include "stdincs.hpp"
 Nusers :: TUser inOperation;
 int Initialization()
@@ -12,8 +21,8 @@ int Initialization()
 	defaultAdmin.privateInf.telephoneNumber = 0;
 	defaultAdmin.privateInf.identificationNumber = "";
 	ios :: sync_with_stdio(false);
-	Nios :: InitUserSys();
-	Nios :: InitBookSys();
+	Nios :: InitUserSys(EUsers);
+	Nios :: InitBookSys(ELibrary);
 	if (Nusers :: presentUID == Nusers :: INITOFSUM)
 	{
 		EUsers.AddUser(defaultAdmin, 0);
@@ -68,10 +77,11 @@ int Login()
 		if (EUsers.TestPassword(inputUserID, inputPassword))
 		{
 			inOperation = EUsers.GetUser(inputUserID);
+			Nios :: Welcome(inOperation.userNickname);
 			RecordEvent(1, Nusers :: inputUserID, Nusers :: inputUserID);
 		}
 		else
-			return -1;
+			return -2;
 	}
 	else
 		return -1;
@@ -158,7 +168,7 @@ int ChangePassword()
 			return 0;
 		}
 		else
-			return -1;
+			return -2;
 	}
 	return -1;
 }
@@ -191,13 +201,33 @@ int EditBook()
 }
 int DelUser()
 {
-	long long targetISBN;
-	targetISBN = Nios :: GetNum();
-	
+	long long targetUID;
+	targetUID = Nios :: GetNum();
+	return (EUsers.DeleteUserByUID(targetUID));
+}
+int ChangeUserAuthority()
+{
+	long long workingMode;
+	long long targetUID;
+	TUser targetUser;
+	targetUID = Nios :: GetNum();
+	if (!(EUsers.CheckUID(targetUID))) return -1;
+	targetUser = EUsers.GetUser(targetUID);
+	workingMode = Nios :: GetNum();
+	switch(workingMode)
+	{
+		case MODE_BAN : EUsers.SetUserAuthority(targetUID, -targetUser.authority); break;
+		case MODE_UPGRADE : EUsers.SetUserAuthority(targetUID, 2); break;
+		case MODE_DEGRADE : EUsers.SetUserAuthority(targetUID, 1); break;
+		case MODE_ASSITANT : EUsers.SetUserAuthority(targetUID, 3); break;
+		default : break;
+	}
+	return 0;
 }
 int main()
 {
 	int p;
+	int message;
 	Initialization();
 	while(true)
 	{
@@ -205,21 +235,26 @@ int main()
 		if (CheckAuthority(p, inOperation))
 		switch(p)
 		{
-			case 0 : SignIn(); break;
-			case 1 : Login(); break;
-			case 2 : Logout(); break;
-			case 3 : BorBook(); break;
-			case 4 : RetBook(); break; 
-			case 5 : ChangeNickName(); break;
-			case 6 : ChangePassword(); break;
-			case 7 : AddBook(); break;
-			case 8 : DelBook(); break;
-			case 9 : EditBook(); break;
-			case 10 : DelUser(); break;
-			case 11 : ChangeUserAuthority(); break;
+			case 0 : message = SignIn(); break;
+			case 1 : message = Login(); break;
+			case 2 : message = Logout(); break;
+			case 3 : message = BorBook(); break;
+			case 4 : message = RetBook(); break; 
+			case 5 : message = ChangeNickName(); break;
+			case 6 : message = ChangePassword(); break;
+			case 7 : message = AddBook(); break;
+			case 8 : message = DelBook(); break;
+			case 9 : message = EditBook(); break;
+			case 10 : message = DelUser(); break;
+			case 11 : message = ChangeUserAuthority(); break;
 			default : break;
 		}
-		
+		switch(message)
+		{
+			case -1 : Nios :: ErrorInvalidTarget(); break;
+			case -2 : Nios :: ErrorIncorrectOperation(); break;
+			default : break;
+		}
 	}
 	Finalization();
 	return 0;

@@ -91,9 +91,10 @@ namespace Nios
 	int PrintString(const string &inPending);
 	string GetLine();
 	int CypInit();
-	int RefreshUserSys(const TUsers &inProgressLib);
+	int RefreshUserSys(const Nusers :: TUsers &inProgressLib);
 	int InitUserSys(TUsers &inProgressLib);
-	int RefreshBookSys(const TLibrary &inProgressLib);
+	int RefreshBookSys(const Nlibrary :: TLibrary &inProgressLib);
 	int InitBookSys(TLibrary &inProgressLib);
+	int Welcome(const string &nickname);
 }
 #endif
