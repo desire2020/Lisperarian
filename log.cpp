@@ -28,11 +28,11 @@ namespace Nlog
     char buf[128]= {0};
     
     /*-------------------------------------*
-     * 函数 : TimeString()
-     * 功能 : 将当前系统时间转换为字符串,并输出
+     * 函数 : SysDateStr()
+     * 功能 : 将当前系统时间转换为字符串
      *-------------------------------------*/
     
-    void TimeString()
+    string SysDateStr()
     {
         time_t second;
         tm* local; //本地时间
@@ -40,7 +40,7 @@ namespace Nlog
         second = time(NULL); //获取目前秒时间
         local = localtime(&second); //转为本地时间
         strftime(buf, 64, "%Y-%m-%d %H:%M:%S", local);
-        fout << buf << "    ";
+        return buf;
     }
     
     /*-------------------------------------*
@@ -51,7 +51,7 @@ namespace Nlog
     void RecordEvent(int Event, long long ID1, long long ID2)
     {
         fout.open("syslog.log");
-        TimeString();
+        SysDateStr();
         switch (Event) {
             case 0:
                 fout<<"UserID : "<< ID1<<"    "<<"Registration Completed";
