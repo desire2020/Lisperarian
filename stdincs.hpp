@@ -3,6 +3,9 @@
 #include <string>
 #include <utility>
 #include <cstring>
+#include <ctime>
+#include <cstdlib>
+#include <cstdio>
 #include <cmath>
 #include <map>
 #include <list>
