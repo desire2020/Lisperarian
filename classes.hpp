@@ -73,8 +73,8 @@ namespace Nusers
 		bool TestPassword(long long UID, TPassword passGiven);
 		TUser GetUser(long long UID);
 		int ChangePassword(long long UID, TPassword newPassword);
-		int ChangeUserNickname(long long UID, string newName);
-		int ChangePrivateInf(long long UID, PrivateInformation newInf);
+		int ChangeUserNickname(long long UID, string newNickname);
+		int ChangePrivateInf(long long UID, PrivateInformation newPrivateInf);
 		int BorrowOneSpecificBook(long long tgISBN, long long UID);
 		int ReturnOneSpecificBook(long long tgISBN, long long UID);
 		int SetUserAuthority(long long UID, int newAuthority);

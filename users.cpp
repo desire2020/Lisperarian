@@ -38,7 +38,7 @@ namespace Nusers
 	}
 	TUser TUsers :: GetUser(long long UID) 
 	{
-		if (!CheckUID(UID)) return -1;
+		if (!CheckUID(UID)) return NULL;
 		return UIDTree[UID];
 	}
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
@@ -47,16 +47,16 @@ namespace Nusers
 		UIDTree[UID].userPassword = encryptingWitMd5(newPassword);
 		return 0;
 	}
-	int TUsers :: ChangeUserNickname(long long UID, string newName) 
+	int TUsers :: ChangeUserNickname(long long UID, string newNickname) 
 	{
-		TUser &temp = UIDTree[UID];
-		temp.userNickname = newName;
+		if (!CheckUID(UID)) return -1;
+		UIDTree[UID].userNickname = newNickname;
 		return 0;
 	}
-	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newInf) 
+	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf) 
 	{
-		TUser &temp = UIDTree[UID];
-		temp.privateInf = newInf;
+		if (!CheckUID(UID)) return -1;
+		UIDTree[UID].privateInf = newPrivateInf;
 		return 0;
 	}
 	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID) 
@@ -67,7 +67,8 @@ namespace Nusers
 		if (it == UIDandISBNTree.end()) 
 		{
 			UIDandISBNTree[temp] = PresentTime();
-			GetUser(UID).occupiedBooks.insert(tgISBN);
+			if (!CheckUID(UID)) return -1;
+			UIDTree[UID].occupiedBooks.insert(tgISBN);
 			return 0;
 		}
 		else return -1;
@@ -80,14 +81,15 @@ namespace Nusers
 		if (it == UIDandISBNTree.end()) return -1;
 		else 
 		{
-			GetUser(UID).occupiedBooks.erase(GetUser(UID).occupiedBooks.find(tgISBN));
+			if (!CheckUID(UID)) return -1;
+			UIDTree[UID].occupiedBooks.erase(UIDTree[UID].occupiedBooks.find(tgISBN));
 			return 0;
 		}
 	}
 	int TUesrs :: SetUserAuthority(long long UID, int newAuthority) 
 	{
 		if (!CheckUID(UID)) return -1;
-		GetUser(UID).authority = newAuthority;
+		UIDTree[UID].authority = newAuthority;
 		return 0;
 	}
 }
