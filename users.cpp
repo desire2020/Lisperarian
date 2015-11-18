@@ -9,11 +9,7 @@
 
 namespace Nusers 
 {
-	TPassword encryptingWithMd5(TPassword userPassword) 
-	{
-		
-	}
-	bool TUsers :: checkUID(long long UID) 
+	bool TUsers :: CheckUID(long long UID) 
 	{
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(UID);
@@ -23,13 +19,13 @@ namespace Nusers
 	int TUsers :: AddUser(TUser inPendingUser , long long UID) 
 	{
 		TUser &temp = inPendingUser;
-		temp.userPassword = encryptingWithMd5(temp.userPassword);
+		temp.userPassword = EncryptingWithMd5(temp.userPassword);
 		UIDTree[++presentUID] = inPendingUser;
 		return 0;
 	}
 	int TUsers :: DeleteUserByUID(long long tgUID, long long UID) 
 	{
-		if (!checkUID(tgUID)) return -1;
+		if (!CheckUID(tgUID)) return -1;
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
 		UIDTree.erase(it);
@@ -37,17 +33,17 @@ namespace Nusers
 	}
 	bool TUsers :: TestPassword(long long UID, TPassword passGiven)
 	{
-		if (!strcmp(passGiven , encryptingWithMd5(UIDTree[UID].userPassword))) return false;
+		if (passGiven != EncryptingWithMd5(UIDTree[UID].userPassword)) return false;
 		return true;
 	}
 	TUser TUsers :: GetUser(long long UID) 
 	{
-		if (!checkUID(UID)) return -1;
+		if (!CheckUID(UID)) return -1;
 		return UIDTree[UID];
 	}
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
-		if (!checkUID(UID)) return -1;
+		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].userPassword = encryptingWitMd5(newPassword);
 		return 0;
 	}
@@ -90,7 +86,7 @@ namespace Nusers
 	}
 	int TUesrs :: SetUserAuthority(long long UID, int newAuthority) 
 	{
-		if (!checkUID(UID)) return -1;
+		if (!CheckUID(UID)) return -1;
 		GetUser(UID).authority = newAuthority;
 		return 0;
 	}
