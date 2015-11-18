@@ -54,7 +54,7 @@ namespace Nusers
 		return 0;
 	}
 	
-	TPassword printWithLE(int target) 
+	TPassword PrintWithLE(int target) 
 	{
 		TPassword ss = "0123456789abcdef";
 		TPassword ans = "";
@@ -69,7 +69,7 @@ namespace Nusers
 		return ans;
 	}
 
-	TPassword encryptingWithMd5(TPassword userPassword)
+	TPassword EncryptingWithMd5(TPassword userPassword)
 	{
 		int lengthPassword = userPassword.length();
 		int lengthOfBits = lengthPassword * 8;
@@ -175,7 +175,7 @@ namespace Nusers
 		C += c;
 		D += d;
 		TPassword encryptedPassword = "";
-		encryptedPassword = printWithLE(A) + printWithLE(B) + printWithLE(C) + printWithLE(D);
+		encryptedPassword = PrintWithLE(A) + PrintWithLE(B) + PrintWithLE(C) + PrintWithLE(D);
 		return encryptedPassword;
 	}
 }

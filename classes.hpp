@@ -39,7 +39,7 @@ namespace Nusers
 	const long long INITOFSUM = 1e5;
 	long long presentUID;
 	typedef string TPassword;
-	TPassword encryptingWithMd5(TPassword userPassword);
+	TPassword EncryptingWithMd5(TPassword userPassword);
 	struct PrivateInformation
 	{
 		string realName;
