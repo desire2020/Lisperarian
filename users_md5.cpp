@@ -58,16 +58,18 @@ namespace Nusers
 	{
 		TPassword ss = "0123456789abcdef";
 		TPassword ans = "";
-		while (target) {
-			int temp = target & 0xf;
-			ans += ss[temp];
-			target >> 4;
+		for (int i = 0; i < 4; ++i) 
+		{
+			int temp1 = target & 0xf;
+			target = target >> 4;
+			int temp2 = target & 0xf;
+			target = target >> 4;
+			ans = ans + ss[temp2] + ss[temp1];
 		}
 		return ans;
 	}
 
 	TPassword encryptingWithMd5(TPassword userPassword)
-	int main()
 	{
 		int lengthPassword = userPassword.length();
 		int lengthOfBits = lengthPassword * 8;
@@ -172,7 +174,6 @@ namespace Nusers
 		B += b;
 		C += c;
 		D += d;
-		
 		TPassword encryptedPassword = "";
 		encryptedPassword = printWithLE(A) + printWithLE(B) + printWithLE(C) + printWithLE(D);
 		return encryptedPassword;
