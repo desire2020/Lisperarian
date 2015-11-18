@@ -39,6 +39,7 @@ int Finalization()
 bool CheckAuthority(int Event, const Nusers :: TUser &inOp)
 {
 	int presentAuthority = inOp.authority;
+	Event = abs(Event);
 	switch(presentAuthority)
 	{
 		case 0 : {if (Event <= 1) return true; else return false; break; }
@@ -238,6 +239,8 @@ int main()
 			case 0 : message = SignIn(); break;
 			case 1 : message = Login(); break;
 			case 2 : message = Logout(); break;
+			case -3 : message = SearchBookByKeyword();
+			break;
 			case 3 : message = BorBook(); break;
 			case 4 : message = RetBook(); break; 
 			case 5 : message = ChangeNickName(); break;
