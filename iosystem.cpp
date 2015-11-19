@@ -1,9 +1,8 @@
 /*****************************************************
-This header file implements the input/output system of
+This file implements the input/output system of
 the library management system.
 Namespace: Nios;
 
-Headfile flag: DEF_IOSYSTEM;
 *****************************************************/
 #ifndef DEF_IOSYSTEM
 #define DEF_IOSYSTEM
@@ -24,11 +23,26 @@ namespace Nios{
         
         second = time(NULL); //获取目前秒时间
         local = localtime(&second); //转为本地时间
-        strftime(buf, 64, "%Y-%m-%d %H:%M:%S", local);
+        strftime(buf, 64, "%Y %m %d", local);
         time_str = buf;
         return time_str;
     }
 
+	Nusers :: TTime PresentTime()
+	{
+		time_t second;
+        tm* local; //本地时间
+		static Nusers :: TTime preTime;
+        
+        second = time(NULL); //获取目前秒时间
+        local = localtime(&second); //转为本地时间
+        
+		preTime.year = local -> tm_year + 1900;
+		preTime.month = local -> tm_month + 1;
+		preTime.day = local -> tm_mday;
+        time_str = buf;
+        return time_str;
+	}
     
 }
 

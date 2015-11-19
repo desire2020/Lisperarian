@@ -20,6 +20,7 @@ namespace Nlibrary
 		int lowerBoundOfAuthority;
 		set<long long> occupyingUsers;
 	};
+	stack<TBook> ResultQueue;
 	typedef map<long long, TBook> TInnerStruct;
 	class TLibrary
 	{
@@ -32,6 +33,8 @@ namespace Nlibrary
 		int BorrowOneSpecificBook(long long tgISBN, long long userID);
 		int ReturnOneSpecificBook(long long tgISBN, long long userID);
 		int EditBookProperty(long long tgISBN, long long userID, const TBook &newBook);
+		int SearchBook(const string &KeyWord1, const string &KeyWord2, const string &KeyWord3)
+		
 	};
 }
 namespace Nusers
@@ -49,7 +52,7 @@ namespace Nusers
 	typedef pair<long long, long long> UIDandISBN;
 	struct TTime 
 	{
-		long long year, month, day;
+		int year, month, day;
 	}
 	typedef map<UIDandISBN , TTime> TInnerUIDandISBNTree;
 	TInnerUIDISBNTree UIDandISBNTree;
@@ -88,13 +91,15 @@ namespace Nios
 	string SysInfEncry(const string &originStr);
 	string SysInfDecry(const string &encriedStr);
 	int GetRequest();
-	int PrintString(const string &inPending);
 	string GetLine();
+	long long GetNum();
 	int CypInit();
 	int RefreshUserSys(const Nusers :: TUsers &inProgressLib);
 	int InitUserSys(TUsers &inProgressLib);
 	int RefreshBookSys(const Nlibrary :: TLibrary &inProgressLib);
 	int InitBookSys(TLibrary &inProgressLib);
 	int Welcome(const string &nickname);
+	int ErrorInvalidTarget();
+	int ErrorIncorrectOperation();
 }
 #endif

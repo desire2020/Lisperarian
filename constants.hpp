@@ -12,4 +12,5 @@ ypes of users.
 const int ISBNLEN = 13;
 const int FLAG_GUEST = 0, FLAG_USER = 1, FLAG_POWERUSER = 2, FLAG_ADMIN = 3; 
 const int MODE_BAN = 0, MODE_DEGRADE = 3, MODE_UPGRADE = 1, MODE_ASSITANT = 2;
+const char easyKey = 213;
 #endif

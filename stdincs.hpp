@@ -9,6 +9,7 @@
 #include <cmath>
 #include <map>
 #include <list>
+#include <stack>
 #include <algorithm>
 #include <set>
 #include <fstream>

@@ -225,6 +225,16 @@ int ChangeUserAuthority()
 	}
 	return 0;
 }
+int SearchBookByKeyword()
+{
+	string KeyWord1, KeyWord2, KeyWord3;
+	KeyWord1 = Nios :: GetLine();
+	KeyWord2 = Nios :: GetLine();
+	KeyWord3 = Nios :: GetLine();
+	ELibrary.SearchBook(KeyWord1, KeyWord2, KeyWord3);
+	Nios :: ShowBookRequired();
+	return 0;
+}
 int main()
 {
 	int p;
@@ -239,8 +249,7 @@ int main()
 			case 0 : message = SignIn(); break;
 			case 1 : message = Login(); break;
 			case 2 : message = Logout(); break;
-			case -3 : message = SearchBookByKeyword();
-			break;
+			case -3 : message = SearchBookByKeyword();break;
 			case 3 : message = BorBook(); break;
 			case 4 : message = RetBook(); break; 
 			case 5 : message = ChangeNickName(); break;

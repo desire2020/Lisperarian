@@ -19,7 +19,6 @@ namespace Nlibrary
 	}
 	int TLibrary :: AddBook(Tbook inPendingBook, long long userID)
 	{
-		ofstream fo;
 		TInnerStruct :: iterator it;
 		it = ISBNTree.find(inPendingBook.ISBN);
 		if (it == ISBNTree.end())
@@ -103,6 +102,21 @@ namespace Nlibrary
 				 it -> author = newBook.author;
 				 it -> description = newBook.description;
 				 it -> lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;
+			}
+		}
+		return 0;
+	}
+	int TLibrary :: SearchBook(const string &KeyWord1, const string &KeyWord2, const string &KeyWord3)
+	{
+		string information;
+		while (!ResultStack.empty()) ResultStack.pop();
+		TInnerStruct :: iterator it;
+		for (it = ISBNTree.begin(); it != ISBNTree.end; it++)
+		{
+			information = it -> title + it -> author + it -> description;
+			if ((information.find(KeyWord1) != string :: npos) && (information.find(KeyWord2) != string :: npos) && (information.find(KeyWord3) != string :: npos))
+			{
+				ResultStack.push(*it);
 			}
 		}
 		return 0;
