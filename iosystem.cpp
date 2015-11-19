@@ -7,7 +7,8 @@ Namespace: Nios;
 #ifndef DEF_IOSYSTEM
 #define DEF_IOSYSTEM
 
-namespace Nios{
+namespace Nios
+{
     
     /*-------------------------------------*
      * 函数 : SysDateStr()
@@ -43,7 +44,37 @@ namespace Nios{
         time_str = buf;
         return time_str;
 	}
-    
+	
+	string SysInfEncry(const string &originStr)
+	{
+		string encriedStr = originStr;
+		int lengthOfStr = originStr.length();
+		for (int i = 0; i < lengthOfStr; ++i) encriedStr[i] = encriedStr[i] ^ constOfKey;
+		return encriedStr;
+	}
+	
+	string SysInfDecry(const string &encriedStr)
+	{
+		string originStr = encriedStr;
+		int lengthOfStr = encriedStr.length();
+		for (int i = 0; i < lengthOfStr; ++i) originStr[i] = originStr[i] ^ constOfKey;
+		return originStr;
+	}
+	
+	int CypInit()
+	{
+		
+	}
+	
+	int RefreshUserSys(const Nusers :: TUsers &inProgressLib)
+	{
+		
+	}
+	
+	int InitUserSys(TUsers &inProgressLib)
+	{
+		
+	}
 }
 
 #endif
