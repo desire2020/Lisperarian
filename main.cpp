@@ -11,7 +11,7 @@
 Nusers :: TUser inOperation;
 int Initialization()
 {
-	TUser defaultAdmin;
+    Nusers :: TUser defaultAdmin;
 	defaultAdmin.userNickname = "admin";
 	defaultAdmin.authority = 3;
 	defaultAdmin.userPassword = "admin";
@@ -31,8 +31,8 @@ int Initialization()
 }
 int Finalization()
 {
-	Nios :: RefreshUserSys();
-	Nios :: RefreshBookSys();
+    Nios :: RefreshUserSys(EUsers);
+    Nios :: RefreshBookSys(ELibrary);
 	fileSettings.close();
 	return 0;
 }
@@ -64,7 +64,7 @@ int SignIn()
 	while(inPending.privateInf.telephoneNumber == -1);
 	inPending.privateInf.identificationNumber = Nios :: GetLine();
 	EUsers.AddUser(inPending, 0);
-	RecordEvent(0, Nusers :: presentUID - 1, Nusers :: presentUID - 1);
+    Nlog :: RecordEvent(0, Nusers :: presentUID - 1, Nusers :: presentUID - 1);
 	return 0;
 }
 int Login()
@@ -79,7 +79,7 @@ int Login()
 		{
 			inOperation = EUsers.GetUser(inputUserID);
 			Nios :: Welcome(inOperation.userNickname);
-			RecordEvent(1, Nusers :: inputUserID, Nusers :: inputUserID);
+            Nlog :: RecordEvent(1, inputUserID, inputUserID);
 		}
 		else
 			return -2;
@@ -90,15 +90,15 @@ int Login()
 }
 int Logout()
 {
-	inOperation.userNickname = "";
+    Nlog :: RecordEvent(2, inOperation.userID, inOperation.userID);
+    inOperation.userNickname = "";
 	inOperation.userID = 0;
 	inOperation.userPassword = "";
 	inOperation.occupiedBooks.clear();
 	inOperation.authority = 0;
 	inOperation.privateInf.realName = "";
 	inOperation.privateInf.telephoneNumber = 0;
-	inOperation.identificationNumber = "";
-	RecordEvent(2, Nusers :: inputUserID, Nusers :: inputUserID);
+    inOperation.privateInf.identificationNumber = "";
 	return 0;
 }
 int BorBook()
@@ -112,7 +112,7 @@ int BorBook()
 		state = EUsers.BorrowOneSpecificBook(target, inOperation.userID);
 		if (state == 0)
 		{
-			RecordEvent(3, target, inOperation.userID);
+            Nlog :: RecordEvent(3, target, inOperation.userID);
 			return 0;
 		}
 		else 
@@ -130,7 +130,7 @@ int RetBook()
 		state = EUsers.ReturnOneSpecificBook(target, inOperation.userID);
 		if (state == 0)
 		{
-			RecordEvent(4, target, inOperation.userID);
+            Nlog :: RecordEvent(4, target, inOperation.userID);
 			return 0;
 		}
 		else
@@ -143,18 +143,18 @@ int ChangeNickName()
 	long long targetUID;
 	targetUID = Nios :: GetNum();
 	if (!(EUsers.CheckUID(targetUID))) return -1;
-	if (((inOperation.authority == 1) && (inOperation.userID == UID)) || (inOperation.authority >= 2))
+    if (((inOperation.authority == 1) && (inOperation.userID == targetUID)) || (inOperation.authority >= 2))
 	{
 		inputNewNickname = Nios :: GetLine();
 		EUsers.ChangeUserNickname(targetUID, inputNewNickname);
-		RecordEvent(5, targetUID, inOperation.userID);
+        Nlog :: RecordEvent(5, targetUID, inOperation.userID);
 		return 0;
 	}
 	return -1;
 }
 int ChangePassword()
 {
-	TPassword inputNewPassword, inputNewPassword2;
+    Nusers :: TPassword inputNewPassword, inputNewPassword2;
 	long long targetUID;
 	targetUID = Nios :: GetNum();
 	if (!(EUsers.CheckUID(targetUID))) return -1;
@@ -166,8 +166,8 @@ int ChangePassword()
 		{	
 			EUsers.ChangePassword(targetUID, inputNewPassword);
 			if (inOperation.userID == targetUID)
-				inOperation = GetUser(targetUID);
-			RecordEvent(6, targetUID, inOperation.userID);
+                inOperation = EUsers.GetUser(targetUID);
+            Nlog :: RecordEvent(6, targetUID, inOperation.userID);
 			return 0;
 		}
 		else
@@ -177,7 +177,7 @@ int ChangePassword()
 }
 int AddBook()
 {
-	TBook inputNewBook;
+    Nlibrary :: TBook inputNewBook;
 	inputNewBook.title = Nios :: GetLine();
 	inputNewBook.ISBN = Nios :: GetNum();
 	inputNewBook.author = Nios :: GetLine();
@@ -186,33 +186,33 @@ int AddBook()
 	inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
 	inputNewBook.occupyingUsers.clear();
 	ELibrary.AddBook(inputNewBook, inOperation.userID);
-	RecordEvent(7, inputNewBook.ISBN, inOperation.userID);
+    Nlog :: RecordEvent(7, inputNewBook.ISBN, inOperation.userID);
 	return 0;
 }
 int EditBook()
 {
 	long long targetISBN;
-	TBook inputNewBook;
-	targetISBN = Nios :: GetLine();
+    Nlibrary :: TBook inputNewBook;
+    targetISBN = Nios :: GetNum();
 	inputNewBook.title = Nios :: GetLine();
 	inputNewBook.author = Nios :: GetLine();
 	inputNewBook.description = Nios :: GetLine();
 	inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
-	ELibrary.AddBook(inputNewBook, inOperation.userID);
-	RecordEvent(8, inputNewBook.ISBN, inOperation.userID);
+    ELibrary.EditBookProperty(targetISBN, inOperation.userID, inputNewBook);
+    Nlog :: RecordEvent(8, inputNewBook.ISBN, inOperation.userID);
 	return 0;
 }
 int DelUser()
 {
 	long long targetUID;
 	targetUID = Nios :: GetNum();
-	return (EUsers.DeleteUserByUID(targetUID));
+    return (EUsers.DeleteUserByUID(targetUID, inOperation.userID));
 }
 int ChangeUserAuthority()
 {
 	long long workingMode;
 	long long targetUID;
-	TUser targetUser;
+    Nusers :: TUser targetUser;
 	targetUID = Nios :: GetNum();
 	if (!(EUsers.CheckUID(targetUID))) return -1;
 	targetUser = EUsers.GetUser(targetUID);
@@ -237,39 +237,43 @@ int SearchBookByKeyword()
 	Nios :: ShowBookRequired();
 	return 0;
 }
-int main()
+int procFunc(int p)
+{
+    int message;
+	if (CheckAuthority(p, inOperation))
+	switch(p)
+	{
+		case 0 : message = SignIn(); break;
+		case 1 : message = Login(); break;
+		case 2 : message = Logout(); break;
+        case -3 : message = SearchBookByKeyword();break;
+		case 3 : message = BorBook(); break;
+		case 4 : message = RetBook(); break; 
+		case 5 : message = ChangeNickName(); break;
+		case 6 : message = ChangePassword(); break;
+		case 7 : message = AddBook(); break;
+		case 8 : message = DelBook(); break;
+		case 9 : message = EditBook(); break;
+		case 10 : message = DelUser(); break;
+		case 11 : message = ChangeUserAuthority(); break;
+		default : break;
+	}
+	switch(message)
+	{
+		case -1 : Nios :: ErrorInvalidTarget(); break;
+		case -2 : Nios :: ErrorIncorrectOperation(); break;
+		default : break;
+	}
+
+}
+int main(int argc, char *argv[])
 {
 	int p;
-	int message;
 	Initialization();
-	while(true)
-	{
-		p = Nios :: GetRequest();
-		if (CheckAuthority(p, inOperation))
-		switch(p)
-		{
-			case 0 : message = SignIn(); break;
-			case 1 : message = Login(); break;
-			case 2 : message = Logout(); break;
-			case -3 : message = SearchBookByKeyword();break;
-			case 3 : message = BorBook(); break;
-			case 4 : message = RetBook(); break; 
-			case 5 : message = ChangeNickName(); break;
-			case 6 : message = ChangePassword(); break;
-			case 7 : message = AddBook(); break;
-			case 8 : message = DelBook(); break;
-			case 9 : message = EditBook(); break;
-			case 10 : message = DelUser(); break;
-			case 11 : message = ChangeUserAuthority(); break;
-			default : break;
-		}
-		switch(message)
-		{
-			case -1 : Nios :: ErrorInvalidTarget(); break;
-			case -2 : Nios :: ErrorIncorrectOperation(); break;
-			default : break;
-		}
-	}
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+	p = a.exec();
 	Finalization();
-	return 0;
+	return p;
 }

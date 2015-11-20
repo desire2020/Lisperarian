@@ -28,7 +28,7 @@ namespace Nios{
         return time_str;
     }
 
-	Nusers :: TTime PresentTime()
+	(Nusers :: TTime) PresentTime()
 	{
 		time_t second;
         tm* local; //本地时间

@@ -9,12 +9,18 @@
 #include <cmath>
 #include <map>
 #include <list>
+#include <utility>
 #include <stack>
 #include <algorithm>
 #include <set>
 #include <fstream>
+using namespace std;
 #include "classes.hpp"
 #include "globalvar.hpp"
 #include "constants.hpp"
-using namespace std;
+#include <QApplication>
+#include <QMainWindow>
+#include <QMouseEvent>
+#include <QPushButton>
+
 #endif
