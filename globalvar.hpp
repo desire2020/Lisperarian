@@ -5,9 +5,10 @@ This header file defines a few varibles used in the project.
 #define DEF_GLOBALVAR
 #include "classes.hpp"
 #include "constants.hpp"
-static int keepPeriod;
-extern ifstream fileSettings("settings.ini");
-extern ofstream fileLogs;
+extern int keepPeriod;
 extern Nlibrary :: TLibrary ELibrary;
 extern Nusers :: TUsers EUsers;
+extern stack<Nlibrary :: TBook> ResultStack;
+extern long long presentUID;
+extern Nusers :: TInnerUIDandISBNTree UIDandISBNTree;
 #endif

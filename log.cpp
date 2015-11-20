@@ -17,6 +17,9 @@
  11:改变用户状态。
  *********************************/
 #include "stdincs.hpp"
+#include "globalvar.hpp"
+#include "constants.hpp"
+#include "classes.hpp"
 
 namespace Nlog
 {
@@ -25,7 +28,7 @@ namespace Nlog
      * 函数 : RecordEvent(int Event, long long ID1<< long long ID2
      * 功能 : 日志信息接受、处理、输出
      *-------------------------------------*/
-    
+    ofstream fileLogs;
     int RecordEvent(int Event, long long ID1, long long ID2)
     {
         fileLogs.open("syslog.log", ios :: app | ios :: out);

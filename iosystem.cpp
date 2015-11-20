@@ -72,7 +72,7 @@ namespace Nios
 		}
 		return p;
 	}
-	long long StrNum(string &str)
+    long long StrNum(string str)
 	{
 		long long num = 0;
 		int lengthOfStr = str.length();
@@ -80,19 +80,9 @@ namespace Nios
 		return num;
 	}
 	
-	char *SearchingFile(string s1 , long long userID , string s3) 
-	{
-		string s2 = NumStr(userID);
-		string ss = s1 + s2 + s3;
-		char str[30];
-		int len = ss.length();
-		for (int i = 0; i < len; ++i) str[i] = ss[i]; str[len] = '\0';
-		return str;
-	}
-	
     int PrintTheFileOfInf(TUser temp)
 	{
-        ofstream theFile(SearchingFile("users\\usersInf\\", temp.userID, ".log"));
+        ofstream theFile(("\\users\\usersInf\\" + NumStr(temp.userID) + ".log").c_str());
         {
             theFile << SysInfEncry(NumStr(temp.userID)) << endl;
             theFile << SysInfEncry(temp.userNickname) << endl;
@@ -108,7 +98,7 @@ namespace Nios
 	
 	int PrintTheFileOfOccupiedBooks(TUser temp) 
 	{
-        ofstream theFile(SearchingFile("users\\usersOccupiedBooks\\" , temp.userID , ".log"));
+        ofstream theFile(("\\users\\usersOccupiedBooks\\" + NumStr(temp.userID) + ".log").c_str());
 		{
 			set<long long> :: iterator it;
 			for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
@@ -120,33 +110,33 @@ namespace Nios
 		return 0;
 	}
 	
-	int ScanTheUIDInf(long long userID , Nusers :: TUser &temp)
+    int ScanTheUIDInf(long long userID, Nusers :: TUsers &inProgressLib)
 	{
-        ifstream theFile(SearchingFile("users\\usersInf\\" , userID , ".log"));
+        ifstream theFile(("\\users\\usersInf\\" + NumStr(userID) + ".log").c_str());
 		{
 			if (!theFile) return -1;
 			string str;
-			theFile >> str; temp.userID = StrNum(SysInfDecry(str));
-			theFile >> str; temp.userNickname = SysInfDecry(str);
-			theFile >> str; temp.userPassword = SysInfDecry(str);
-			theFile >> str; temp.authority = StrNum(SysInfDecry(str));
-			theFile >> str; temp.privateInf.realName = SysInfDecry(str);
-			theFile >> str; temp.privateInf.telephoneNumber = StrNum(SysInfDecry(str));
-			theFile >> str; temp.privateInf.identificationNumber = SysInfDecry(str);
+            theFile >> str; inProgressLib.UIDTree[userID].userID = StrNum(SysInfDecry(str));
+            theFile >> str; inProgressLib.UIDTree[userID].userNickname = SysInfDecry(str);
+            theFile >> str; inProgressLib.UIDTree[userID].userPassword = SysInfDecry(str);
+            theFile >> str; inProgressLib.UIDTree[userID].authority = StrNum(SysInfDecry(str));
+            theFile >> str; inProgressLib.UIDTree[userID].privateInf.realName = SysInfDecry(str);
+            theFile >> str; inProgressLib.UIDTree[userID].privateInf.telephoneNumber = StrNum(SysInfDecry(str));
+            theFile >> str; inProgressLib.UIDTree[userID].privateInf.identificationNumber = SysInfDecry(str);
 		}
 		theFile.close();
 		return 0;
 	}
 	
-	int ScanTheUIDOccupiedBooks(long long userID , Nusers :: TUser &temp)
+    int ScanTheUIDOccupiedBooks(long long userID , Nusers :: TUsers &inProgressLib)
 	{
-		ifstream theFile(SearchingFile("users\\usersOccupiedBooks\\" , userID , ".log"));
+        ifstream theFile(("\\users\\usersOccupiedBooks\\" + NumStr(userID) + ".log").c_str());
 		{
 			if (!theFile) return -1;
 			long long tgISBN;
-			while (cin >> tgISBN)
+            while (theFile >> tgISBN)
 			{
-				temp.occupiedBooks.insert(tgISBN);
+                inProgressLib.UIDTree[userID].occupiedBooks.insert(tgISBN);
 			}
 		}
 		theFile.close();
@@ -155,9 +145,9 @@ namespace Nios
 	
 	int PrintUserSysRecordBorrow(long long userID , long long ISBN , Nusers :: TTime preTime)
 	{
-        ofstream theFile(SearchingFile("users\\usersRB\\" , userID , ".log") , ios :: app);
-			theFlie << "用户ID：" << userID << "  借书" << endl;
-			theFile << "    书籍ISBN：" << ISNM;
+        ofstream theFile(("\\users\\usersRB\\" + NumStr(userID) + ".log").c_str() , ios :: app);
+            theFile << "用户ID：" << userID << "  借书" << endl;
+            theFile << "    书籍ISBN：" << ISBN;
 			theFile << "    日期：" << preTime.year << "." << preTime.month << "." << preTime.day << endl;
 		theFile.close();
 		return 0;
@@ -165,52 +155,58 @@ namespace Nios
 	
 	int PrintUserSysRecordReturn(long long userID , long long ISBN , Nusers :: TTime preTime)
 	{
-		ofstream theFile(SearchingFile("users\\usersRB\\" , NumStr(userUID) , ".log") , ios :: app);
+        ofstream theFile(("\\users\\usersRB\\" + NumStr(userID) + ".log").c_str() , ios :: app);
 		{
-			theFlie << "用户ID：" << userID << "  还书" << endl;
-			theFile << "    书籍ISBN：" << ISNM;
+            theFile << "用户ID：" << userID << "  还书" << endl;
+            theFile << "    书籍ISBN：" << ISBN;
 			theFile << "    日期：" << preTime.year << "." << preTime.month << "." << preTime.day << endl;
 		}
 		theFile.close();
 		return 0;
 	}
 	
-	int RefreshUserSys(const Nusers :: TUsers &inProgressLib)
+    int RefreshUserSys(Nusers :: TUsers &inProgressLib)
 	{
-		ofstream theFile("users\\globalvar.log");
+        ofstream theFile("\\users\\globalvar.log");
 		{
-			theFile << Nusers :: presentUID << endl;
+            theFile << presentUID << endl;
 		}
-		theFile.close();
-		TInnerStruct :: iterator it;
+        theFile.close();
+        Nusers :: TInnerStruct :: iterator it;
 		for (it = inProgressLib.UIDTree.begin(); it != inProgressLib.UIDTree.end(); ++it) 
 		{
-			PrintTheFileOfInf(*it);
-			PrintTheFileOfOccupiedBooks(*it);
-		}
+            PrintTheFileOfInf(it -> second);
+            PrintTheFileOfOccupiedBooks(it -> second);
+        }
+
+
 		return 0;
 	}
 	
-	int InitUserSys(TUsers &inProgressLib)
+    int InitUserSys(Nusers :: TUsers &inProgressLib)
 	{
-		ifstream theFile("users\\globalvar.log");
+        ifstream theFile("\\users\\globalvar.log");
 		{
-			theFile >> Nusers :: presentUID;
+            theFile >> presentUID;
 		}
 		theFile.close();
-		inProgressLib.clear();
-		for (long long i = Nusers :: INITOFSUM; i <= Nusers :: presentUID; ++i)
+        inProgressLib.UIDTree.clear();
+        for (long long i = Nusers :: INITOFSUM; i <= presentUID; ++i)
 		{
-			ifstream it(SearchingFile("users\\usersInf\\" , i , ".log"));
+            ifstream it(("\\users\\usersInf\\" + NumStr(i) + ".log").c_str());
 			{
 				if (!it) continue;
 			}
 			it.close();
-			inProgressLib.UIDTree.insert(i);
-			ScanTheUIDInf(i , inProgressLib.UIDTree[i]);
-			ScanTheUIDOccupiedBooks(i , inProgressLib.UIDTree[i]);
+            ScanTheUIDInf(i, inProgressLib);
+            ScanTheUIDOccupiedBooks(i, inProgressLib);
 		}
 	}
+
+    int InitBookSys(Nlibrary::TLibrary &inProgressLib)
+    {
+
+    }
 }
 
 #endif

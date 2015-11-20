@@ -21,13 +21,12 @@ namespace Nlibrary
 		int lowerBoundOfAuthority;
 		set<long long> occupyingUsers;
 	};
-    extern stack<TBook> ResultStack;
     typedef map<long long, TBook> TInnerStruct;
 	class TLibrary
 	{
-	private:
+    private:
 		TInnerStruct ISBNTree;
-	public:
+    public:
 		string NumStr(long long tgNum);
         int AddBook(const TBook &inPendingBook, long long userID);
 		int DeleteBookByISBN(long long tgISBN, long long userID);
@@ -40,8 +39,6 @@ namespace Nlibrary
 }
 namespace Nusers
 {
-    const long long INITOFSUM = 1e5;
-    extern long long presentUID;
 	typedef string TPassword;
 	TPassword EncryptingWithMd5(TPassword userPassword);
 	struct PrivateInformation
@@ -56,7 +53,6 @@ namespace Nusers
 		long long year, month, day;
     };
 	typedef map<UIDandISBN , TTime> TInnerUIDandISBNTree;
-    TInnerUIDandISBNTree UIDandISBNTree;
 
 	struct TUser
 	{
@@ -70,9 +66,8 @@ namespace Nusers
 	typedef map<long long, TUser> TInnerStruct;
 	class TUsers
 	{
-	private:
+    public:
 		TInnerStruct UIDTree;
-	public:
 		int AddUser(TUser inPendingUser, long long UID);
 		int DeleteUserByUID(long long tgUID, long long UID);
 		bool TestPassword(long long UID, TPassword passGiven);
@@ -96,12 +91,16 @@ namespace Nios
 	string SysInfEncry(const string &originStr);
 	string SysInfDecry(const string &encriedStr);
 	int GetRequest();
+    string NumStr(long long userID);
+    long long StrNum(string str);
 	string GetLine();
 	long long GetNum();
 	int CypInit();
 	int RefreshUserSys(const Nusers :: TUsers &inProgressLib);
     int InitUserSys(Nusers :: TUsers &inProgressLib);
 	int RefreshBookSys(const Nlibrary :: TLibrary &inProgressLib);
+    int PrintUserSysRecordBorrow(long long userID , long long ISBN , Nusers :: TTime preTime);
+    int PrintUserSysRecordReturn(long long userID , long long ISBN , Nusers :: TTime preTime);
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib);
 	int Welcome(const string &nickname);
 	int ErrorInvalidTarget();

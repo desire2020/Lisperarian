@@ -32,21 +32,21 @@ namespace Nusers
 	int TUsers :: DeleteUserByUID(long long tgUID, long long UID) 
 	{
 		if (!CheckUID(tgUID)) return -1;
-		Tuser &temp = UIDTree[tgUID];
+        TUser &temp = UIDTree[tgUID];
 		set<long long> :: iterator that;
 		for (that = temp.occupiedBooks.begin(); that != temp.occupiedBooks.end(); ++that)
 		{
-			UIDandISBN now = make_pair<tgUID , *that>;
-			TInnerUIDandISBN :: iterator its;
+            UIDandISBN now(tgUID , *that);
+            TInnerUIDandISBNTree :: iterator its;
 			its = UIDandISBNTree.find(now);
 			if (its != UIDandISBNTree.end()) UIDandISBNTree.erase(its);
 		}			//删除TInnerUIDandISBN中对应的元素
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
 		UIDTree.erase(it);
-		remove(Nios :: SearchingFile("users\\usersRB\\" , Nios :: NumStr(tgUID) , ".log"));
-		remove(Nios :: SearchingFile("users\\usersInf\\" , Nios :: NumStr(tgUID) , ".log"));
-		remove(Nios :: SearchingFile("users\\usersOccupiedBooks\\" , Nios :: NumStr(tgUID) , ".log"));
+        remove(("users\\usersRB\\" + Nios :: NumStr(tgUID) + ".log").c_str());
+        remove(("users\\usersInf\\" + Nios :: NumStr(tgUID) + ".log").c_str());
+        remove(("users\\usersOccupiedBooks\\" + Nios :: NumStr(tgUID) + ".log").c_str());
 		return 0;
 	}
 	
@@ -77,7 +77,7 @@ namespace Nusers
 		return 0;
 	}
 	
-	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf)
+    int TUsers :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf)
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].privateInf = newPrivateInf;
@@ -88,11 +88,11 @@ namespace Nusers
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDandISBN temp = make_pair(UID, tgISBN);
-        TInnerUIDISBNTree :: iterator it;
+        TInnerUIDandISBNTree :: iterator it;
         it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) 
 		{
-			TTime preTime = PresentTime();
+            TTime preTime = Nios :: PresentTime();
 			UIDandISBNTree[temp] = preTime;
 			Nios :: PrintUserSysRecordBorrow(UID , tgISBN , preTime);
 			UIDTree[UID].occupiedBooks.insert(tgISBN);
@@ -105,20 +105,20 @@ namespace Nusers
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDandISBN temp = make_pair(UID, tgISBN);
-        TInnerUIDISBNTree :: iterator it;
+        TInnerUIDandISBNTree :: iterator it;
 		it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) return -1;
 		else
 		{
-			TTime preTime = PresentTime();
-			Nios :: PrintUserSysRecordReturn((UID , tgISBN , preTime);
+            TTime preTime = Nios :: PresentTime();
+            Nios :: PrintUserSysRecordReturn(UID , tgISBN , preTime);
 			UIDandISBNTree.erase(it);
 			UIDTree[UID].occupiedBooks.erase(UIDTree[UID].occupiedBooks.find(tgISBN));
 			return 0;
 		}
 	}
 	
-	int TUesrs :: SetUserAuthority(long long UID, long long newAuthority) 
+    int TUsers :: SetUserAuthority(long long UID, long long newAuthority)
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].authority = newAuthority;

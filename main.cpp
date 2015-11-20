@@ -9,15 +9,23 @@
 ****************************************/
 #include "stdincs.hpp"
 #include "classes.hpp"
-#include "globalvar.hpp"
+#include "constants.hpp"
+
+int keepPeriod;
+Nlibrary :: TLibrary ELibrary;
+Nusers :: TUsers EUsers;
+stack<Nlibrary :: TBook> ResultStack;
+long long presentUID;
+Nusers :: TInnerUIDandISBNTree UIDandISBNTree;
 Nusers :: TUser inOperation;
+
 int Initialization()
 {
     Nusers :: TUser defaultAdmin;
 	defaultAdmin.userNickname = "admin";
 	defaultAdmin.authority = 3;
 	defaultAdmin.userPassword = "admin";
-	defaultAdmin.userID = Nusers :: INITOFSUM;
+    defaultAdmin.userID = Nusers :: INITOFSUM;
 	defaultAdmin.occupiedBooks.clear();
 	defaultAdmin.privateInf.realName = "";
 	defaultAdmin.privateInf.telephoneNumber = 0;
@@ -25,7 +33,7 @@ int Initialization()
 	ios :: sync_with_stdio(false);
 	Nios :: InitUserSys(EUsers);
 	Nios :: InitBookSys(ELibrary);
-	if (Nusers :: presentUID == Nusers :: INITOFSUM)
+    if (presentUID == Nusers :: INITOFSUM)
 	{
 		EUsers.AddUser(defaultAdmin, 0);
 	}
@@ -35,7 +43,6 @@ int Finalization()
 {
     Nios :: RefreshUserSys(EUsers);
     Nios :: RefreshBookSys(ELibrary);
-	fileSettings.close();
 	return 0;
 }
 bool CheckAuthority(int Event, const Nusers :: TUser &inOp)
@@ -66,7 +73,7 @@ int SignIn()
 	while(inPending.privateInf.telephoneNumber == -1);
 	inPending.privateInf.identificationNumber = Nios :: GetLine();
 	EUsers.AddUser(inPending, 0);
-    Nlog :: RecordEvent(0, Nusers :: presentUID - 1, Nusers :: presentUID - 1);
+    Nlog :: RecordEvent(0, presentUID - 1, presentUID - 1);
 	return 0;
 }
 int Login()
