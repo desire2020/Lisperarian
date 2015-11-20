@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 QFont btFont("微软雅黑", 22);
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

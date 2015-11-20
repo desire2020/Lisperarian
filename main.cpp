@@ -8,6 +8,8 @@
 或两次密码输入不一致等等
 ****************************************/
 #include "stdincs.hpp"
+#include "classes.hpp"
+#include "globalvar.hpp"
 Nusers :: TUser inOperation;
 int Initialization()
 {

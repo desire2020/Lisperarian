@@ -15,9 +15,6 @@
 #include <set>
 #include <fstream>
 using namespace std;
-#include "classes.hpp"
-#include "globalvar.hpp"
-#include "constants.hpp"
 #include <QApplication>
 #include <QMainWindow>
 #include <QMouseEvent>

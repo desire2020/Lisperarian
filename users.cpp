@@ -6,6 +6,9 @@
 */
 
 #include "stdincs.hpp"
+#include "classes.hpp"
+#include "globalvar.hpp"
+#include "constants.hpp"
 
 namespace Nusers 
 {

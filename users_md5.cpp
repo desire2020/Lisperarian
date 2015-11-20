@@ -1,7 +1,10 @@
 /*
-	¼ÓÃÜÃÜÂëµÄMd5Ëã·¨
+	åŠ å¯†å¯†ç çš„Md5ç®—æ³•  
 */
 #include "stdincs.hpp"
+#include "classes.hpp"
+#include "constants.hpp"
+#include "globalvar.hpp"
 
 namespace Nusers
 {

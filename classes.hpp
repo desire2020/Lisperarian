@@ -21,7 +21,7 @@ namespace Nlibrary
 		int lowerBoundOfAuthority;
 		set<long long> occupyingUsers;
 	};
-    stack<TBook> ResultStack;
+    extern stack<TBook> ResultStack;
     typedef map<long long, TBook> TInnerStruct;
 	class TLibrary
 	{
@@ -40,8 +40,8 @@ namespace Nlibrary
 }
 namespace Nusers
 {
-	const long long INITOFSUM = 1e5;
-	long long presentUID;
+    const long long INITOFSUM = 1e5;
+    extern long long presentUID;
 	typedef string TPassword;
 	TPassword EncryptingWithMd5(TPassword userPassword);
 	struct PrivateInformation
@@ -56,7 +56,7 @@ namespace Nusers
 		int year, month, day;
     };
     typedef map<UIDandISBN, TTime> TInnerUIDISBNTree;
-    TInnerUIDISBNTree UIDandISBNTree;
+    extern TInnerUIDISBNTree UIDandISBNTree;
 	struct TUser
 	{
 		string userNickname;
