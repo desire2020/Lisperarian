@@ -1,8 +1,8 @@
 /* 
-	权限：0 ：未注册用户  对应任务：0 ：0 ，1
-		1 ：普通用户				1 ：2 ，3 ，4
-		2 : 管理员					2 ：2 ，3 ，4 ，5 ，6 ，7
-		3 ：馆长					3 ：2 ，3 ，4 ，5 ，6 ，7 ，8 ，9 ，
+	文件users为根，其下有：
+		usersRB ：用户借还书日志
+		usersInf ：用户的信息（加密储存）
+		usersOccupiedBooks ：用户当前所借的书（加密存储）
 */
 
 #include "stdincs.hpp"
@@ -12,6 +12,7 @@
 
 namespace Nusers 
 {
+
 	bool TUsers :: CheckUID(long long UID) 
 	{
 		TInnerStruct :: iterator it;
@@ -19,6 +20,7 @@ namespace Nusers
 		if (it == UIDTree.end()) return false;
 		return true;
 	}
+	
 	int TUsers :: AddUser(TUser inPendingUser , long long UID) 
 	{
 		TUser &temp = inPendingUser;
@@ -26,70 +28,114 @@ namespace Nusers
 		UIDTree[++presentUID] = inPendingUser;
 		return 0;
 	}
+	
 	int TUsers :: DeleteUserByUID(long long tgUID, long long UID) 
 	{
 		if (!CheckUID(tgUID)) return -1;
+		Tuser &temp = UIDTree[tgUID];
+		set<long long> :: iterator that;
+		for (that = temp.occupiedBooks.begin(); that != temp.occupiedBooks.end(); ++that)
+		{
+			UIDandISBN now = make_pair<tgUID , *that>;
+			TInnerUIDandISBN :: iterator its;
+			its = UIDandISBNTree.find(now);
+			if (its != UIDandISBNTree.end()) UIDandISBNTree.erase(its);
+		}			//删除TInnerUIDandISBN中对应的元素
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
 		UIDTree.erase(it);
+		remove(Nios :: SearchingFile("users\\usersRB\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("users\\usersInf\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("users\\usersOccupiedBooks\\" , Nios :: NumStr(tgUID) , ".log"));
 		return 0;
 	}
+	
 	bool TUsers :: TestPassword(long long UID, TPassword passGiven)
 	{
+		if (!CheckUID(UID)) return false;
 		if (passGiven != EncryptingWithMd5(UIDTree[UID].userPassword)) return false;
 		return true;
 	}
+	
 	TUser TUsers :: GetUser(long long UID) 
 	{
         //if (!CheckUID(UID)) return NULL;
 		return UIDTree[UID];
 	}
+	
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
 		if (!CheckUID(UID)) return -1;
+<<<<<<< HEAD
         UIDTree[UID].userPassword = EncryptingWithMd5(newPassword);
+=======
+		UIDTree[UID].userPassword = EncryptingWithMd5(newPassword);
+>>>>>>> origin/master
 		return 0;
 	}
+	
 	int TUsers :: ChangeUserNickname(long long UID, string newNickname) 
 	{
 		if (!CheckUID(UID)) return -1;
-		UIDTree[UID].userNickname = newNickname;
+		UIDTree[UID].userNickname = newNickname;	
 		return 0;
 	}
+<<<<<<< HEAD
     int TUsers :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf)
+=======
+	
+	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf) 
+>>>>>>> origin/master
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].privateInf = newPrivateInf;
 		return 0;
 	}
+	
 	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID) 
 	{
+		if (!CheckUID(UID)) return -1;
 		UIDandISBN temp = make_pair(UID, tgISBN);
         TInnerUIDISBNTree :: iterator it;
         it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) 
 		{
+<<<<<<< HEAD
             UIDandISBNTree[temp] = Nios :: PresentTime();
 			if (!CheckUID(UID)) return -1;
+=======
+			TTime preTime = PresentTime();
+			UIDandISBNTree[temp] = preTime;
+			Nios :: PrintUserSysRecordBorrow(UID , tgISBN , preTime);
+>>>>>>> origin/master
 			UIDTree[UID].occupiedBooks.insert(tgISBN);
 			return 0;
 		}
 		else return -1;
 	}
+	
 	int TUsers :: ReturnOneSpecificBook(long long tgISBN, long long UID) 
 	{
+		if (!CheckUID(UID)) return -1;
 		UIDandISBN temp = make_pair(UID, tgISBN);
         TInnerUIDISBNTree :: iterator it;
 		it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) return -1;
-		else 
+		else
 		{
-			if (!CheckUID(UID)) return -1;
+			TTime preTime = PresentTime();
+			UIDandISBNTree.erase(it);
+			Nios :: PrintUserSysRecordReturn((UID , tgISBN , preTime);
 			UIDTree[UID].occupiedBooks.erase(UIDTree[UID].occupiedBooks.find(tgISBN));
 			return 0;
 		}
 	}
+<<<<<<< HEAD
     int TUsers :: SetUserAuthority(long long UID, int newAuthority)
+=======
+	
+	int TUesrs :: SetUserAuthority(long long UID, long long newAuthority) 
+>>>>>>> origin/master
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].authority = newAuthority;
