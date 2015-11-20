@@ -5,7 +5,7 @@ This header file defines a few varibles used in the project.
 #define DEF_GLOBALVAR
 static int keepPeriod;
 ifstream fileSettings("settings.ini");
-ofstream fileLogs("syslog.log", ios :: app | ios :: out);
+ofstream fileLogs;
 Nlibrary :: TLibrary ELibrary;
 Nusers :: TUsers EUsers;
 #endif

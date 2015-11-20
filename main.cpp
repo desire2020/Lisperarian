@@ -196,10 +196,19 @@ int EditBook()
     targetISBN = Nios :: GetNum();
 	inputNewBook.title = Nios :: GetLine();
 	inputNewBook.author = Nios :: GetLine();
+	inputNewBook.ISBN = targetISBN;
 	inputNewBook.description = Nios :: GetLine();
 	inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
-    ELibrary.EditBookProperty(targetISBN, inOperation.userID, inputNewBook);
-    Nlog :: RecordEvent(8, inputNewBook.ISBN, inOperation.userID);
+    if (ELibrary.EditBookProperty(targetISBN, inOperation.userID, inputNewBook) == 0)
+        Nlog :: RecordEvent(8, targetISBN, inOperation.userID);
+	return 0;
+}
+int DelBook()
+{
+	long long targetISBN;
+    targetISBN = Nios :: GetNum();
+	ELibrary.DeleteBookByISBN(targetISBN, inOperation.userID);
+	Nlog :: RecordEvent(9, targetISBN, inOperation.userID);
 	return 0;
 }
 int DelUser()
@@ -264,7 +273,7 @@ int procFunc(int p)
 		case -2 : Nios :: ErrorIncorrectOperation(); break;
 		default : break;
 	}
-
+    return 0;
 }
 int main(int argc, char *argv[])
 {

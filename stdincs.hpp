@@ -22,5 +22,5 @@ using namespace std;
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QPushButton>
-
+#include "mainwindow.h"
 #endif

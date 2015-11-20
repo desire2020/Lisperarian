@@ -5,6 +5,7 @@ Namespace: Nlibrary;
 
 *****************************************************/
 #include "stdincs.hpp"
+
 namespace Nlibrary
 {
 	string TLibrary :: NumStr(long long tgNum)
@@ -17,7 +18,7 @@ namespace Nlibrary
 		}
 		return p;
 	}
-	int TLibrary :: AddBook(Tbook inPendingBook, long long userID)
+    int TLibrary :: AddBook(const TBook &inPendingBook, long long userID)
 	{
 		TInnerStruct :: iterator it;
 		it = ISBNTree.find(inPendingBook.ISBN);
@@ -27,7 +28,7 @@ namespace Nlibrary
 		}
 		else
 		{
-			(*it).avaliableNum += inPendingBook.avaliableNum;
+            (*it).second.avaliableNum += inPendingBook.avaliableNum;
 		}
 		return 0;
 	}
@@ -46,23 +47,25 @@ namespace Nlibrary
 	int TLibrary :: BorrowOneSpecificBook(long long tgISBN, long long userID)
 	{
 		TInnerStruct :: iterator it;
-		TUser currentUser;
+        ofstream fo;
+        Nusers :: TUser currentUser;
 		currentUser = EUsers.GetUser(userID);
 		it = ISBNTree.find(tgISBN);
 		if (it == ISBNTree.end())
 			return -2;
 		else
-		if (currentUser.authority < it -> authority)
+        if (currentUser.authority < it -> second.lowerBoundOfAuthority)
 			return -1;
 		else
 		{
-			if ((*it).avaliableNum == 0) return -1;
-			if ((*it).occupyingUsers.find(userID) == (*it).occupyingUsers.end())
+            if ((*it).second.avaliableNum == 0) return -1;
+            if ((*it).second.occupyingUsers.find(userID) == (*it).second.occupyingUsers.end())
 			{
-				(*it).avaliableNum--;
-				(*it).occupyingUsers.insert(userID);
+                (*it).second.avaliableNum--;
+                (*it).second.occupyingUsers.insert(userID);
 				fo.open(("\\books\\" + NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
 				fo << Nios :: SysDateStr() << " " << NumStr(userID) << endl;
+                fo.close();
 			}
 		}
 	}
@@ -73,10 +76,10 @@ namespace Nlibrary
 		it = ISBNTree.find(tgISBN);
 		if (it != ISBNTree.end())
 		{
-			if ((*it).occupyingUsers.find(userID) != (*it).occupyingUsers.end())
+            if ((*it).second.occupyingUsers.find(userID) != (*it).second.occupyingUsers.end())
 			{
-				(*it).avaliableNum++;
-				(*it).occupyingUsers.erase((*it).occupyingUsers.find(userID));
+                (*it).second.avaliableNum++;
+                (*it).second.occupyingUsers.erase((*it).second.occupyingUsers.find(userID));
 			}
 		}
 		else return -2;
@@ -98,10 +101,14 @@ namespace Nlibrary
 			}
 			else
 			{
-				 it -> title = newBook.title;
-				 it -> author = newBook.author;
-				 it -> description = newBook.description;
-				 it -> lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;
+				if (newBook.title != "")
+                    it -> second.title = newBook.title;
+				if (newBook.author != "")
+                    it -> second.author = newBook.author;
+				if (newBook.description != "")
+                    it -> second.description = newBook.description;
+				if (newBook.lowerBoundOfAuthority != -1)
+                    it -> second.lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;
 			}
 		}
 		return 0;
@@ -111,16 +118,14 @@ namespace Nlibrary
 		string information;
 		while (!ResultStack.empty()) ResultStack.pop();
 		TInnerStruct :: iterator it;
-		for (it = ISBNTree.begin(); it != ISBNTree.end; it++)
+        for (it = ISBNTree.begin(); it != ISBNTree.end(); it++)
 		{
-			information = it -> title + it -> author + it -> description;
+            information = it -> second.title + it -> second.author + it -> second.description;
 			if ((information.find(KeyWord1) != string :: npos) && (information.find(KeyWord2) != string :: npos) && (information.find(KeyWord3) != string :: npos))
 			{
-				ResultStack.push(*it);
+                ResultStack.push(it -> second);
 			}
 		}
 		return 0;
 	}
 };
-	
-}

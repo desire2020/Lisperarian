@@ -16,20 +16,19 @@
  10:删除用户。
  11:改变用户状态。
  *********************************/
-#include "stdincs.h"
+#include "stdincs.hpp"
 
 namespace Nlog
 {
-    int Event;
     
     /*-------------------------------------*
      * 函数 : RecordEvent(int Event, long long ID1<< long long ID2
      * 功能 : 日志信息接受、处理、输出
      *-------------------------------------*/
     
-    void RecordEvent(int Event, long long ID1, long long ID2)
+    int RecordEvent(int Event, long long ID1, long long ID2)
     {
-        fileLogs.open("syslog.log");
+        fileLogs.open("syslog.log", ios :: app | ios :: out);
         fileLogs<<Nios::SysDateStr()<<"    ";
         switch (Event) {
             case 0:

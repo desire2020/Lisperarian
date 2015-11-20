@@ -6,6 +6,7 @@ Namespace: Nios;
 *****************************************************/
 #ifndef DEF_IOSYSTEM
 #define DEF_IOSYSTEM
+#include "stdincs.hpp"
 
 namespace Nios{
     
@@ -28,7 +29,7 @@ namespace Nios{
         return time_str;
     }
 
-	(Nusers :: TTime) PresentTime()
+    TTime PresentTime()
 	{
 		time_t second;
         tm* local; //本地时间
@@ -38,7 +39,7 @@ namespace Nios{
         local = localtime(&second); //转为本地时间
         
 		preTime.year = local -> tm_year + 1900;
-		preTime.month = local -> tm_month + 1;
+        preTime.month = local -> tm_mon + 1;
 		preTime.day = local -> tm_mday;
         
         return preTime;

@@ -21,7 +21,7 @@ namespace Nlibrary
 		int lowerBoundOfAuthority;
 		set<long long> occupyingUsers;
 	};
-    stack<TBook> ResultQueue;
+    stack<TBook> ResultStack;
     typedef map<long long, TBook> TInnerStruct;
 	class TLibrary
 	{
@@ -29,7 +29,7 @@ namespace Nlibrary
 		TInnerStruct ISBNTree;
 	public:
 		string NumStr(long long tgNum);
-		int AddBook(TBook inPendingBook, long long userID);
+        int AddBook(const TBook &inPendingBook, long long userID);
 		int DeleteBookByISBN(long long tgISBN, long long userID);
 		int BorrowOneSpecificBook(long long tgISBN, long long userID);
 		int ReturnOneSpecificBook(long long tgISBN, long long userID);
@@ -56,7 +56,7 @@ namespace Nusers
 		int year, month, day;
     };
     typedef map<UIDandISBN, TTime> TInnerUIDISBNTree;
-	TInnerUIDISBNTree UIDandISBNTree;
+    TInnerUIDISBNTree UIDandISBNTree;
 	struct TUser
 	{
 		string userNickname;

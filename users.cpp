@@ -38,13 +38,13 @@ namespace Nusers
 	}
 	TUser TUsers :: GetUser(long long UID) 
 	{
-		if (!CheckUID(UID)) return NULL;
+        //if (!CheckUID(UID)) return NULL;
 		return UIDTree[UID];
 	}
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
 		if (!CheckUID(UID)) return -1;
-		UIDTree[UID].userPassword = encryptingWitMd5(newPassword);
+        UIDTree[UID].userPassword = EncryptingWithMd5(newPassword);
 		return 0;
 	}
 	int TUsers :: ChangeUserNickname(long long UID, string newNickname) 
@@ -53,7 +53,7 @@ namespace Nusers
 		UIDTree[UID].userNickname = newNickname;
 		return 0;
 	}
-	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf) 
+    int TUsers :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf)
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].privateInf = newPrivateInf;
@@ -62,11 +62,11 @@ namespace Nusers
 	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID) 
 	{
 		UIDandISBN temp = make_pair(UID, tgISBN);
-		TInnerUIDandISBN :: iterator it;
-		it = UIDandISBNTree.find(temp);
+        TInnerUIDISBNTree :: iterator it;
+        it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) 
 		{
-			UIDandISBNTree[temp] = PresentTime();
+            UIDandISBNTree[temp] = Nios :: PresentTime();
 			if (!CheckUID(UID)) return -1;
 			UIDTree[UID].occupiedBooks.insert(tgISBN);
 			return 0;
@@ -76,7 +76,7 @@ namespace Nusers
 	int TUsers :: ReturnOneSpecificBook(long long tgISBN, long long UID) 
 	{
 		UIDandISBN temp = make_pair(UID, tgISBN);
-		TInnerUIDandISBN :: iterator it;
+        TInnerUIDISBNTree :: iterator it;
 		it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) return -1;
 		else 
@@ -86,7 +86,7 @@ namespace Nusers
 			return 0;
 		}
 	}
-	int TUesrs :: SetUserAuthority(long long UID, int newAuthority) 
+    int TUsers :: SetUserAuthority(long long UID, int newAuthority)
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].authority = newAuthority;
