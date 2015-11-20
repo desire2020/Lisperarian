@@ -66,11 +66,7 @@ namespace Nusers
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
 		if (!CheckUID(UID)) return -1;
-<<<<<<< HEAD
-        UIDTree[UID].userPassword = EncryptingWithMd5(newPassword);
-=======
 		UIDTree[UID].userPassword = EncryptingWithMd5(newPassword);
->>>>>>> origin/master
 		return 0;
 	}
 	
@@ -80,12 +76,8 @@ namespace Nusers
 		UIDTree[UID].userNickname = newNickname;	
 		return 0;
 	}
-<<<<<<< HEAD
-    int TUsers :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf)
-=======
 	
-	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf) 
->>>>>>> origin/master
+	int TUesrs :: ChangePrivateInf(long long UID, PrivateInformation newPrivateInf)
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].privateInf = newPrivateInf;
@@ -100,14 +92,9 @@ namespace Nusers
         it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) 
 		{
-<<<<<<< HEAD
-            UIDandISBNTree[temp] = Nios :: PresentTime();
-			if (!CheckUID(UID)) return -1;
-=======
 			TTime preTime = PresentTime();
 			UIDandISBNTree[temp] = preTime;
 			Nios :: PrintUserSysRecordBorrow(UID , tgISBN , preTime);
->>>>>>> origin/master
 			UIDTree[UID].occupiedBooks.insert(tgISBN);
 			return 0;
 		}
@@ -124,18 +111,14 @@ namespace Nusers
 		else
 		{
 			TTime preTime = PresentTime();
-			UIDandISBNTree.erase(it);
 			Nios :: PrintUserSysRecordReturn((UID , tgISBN , preTime);
+			UIDandISBNTree.erase(it);
 			UIDTree[UID].occupiedBooks.erase(UIDTree[UID].occupiedBooks.find(tgISBN));
 			return 0;
 		}
 	}
-<<<<<<< HEAD
-    int TUsers :: SetUserAuthority(long long UID, int newAuthority)
-=======
 	
 	int TUesrs :: SetUserAuthority(long long UID, long long newAuthority) 
->>>>>>> origin/master
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].authority = newAuthority;
