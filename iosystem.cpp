@@ -40,10 +40,31 @@ namespace Nios{
 		preTime.year = local -> tm_year + 1900;
 		preTime.month = local -> tm_month + 1;
 		preTime.day = local -> tm_mday;
-        time_str = buf;
-        return time_str;
+        
+        return preTime;
 	}
     
+	string SysInfEncry(const string &originStr)
+	{
+		static string encriedStr = originStr;
+		for (int i = 0; i < encriedStr.length(); i++)
+		{
+			encriedStr[i] ^= easyKey;
+		}
+		return encriedStr;
+	}
+	
+	string SysInfDecry(const string &encriedStr)
+	{
+		static string originStr = encriedStr;
+		for (int i = 0; i < originStr.length(); i++)
+		{
+			originStr[i] ^= easyKey;
+		}
+		return originStr;	
+	}
+	
+	
 }
 
 #endif

@@ -158,13 +158,15 @@ int ChangePassword()
 	long long targetUID;
 	targetUID = Nios :: GetNum();
 	if (!(EUsers.CheckUID(targetUID))) return -1;
-	if (((inOperation.authority == 1) && (inOperation.userID == UID)) || (inOperation.authority >= 2))
+	if (((inOperation.authority == 1) && (inOperation.userID == targetUID)) || (inOperation.authority >= 2))
 	{
 		inputNewPassword = Nios :: GetLine();
 		inputNewPassword2 = Nios :: GetLine();
 		if (inputNewPassword == inputNewPassword2)
 		{	
 			EUsers.ChangePassword(targetUID, inputNewPassword);
+			if (inOperation.userID == targetUID)
+				inOperation = GetUser(targetUID);
 			RecordEvent(6, targetUID, inOperation.userID);
 			return 0;
 		}
