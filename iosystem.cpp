@@ -82,13 +82,13 @@ namespace Nios
 	
 	int PrintTheFileOfInf(Tuser temp)
 	{
-		ofstream theFile(SearchingFile("usersInf\\" , NumStr(temp.userUID) , ".log"));
-			theFile << SysInfEncry(Number(temp.userID)) << endl;
+		ofstream theFile(SearchingFile("users\\usersInf\\" , NumStr(temp.userUID) , ".log"));
+			theFile << SysInfEncry(NumStr(temp.userID)) << endl;
 			theFile << SysInfEncry(temp.userNickname) << endl;
 			theFile << SysInfEncry(temp.userPassword) << endl;
-			theFile << SysInfEncry(temp.authority) << endl;
+			theFile << SysInfEncry(NumStr(temp.authority)) << endl;
 			theFile << SysInfEncry(temp.privateInf.realName) << endl;
-			theFile << SysInfEncry(temp.privateInf.telephoneNumber) << endl;
+			theFile << SysInfEncry(NumStr(temp.privateInf.telephoneNumber)) << endl;
 			theFile << SysInfEncry(temp.privateInf.identificationNumber) << endl;
 		theFile.close();
 		return 0;
@@ -96,12 +96,48 @@ namespace Nios
 	
 	int PrintTheFileOfOccupiedBooks(TUser temp) 
 	{
-		ofstream theFile(SearchingFile("usersOccupiedBooks\\" , NumStr(temp.userUID) , ".log"));
+		ofstream theFile(SearchingFile("users\\usersOccupiedBooks\\" , NumStr(temp.userUID) , ".log"));
 			set<long long> :: iterator it;
 			for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
 			{
 				theFile << *it << endl;
 			}
+		theFile.close();
+		return 0;
+	}
+	
+	int ScanTheUIDInf(long long userID)
+	{
+		ifstream theFile(SearchingFile("users\\usersInf\\" , NumStr(temp.userUID) , ".log"));
+			if (!theFile) return -1;
+			string str;
+			theFile >> str; temp.userID = StrNum(SysInfDecry(str));
+			theFile >> str; temp.userNickname = SysInfDecry(str);
+			theFile >> str; temp.userPassword = SysInfDecry(str);
+			theFile >> str; temp.authority = StrNum(SysInfDecry(str));
+			theFile >> str; temp.privateInf.realName = SysInfDecry(str);
+			theFile >> str; temp.privateInf.telephoneNumber = StrNum(SysInfDecry(str));
+			theFile >> str; temp.privateInf.identificationNumber = SysInfDecry(str);
+		theFile.close();
+		return 0;
+	}
+	
+	int PrintUserSysRecordBorrow(long long userID , long long ISBN , Nusers :: TTime preTime)
+	{
+		ofstream theFile(SearchingFile("users\\usersRB\\" , NumStr(userUID) , ".log") , ios :: app);
+			theFlie << "用户ID：" << userID << "  借书" << endl;
+			theFile << "    书籍ISBN：" << ISNM;
+			theFile << "    日期：" << preTime.year << "." << preTime.month << "." << preTime.day << endl;
+		theFile.close();
+		return 0;
+	}
+	
+	int PrintUserSysRecordReturn(long long userID , long long ISBN , Nusers :: TTime preTime)
+	{
+		ofstream theFile(SearchingFile("users\\usersRB\\" , NumStr(userUID) , ".log") , ios :: app);
+			theFlie << "用户ID：" << userID << "  还书" << endl;
+			theFile << "    书籍ISBN：" << ISNM;
+			theFile << "    日期：" << preTime.year << "." << preTime.month << "." << preTime.day << endl;
 		theFile.close();
 		return 0;
 	}
@@ -113,6 +149,9 @@ namespace Nios
 	
 	int RefreshUserSys(const Nusers :: TUsers &inProgressLib)
 	{
+		ofstream theFile("users\\globalvar.log");
+			theFile << Nusers :: presentUID << endl;
+		theFile.close();
 		TInnerStruct :: iterator it;
 		for (it = inProgressLib.UIDTree.begin(); it != inProgressLib.UIDTree.end(); ++it) 
 		{
@@ -124,7 +163,15 @@ namespace Nios
 	
 	int InitUserSys(TUsers &inProgressLib)
 	{
-		
+		ifstream theFile("users\\globalvar.log");
+			theFile >> Nusers :: presentUID;
+		theFile.close();
+		inProgressLib.clear();
+		for (long long i = Nusers :: INITOFSUM; i <= Nusers :: presentUID; ++i)
+		{
+			ScanTheUIDInf(i);
+			ScanTheUIDOccupiedBooks(i);
+		}
 	}
 }
 

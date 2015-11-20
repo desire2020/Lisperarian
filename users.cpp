@@ -1,8 +1,8 @@
 /* 
-	权限：0 ：未注册用户  对应任务：0 ：0 ，1
-		1 ：普通用户				1 ：2 ，3 ，4
-		2 : 管理员					2 ：2 ，3 ，4 ，5 ，6 ，7
-		3 ：馆长					3 ：2 ，3 ，4 ，5 ，6 ，7 ，8 ，9 ，
+	文件users为根，其下有：
+		usersRB ：用户借还书日志
+		usersInf ：用户的信息（加密储存）
+		usersOccupiedBooks ：用户当前所借的书（加密存储）
 */
 
 #include "stdincs.hpp"
@@ -41,9 +41,9 @@ namespace Nusers
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
 		UIDTree.erase(it);
-		remove(Nios :: SearchingFile("usersRB\\" , Nios :: NumStr(tgUID) , ".log"));
-		remove(Nios :: SearchingFile("usersInf\\" , Nios :: NumStr(tgUID) , ".log"));
-		remove(Nios :: SearchingFile("usersOccupiedBooks\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("users\\usersRB\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("users\\usersInf\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("users\\usersOccupiedBooks\\" , Nios :: NumStr(tgUID) , ".log"));
 		return 0;
 	}
 	
@@ -91,7 +91,7 @@ namespace Nusers
 		{
 			TTime preTime = PresentTime();
 			UIDandISBNTree[temp] = preTime;
-			Nios :: PrintUserSysRecordBorrow(temp , preTime);
+			Nios :: PrintUserSysRecordBorrow(UID , tgISBN , preTime);
 			UIDTree[UID].occupiedBooks.insert(tgISBN);
 			return 0;
 		}
@@ -109,13 +109,13 @@ namespace Nusers
 		{
 			TTime preTime = PresentTime();
 			UIDandISBNTree.erase(it);
-			Nios :: PrintUserSysRecordReturn(temp , preTime);
+			Nios :: PrintUserSysRecordReturn((UID , tgISBN , preTime);
 			UIDTree[UID].occupiedBooks.erase(UIDTree[UID].occupiedBooks.find(tgISBN));
 			return 0;
 		}
 	}
 	
-	int TUesrs :: SetUserAuthority(long long UID, int newAuthority) 
+	int TUesrs :: SetUserAuthority(long long UID, long long newAuthority) 
 	{
 		if (!CheckUID(UID)) return -1;
 		UIDTree[UID].authority = newAuthority;

@@ -52,7 +52,7 @@ namespace Nusers
 	typedef pair<long long, long long> UIDandISBN;
 	struct TTime 
 	{
-		int year, month, day;
+		long long year, month, day;
 	}
 	typedef map<UIDandISBN , TTime> TInnerUIDandISBNTree;
 	TInnerUIDISBNTree UIDandISBNTree;
@@ -62,7 +62,7 @@ namespace Nusers
 		long long userID;
 		TPassword userPassword;
 		set<long long> occupiedBooks;
-		int authority;//it's minus when the user is banned
+		long long authority;//it's minus when the user is banned
 		PrivateInformation privateInf;
 	}
 	typedef map<long long, TUser> TInnerStruct;
@@ -80,7 +80,7 @@ namespace Nusers
 		int ChangePrivateInf(long long UID, PrivateInformation newPrivateInf);
 		int BorrowOneSpecificBook(long long tgISBN, long long UID);
 		int ReturnOneSpecificBook(long long tgISBN, long long UID);
-		int SetUserAuthority(long long UID, int newAuthority);
+		int SetUserAuthority(long long UID, long long newAuthority);
 	}
 	
 }
