@@ -41,8 +41,7 @@ namespace Nios
 		preTime.year = local -> tm_year + 1900;
 		preTime.month = local -> tm_month + 1;
 		preTime.day = local -> tm_mday;
-        time_str = buf;
-        return time_str;
+        return preTime;
 	}
 	
 	string SysInfEncry(const string &originStr)
@@ -59,6 +58,52 @@ namespace Nios
 		int lengthOfStr = encriedStr.length();
 		for (int i = 0; i < lengthOfStr; ++i) originStr[i] = originStr[i] ^ constOfKey;
 		return originStr;
+	}	
+	
+	string NumStr(long long userID)
+	{
+		string p = "";
+		while (userID > 0) {
+			p = char(userID % 10 + '0') + p;
+			userID /= 10;
+		}
+		return p;
+	}
+	
+	char *SearchingFile(string s1 , long long userID , string s3) 
+	{
+		string s2 = NumStr(userID);
+		string ss = s1 + s2 + s3;
+		char str[30];
+		int len = ss.length();
+		for (int i = 0; i < len; ++i) str[i] = ss[i]; str[len] = '\0';
+		return str;
+	}
+	
+	int PrintTheFileOfInf(Tuser temp)
+	{
+		ofstream theFile(SearchingFile("usersInf\\" , NumStr(temp.userUID) , ".log"));
+			theFile << SysInfEncry(Number(temp.userID)) << endl;
+			theFile << SysInfEncry(temp.userNickname) << endl;
+			theFile << SysInfEncry(temp.userPassword) << endl;
+			theFile << SysInfEncry(temp.authority) << endl;
+			theFile << SysInfEncry(temp.privateInf.realName) << endl;
+			theFile << SysInfEncry(temp.privateInf.telephoneNumber) << endl;
+			theFile << SysInfEncry(temp.privateInf.identificationNumber) << endl;
+		theFile.close();
+		return 0;
+	}
+	
+	int PrintTheFileOfOccupiedBooks(TUser temp) 
+	{
+		ofstream theFile(SearchingFile("usersOccupiedBooks\\" , NumStr(temp.userUID) , ".log"));
+			set<long long> :: iterator it;
+			for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
+			{
+				theFile << *it << endl;
+			}
+		theFile.close();
+		return 0;
 	}
 	
 	int CypInit()
@@ -68,7 +113,13 @@ namespace Nios
 	
 	int RefreshUserSys(const Nusers :: TUsers &inProgressLib)
 	{
-		
+		TInnerStruct :: iterator it;
+		for (it = inProgressLib.UIDTree.begin(); it != inProgressLib.UIDTree.end(); ++it) 
+		{
+			PrintTheFileOfInf(*it);
+			PrintTheFileOfOccupiedBooks(*it);
+		}
+		return 0;
 	}
 	
 	int InitUserSys(TUsers &inProgressLib)

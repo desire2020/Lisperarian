@@ -9,25 +9,6 @@
 
 namespace Nusers 
 {
-	char str[30];
-	
-	string NumStr(long long userID)
-	{
-		string p = "";
-		while (userID > 0) {
-			p = char(userID % 10 + '0') + p;
-			userID /= 10;
-		}
-		return p;
-	}
-	
-	char *SearchingFile(string s1 , long long userID , string s3) {
-		string s2 = NumStr(userID);
-		string ss = s1 + s2 + s3;
-		int len = ss.length();
-		for (int i = 0; i < len; ++i) str[i] = ss[i]; str[len] = '\0';
-		return str;
-	}
 
 	bool TUsers :: CheckUID(long long UID) 
 	{
@@ -42,27 +23,27 @@ namespace Nusers
 		TUser &temp = inPendingUser;
 		temp.userPassword = EncryptingWithMd5(temp.userPassword);
 		UIDTree[++presentUID] = inPendingUser;
-		ofstream theFile(SearchingFile("usersRB\\" , presentUID , ".log"));
-		theFile.close();
-		ofstream theFile(SearchingFile("usersInf\\" , presentUID , ".log"));
-			theFile << EncryptingWithXor(temp.presentUID) << endl;
-			theFile << EncryptingWithXor(temp.userNickname) << endl;
-			theFile << EncryptingWithXor(temp.userPassword) << endl;
-			theFile << EncryptingWithXor(temp.authority) << endl;
-			theFile << EncryptingWithXor(temp.privateInf.realName) << endl;
-			theFile << EncryptingWithXor(temp.privateInf.telephoneNumber) << endl;
-			theFile << EncryptingWithXor(temp.privateInf.identificationNumber) << endl;
-		theFile.close();
 		return 0;
 	}
 	
 	int TUsers :: DeleteUserByUID(long long tgUID, long long UID) 
 	{
 		if (!CheckUID(tgUID)) return -1;
+		Tuser &temp = UIDTree[tgUID];
+		set<long long> :: iterator that;
+		for (that = temp.occupiedBooks.begin(); that != temp.occupiedBooks.end(); ++that)
+		{
+			UIDandISBN now = make_pair<tgUID , *that>;
+			TInnerUIDandISBN :: iterator its;
+			its = UIDandISBNTree.find(now);
+			if (its != UIDandISBNTree.end()) UIDandISBNTree.erase(its);
+		}			//删除TInnerUIDandISBN中对应的元素
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
 		UIDTree.erase(it);
-		remove(SearchingFile("usersRB\\" , tgUID , ".log"));
+		remove(Nios :: SearchingFile("usersRB\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("usersInf\\" , Nios :: NumStr(tgUID) , ".log"));
+		remove(Nios :: SearchingFile("usersOccupiedBooks\\" , Nios :: NumStr(tgUID) , ".log"));
 		return 0;
 	}
 	
@@ -89,7 +70,7 @@ namespace Nusers
 	int TUsers :: ChangeUserNickname(long long UID, string newNickname) 
 	{
 		if (!CheckUID(UID)) return -1;
-		UIDTree[UID].userNickname = newNickname;
+		UIDTree[UID].userNickname = newNickname;	
 		return 0;
 	}
 	
@@ -102,13 +83,15 @@ namespace Nusers
 	
 	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID) 
 	{
+		if (!CheckUID(UID)) return -1;
 		UIDandISBN temp = make_pair(UID, tgISBN);
 		TInnerUIDandISBN :: iterator it;
 		it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) 
 		{
-			UIDandISBNTree[temp] = PresentTime();
-			if (!CheckUID(UID)) return -1;
+			TTime preTime = PresentTime();
+			UIDandISBNTree[temp] = preTime;
+			Nios :: PrintUserSysRecordBorrow(temp , preTime);
 			UIDTree[UID].occupiedBooks.insert(tgISBN);
 			return 0;
 		}
@@ -117,13 +100,16 @@ namespace Nusers
 	
 	int TUsers :: ReturnOneSpecificBook(long long tgISBN, long long UID) 
 	{
+		if (!CheckUID(UID)) return -1;
 		UIDandISBN temp = make_pair(UID, tgISBN);
 		TInnerUIDandISBN :: iterator it;
 		it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) return -1;
-		else 
+		else
 		{
-			if (!CheckUID(UID)) return -1;
+			TTime preTime = PresentTime();
+			UIDandISBNTree.erase(it);
+			Nios :: PrintUserSysRecordReturn(temp , preTime);
 			UIDTree[UID].occupiedBooks.erase(UIDTree[UID].occupiedBooks.find(tgISBN));
 			return 0;
 		}
