@@ -116,19 +116,19 @@ namespace Nios
 		{
 			if (!theFile) return -1;
 			string str;
-            theFile >> str; inProgressLib.UIDTree[userID].userID = StrNum(SysInfDecry(str));
-            theFile >> str; inProgressLib.UIDTree[userID].userNickname = SysInfDecry(str);
-            theFile >> str; inProgressLib.UIDTree[userID].userPassword = SysInfDecry(str);
-            theFile >> str; inProgressLib.UIDTree[userID].authority = StrNum(SysInfDecry(str));
-            theFile >> str; inProgressLib.UIDTree[userID].privateInf.realName = SysInfDecry(str);
-            theFile >> str; inProgressLib.UIDTree[userID].privateInf.telephoneNumber = StrNum(SysInfDecry(str));
-            theFile >> str; inProgressLib.UIDTree[userID].privateInf.identificationNumber = SysInfDecry(str);
+            getline(theFile, str); inProgressLib.UIDTree[userID].userID = StrNum(SysInfDecry(str));
+            getline(theFile, str); inProgressLib.UIDTree[userID].userNickname = SysInfDecry(str);
+            getline(theFile, str); inProgressLib.UIDTree[userID].userPassword = SysInfDecry(str);
+            getline(theFile, str); inProgressLib.UIDTree[userID].authority = StrNum(SysInfDecry(str));
+            getline(theFile, str); inProgressLib.UIDTree[userID].privateInf.realName = SysInfDecry(str);
+            getline(theFile, str); inProgressLib.UIDTree[userID].privateInf.telephoneNumber = StrNum(SysInfDecry(str));
+            getline(theFile, str); inProgressLib.UIDTree[userID].privateInf.identificationNumber = SysInfDecry(str);
 		}
 		theFile.close();
 		return 0;
 	}
 	
-    int ScanTheUIDOccupiedBooks(long long userID , Nusers :: TUsers &inProgressLib)
+    int ScanTheUIDOccupiedBooks(long long userID, Nusers :: TUsers &inProgressLib)
 	{
         ifstream theFile(("\\users\\usersOccupiedBooks\\" + NumStr(userID) + ".log").c_str());
 		{
@@ -143,9 +143,9 @@ namespace Nios
 		return 0;
 	}
 	
-	int PrintUserSysRecordBorrow(long long userID , long long ISBN , Nusers :: TTime preTime)
+	int PrintUserSysRecordBorrow(long long userID, long long ISBN, Nusers :: TTime preTime)
 	{
-        ofstream theFile(("\\users\\usersRB\\" + NumStr(userID) + ".log").c_str() , ios :: app);
+        ofstream theFile(("\\users\\usersRB\\" + NumStr(userID) + ".log").c_str(), ios :: app);
             theFile << "用户ID：" << userID << "  借书" << endl;
             theFile << "    书籍ISBN：" << ISBN;
 			theFile << "    日期：" << preTime.year << "." << preTime.month << "." << preTime.day << endl;
@@ -153,9 +153,9 @@ namespace Nios
 		return 0;
 	}
 	
-	int PrintUserSysRecordReturn(long long userID , long long ISBN , Nusers :: TTime preTime)
+	int PrintUserSysRecordReturn(long long userID, long long ISBN, Nusers :: TTime preTime)
 	{
-        ofstream theFile(("\\users\\usersRB\\" + NumStr(userID) + ".log").c_str() , ios :: app);
+        ofstream theFile(("\\users\\usersRB\\" + NumStr(userID) + ".log").c_str(), ios :: app);
 		{
             theFile << "用户ID：" << userID << "  还书" << endl;
             theFile << "    书籍ISBN：" << ISBN;

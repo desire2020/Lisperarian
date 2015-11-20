@@ -79,6 +79,7 @@ namespace Nusers
 		int BorrowOneSpecificBook(long long tgISBN, long long UID);
 		int ReturnOneSpecificBook(long long tgISBN, long long UID);
 		int SetUserAuthority(long long UID, long long newAuthority);
+		bool KeepingTimedOut(long long UID);
     };
 
 }
