@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     users.cpp \
     users_md5.cpp \
     wlogin.cpp \
-    interface.cpp
+    interface.cpp \
+    wsignin.cpp
 
 HEADERS  += mainwindow.h \
     classes.hpp \
@@ -28,7 +29,9 @@ HEADERS  += mainwindow.h \
     globalvar.hpp \
     stdincs.hpp \
     wlogin.h \
-    interface.hpp
+    interface.hpp \
+    wsignin.h
 
 FORMS    += mainwindow.ui \
-    wlogin.ui
+    wlogin.ui \
+    wsignin.ui

@@ -10,26 +10,28 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui -> setupUi(this);
     this -> setWindowFlags(Qt :: FramelessWindowHint);
-    this -> setStyleSheet("background:FloralWhite");
-    this -> setGeometry(QRect(0, 0, 800, 600));
+    this -> setStyleSheet("background:Azure; border:8 outset RoyalBlue");
+    this -> setGeometry(QRect(500, 300, 800, 600));
     btExit = new QPushButton(this);
     btExit -> setText("关闭");
     btExit -> setGeometry(QRect(600, 500, 141, 91));
     btExit -> setFont(btFont);
-    btExit -> setStyleSheet("background:FloralWhite");
+    btExit -> setStyleSheet("background:LightCyan");
     welcomeWord = new QLabel(this);
     welcomeWord -> setFont(btFont);
     welcomeWord -> setText("欢迎使用Lisperarian");
-    welcomeWord -> setGeometry(QRect(10, 0, 800, 91));
+    welcomeWord -> setGeometry(QRect(70, 10, 500, 91));
+    welcomeWord -> setStyleSheet("background:Azure; border:0 double Black");
     userName = new QLabel(this);
     userName -> setFont(btFont);
-    userName -> setGeometry(QRect(10, 100, 800, 91));
+    userName -> setGeometry(QRect(70, 120, 500, 91));
     userName -> setText("游客");
+    userName -> setStyleSheet("background:Azure; border:0 double Black");
     btLogin = new QPushButton(this);
     btLogin -> setText("登录");
     btLogin -> setGeometry(QRect(600, 400, 141, 91));
     btLogin -> setFont(btFont);
-    btLogin -> setStyleSheet("background:FloralWhite");
+    btLogin -> setStyleSheet("background:LightCyan");
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
 }

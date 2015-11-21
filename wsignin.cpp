@@ -1,19 +1,20 @@
-#include "wlogin.h"
+#include "wsignin.h"
 #include "interface.hpp"
 #include "classes.hpp"
 #include "globalvar.hpp"
-#include "ui_wlogin.h"
+#include "ui_wsignin.h"
 
-WLogin::WLogin(QWidget *parent) :
+WSignin::WSignin(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::WLogin)
+    ui(new Ui::WSignin)
 {
     ui->setupUi(this);
     setMinimumSize(280,150);
     setMaximumSize(280,150);
     this -> setStyleSheet("background:Azure");
     usrLabel = new QLabel(tr("userID："));
-    pwdLabel = new QLabel(tr("密　码："));
+    pwd1Label = new QLabel(tr("密　码："));
+    pwd2Label = new QLabel(tr("确认密码："));
     usrLineEdit = new QLineEdit;
     pwdLineEdit = new QLineEdit;
     pwdLineEdit->setEchoMode(QLineEdit::Password);
@@ -41,7 +42,7 @@ WLogin::WLogin(QWidget *parent) :
 
 
 }
-void WLogin :: accept()
+void WSignin :: accept()
 {
     int message;
     long long num;
@@ -63,7 +64,7 @@ void WLogin :: accept()
         usrLineEdit->setFocus();
     }
 }
-WLogin::~WLogin()
+WSignin::~WSignin()
 {
     delete ui;
 }

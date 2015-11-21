@@ -20,7 +20,7 @@
 #include "globalvar.hpp"
 #include "constants.hpp"
 #include "classes.hpp"
-
+#define currentDir string("D:\\library\\")
 namespace Nlog
 {
     
@@ -31,7 +31,7 @@ namespace Nlog
     ofstream fileLogs;
     int RecordEvent(int Event, long long ID1, long long ID2)
     {
-        fileLogs.open("syslog.log", ios :: app | ios :: out);
+        fileLogs.open((currentDir + "syslog.log").c_str(), ios :: app | ios :: out);
         fileLogs<<Nios::SysDateStr()<<"    ";
         switch (Event) {
             case 0:
