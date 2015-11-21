@@ -124,4 +124,27 @@ namespace Nusers
 		UIDTree[UID].authority = newAuthority;
 		return 0;
 	}
+	
+	bool KeepingTimedOut(long long UID)
+	{
+		if (!CheckUID(UID)) return -1;
+		TUser &temp = GetUser(UID);
+		set<long long> :: iterator it;
+		for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
+		{
+			long long ISBN = *it;
+			UIDandISBN wht = make_pair(UID , ISBN);
+			TInnerUIDandISBNTree :: iterator its;
+			its = UIDandISBNTree.find(now);
+			if (its != UIDandISBNTree.end()) 
+			{
+				TTime preTime = (*its).second;
+				TTime nowTime = Nios :: PresentTime();
+				if (preTime.year + 1 < nowTime.year) return true;
+				if (preTime.year + 1 == nowTime.year && nowTime.yday + 365 - preTime.yday > keepPeriod) return true;
+				if (preTime.year == nowTime.year && nowTime.yday - preTime.yday > keepPeriod) return true;
+			}
+		}
+		return true;
+	}
 }

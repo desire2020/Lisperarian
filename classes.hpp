@@ -50,6 +50,7 @@ namespace Nusers
 	struct TTime 
 	{
 		long long year, month, day;
+		long long yday;
     };
 	typedef map<UIDandISBN , TTime> TInnerUIDandISBNTree;
 

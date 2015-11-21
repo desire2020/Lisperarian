@@ -44,6 +44,7 @@ namespace Nios
 		preTime.year = local -> tm_year + 1900;
         preTime.month = local -> tm_mon + 1;
 		preTime.day = local -> tm_mday;
+		preTime.yday = local -> tm_yday;
         return preTime;
 	}
 	
