@@ -108,6 +108,7 @@ int Logout()
 	inOperation.privateInf.realName = "";
 	inOperation.privateInf.telephoneNumber = 0;
     inOperation.privateInf.identificationNumber = "";
+	Finalization();
 	return 0;
 }
 int BorBook()
@@ -238,40 +239,41 @@ int ChangeUserAuthority()
 	switch(workingMode)
 	{
 		case MODE_BAN : EUsers.SetUserAuthority(targetUID, -targetUser.authority); break;
-		case MODE_UPGRADE : EUsers.SetUserAuthority(targetUID, 2); break;
-		case MODE_DEGRADE : EUsers.SetUserAuthority(targetUID, 1); break;
-		case MODE_ASSITANT : EUsers.SetUserAuthority(targetUID, 3); break;
-		default : break;
-	}
-	return 0;
+        case MODE_UPGRADE : EUsers.SetUserAuthority(targetUID, 2); break;
+        case MODE_DEGRADE : EUsers.SetUserAuthority(targetUID, 1); break;
+        case MODE_ASSITANT : EUsers.SetUserAuthority(targetUID, 3); break;
+        default : break;
+    }
+    return 0;
 }
 int SearchBookByKeyword()
 {
-	string KeyWord1, KeyWord2, KeyWord3;
-	KeyWord1 = Nios :: GetLine();
-	KeyWord2 = Nios :: GetLine();
-	KeyWord3 = Nios :: GetLine();
-	ELibrary.SearchBook(KeyWord1, KeyWord2, KeyWord3);
-	Nios :: ShowBookRequired();
-	return 0;
+    string KeyWord1, KeyWord2, KeyWord3;
+    KeyWord1 = Nios :: GetLine();
+    KeyWord2 = Nios :: GetLine();
+    KeyWord3 = Nios :: GetLine();
+    ELibrary.SearchBook(KeyWord1, KeyWord2, KeyWord3);
+    Nios :: ShowBookRequired();
+    return 0;
 }
 int procFunc(int p)
 {
     int message;
-	if (CheckAuthority(p, inOperation))
-	switch(p)
-	{
-		case 0 : message = SignIn(); break;
-		case 1 : message = Login(); break;
-		case 2 : message = Logout(); break;
+    if (CheckAuthority(p, inOperation))
+    switch(p)
+    {
+        case 0 : message = SignIn(); break;
+        case 1 : message = Login(); break;
+        case -2 : message = Finalization(); break;
+        case 2 : message = Logout(); break;
         case -3 : message = SearchBookByKeyword();break;
-		case 3 : message = BorBook(); break;
-		case 4 : message = RetBook(); break; 
+        case 3 : message = BorBook(); break;
+        case 4 : message = RetBook(); break;
 		case 5 : message = ChangeNickName(); break;
 		case 6 : message = ChangePassword(); break;
 		case 7 : message = AddBook(); break;
 		case 8 : message = DelBook(); break;
-		case 9 : message = EditBook(); break;
+        case 9 : message = EditBook(); break;
 		case 10 : message = DelUser(); break;
 		case 11 : message = ChangeUserAuthority(); break;
 		default : break;
@@ -287,11 +289,11 @@ int procFunc(int p)
 int main(int argc, char *argv[])
 {
 	int p;
-	Initialization();
+    Initialization();
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
 	p = a.exec();
-	Finalization();
+    //Finalization();
 	return p;
 }

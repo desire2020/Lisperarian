@@ -17,16 +17,15 @@ namespace Nlibrary
 		long long ISBN;
 		string author;
 		string description;
-		int avaliableNum;
-		int lowerBoundOfAuthority;
+		long long avaliableNum;
+		long long lowerBoundOfAuthority;
 		set<long long> occupyingUsers;
 	};
     typedef map<long long, TBook> TInnerStruct;
 	class TLibrary
 	{
-    private:
-		TInnerStruct ISBNTree;
     public:
+		TInnerStruct ISBNTree;
 		string NumStr(long long tgNum);
         int AddBook(const TBook &inPendingBook, long long userID);
 		int DeleteBookByISBN(long long tgISBN, long long userID);

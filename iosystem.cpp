@@ -167,7 +167,7 @@ namespace Nios
 	
     int RefreshUserSys(Nusers :: TUsers &inProgressLib)
 	{
-        ofstream theFile("\\users\\globalvar.log");
+        ofstream theFile("\\users\\globalvar.ini");
 		{
             theFile << presentUID << endl;
 		}
@@ -185,7 +185,16 @@ namespace Nios
 	
     int InitUserSys(Nusers :: TUsers &inProgressLib)
 	{
-        ifstream theFile("\\users\\globalvar.log");
+        fstream theFile("\\users\\globalvar.ini", ios :: in);
+		if (!theFile)
+		{
+			theFile.open("\\users\\globalvar.ini", ios :: out);
+            presentUID = Nusers :: INITOFSUM;
+            theFile << presentUID << endl;
+			theFile.close();
+			return 0;
+		}
+		else
 		{
             theFile >> presentUID;
 		}
@@ -202,11 +211,90 @@ namespace Nios
             ScanTheUIDOccupiedBooks(i, inProgressLib);
 		}
 	}
-
-    int InitBookSys(Nlibrary::TLibrary &inProgressLib)
+    int InitBookSys(Nlibrary :: TLibrary &inProgressLib)
     {
-
+		fstream theFile("\\library\\Book.db", ios :: in);
+		if (!theFile)
+		{
+			theFile.open("\\library\\Book.db", ios :: out);
+			theFile.close();
+			return 0;
+		}
+		Nlibrary :: TBook inProgressBook;
+		while(!theFile.eof())
+		{
+			long long ll;
+			getline(theFile, inProgressBook.title);
+			theFile >> inProgressBook.ISBN;
+			getline(theFile, inProgressBook.author);
+			getline(theFile, inProgressBook.description);
+            theFile >> inProgressBook.avaliableNum;
+            theFile >> inProgressBook.lowerBoundOfAuthority;
+			do
+			{
+				theFile >> ll;
+				if (ll != -1)
+				{
+					inProgressBook.occupyingUsers.insert(ll);
+				}
+			}
+			while (ll != -1);
+            inProgressLib.AddBook(inProgressBook, Nusers :: INITOFSUM);
+		}
+		theFile.close();
+		return 0;
     }
+	int PrintOneSpecificBook(fstream &fout, Nlibrary :: TBook &targetBook)
+	{
+		fout << targetBook.title << endl;
+		fout << targetBook.ISBN << endl;
+		fout << targetBook.author << endl;
+		fout << targetBook.description << endl;
+		fout << targetBook.avaliableNum << endl;
+		fout << targetBook.lowerBoundOfAuthority << endl;
+		set<long long> :: iterator it;
+		for (it = targetBook.occupyingUsers.begin(); it != targetBook.occupyingUsers.end(); it++)
+		{
+			fout << *it << endl;
+		}
+		fout << -1 << endl;
+	}
+	int RefreshBookSys(Nlibrary :: TLibrary &inProgressLib)
+	{
+		fstream theFile("\\library\\Book.db", ios :: out);
+		Nlibrary :: TInnerStruct :: iterator it;
+		for (it = inProgressLib.ISBNTree.begin(); it != inProgressLib.ISBNTree.end(); it++)
+		{
+            PrintOneSpecificBook(theFile, it -> second);
+		}
+		theFile.close();
+		return 0;
+	}
+	long long GetNum()
+	{
+		long long GottenInt;
+		return GottenInt;
+	}
+	string GetLine()
+	{
+		string GottenStr;
+		return GottenStr;
+	}	
+	int ShowBookRequired()
+	{
+		return 0;
+	}
+	int ErrorInvalidTarget()
+	{
+		return 0;
+	}
+    int ErrorIncorrectOperation()
+	{
+		return 0;
+	}
+	int Welcome(const string &nickname)
+	{
+		return 0;
+	}
 }
-
 #endif

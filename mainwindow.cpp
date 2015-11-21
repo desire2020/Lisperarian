@@ -9,9 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui -> setupUi(this);
     this -> setWindowFlags(Qt :: FramelessWindowHint);
     this -> setStyleSheet("background:CornflowerBlue");
+    this -> setGeometry(QRect(0,0,1920,1080));
     btExit = new QPushButton(this);
     btExit -> setText("关闭");
-    btExit -> setGeometry(QRect(860,480,141,91));
+    btExit -> setGeometry(QRect(1280,700,141,91));
     btExit -> setFont(btFont);
     btExit -> setStyleSheet("background:FloralWhite");
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
