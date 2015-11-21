@@ -325,13 +325,25 @@ namespace Nios
         queueStr.pop();
 		return GottenStr;
 	}	
-	int ShowBookRequired()
-	{
-		return 0;
-	}
 	int Welcome(const string &nickname)
 	{
 		return 0;
 	}
+    string ShowBookRequired()
+    {
+        if (ResultStack.empty())
+        {
+            return string("没有符合条件的书。");
+        }
+        string ss("");
+        Nlibrary :: TBook inProc;
+        while (!ResultStack.empty())
+        {
+            inProc = ResultStack.top();
+            ResultStack.pop();
+            ss += "ISBN: " + NumStr(inProc.ISBN) + "\n";
+        }
+        return ss;
+    }
 }
 #endif

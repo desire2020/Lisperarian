@@ -247,7 +247,6 @@ int SearchBookByKeyword()
     KeyWord2 = Nios :: GetLine();
     KeyWord3 = Nios :: GetLine();
     ELibrary.SearchBook(KeyWord1, KeyWord2, KeyWord3);
-    Nios :: ShowBookRequired();
     return 0;
 }
 int procFunc(int p)

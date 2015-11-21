@@ -8,6 +8,7 @@
 #include "wlogin.h"
 #include "wsignin.h"
 #include "wgeneral1num.h"
+#include "wsearch.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,7 @@ private:
     WLogin w2;
     WSignin w3;
     WGeneral1Num w4;
+    WSearch w5;
     QPoint last;
 private slots:
     void showw2();
@@ -39,7 +41,7 @@ private slots:
     void Refresh();
     void Borrow();
     void GiveBack();
-   // void SearchB();
+    void SearchB();
 };
 
 #endif // MAINWINDOW_H

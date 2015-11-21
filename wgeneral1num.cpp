@@ -12,7 +12,7 @@ WGeneral1Num::WGeneral1Num(QWidget *parent) :
     setMinimumSize(800,100);
     setMaximumSize(800,100);
     setWindowTitle("");
-    numLabel = new QLabel(tr("目标"));
+    numLabel = new QLabel(tr("目标编号"));
     numLineEdit = new QLineEdit;
     numLineEdit -> setMaxLength(35);
 

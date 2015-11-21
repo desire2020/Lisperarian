@@ -52,12 +52,18 @@ MainWindow::MainWindow(QWidget *parent) :
     btRetBook -> setText("归还图书");
     btRetBook -> setFont(btFont);
     btRetBook -> setStyleSheet("background:LightCyan");
+    btSearchBook = new QPushButton(this);
+    btSearchBook -> setGeometry(QRect(380, 70, 151, 61));
+    btSearchBook -> setText("搜索图书");
+    btSearchBook -> setFont(btFont);
+    btSearchBook -> setStyleSheet("background:LightCyan");
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
     connect(btSignin, SIGNAL(clicked()), this, SLOT(showw3()));
     connect(btRefresh, SIGNAL(clicked()), this, SLOT(Refresh()));
     connect(btBorBook, SIGNAL(clicked()), this, SLOT(Borrow()));
     connect(btRetBook, SIGNAL(clicked()), this, SLOT(GiveBack()));
+    connect(btSearchBook, SIGNAL(clicked()), this, SLOT(SearchB()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -119,6 +125,15 @@ void MainWindow :: GiveBack()
         QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
 
 }
+void MainWindow :: SearchB()
+{
+    if (CheckAuthority(-3, inOperation))
+        w5.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;

@@ -24,6 +24,14 @@ public:
 
 private:
     Ui::WSearch *ui;
+    QLineEdit *wd1LineEdit, *wd2LineEdit, *wd3LineEdit;
+    QLabel *wd1Label, *wd2Label, *wd3Label;
+    QGridLayout *gridlayout;
+    QPushButton *okBtn;
+    QPushButton *cancelBtn;
+    QVBoxLayout *vboxLayout;
+private slots:
+    virtual void accept();
 };
 
 #endif // WSEARCH_H
