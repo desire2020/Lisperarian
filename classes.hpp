@@ -97,9 +97,9 @@ namespace Nios
 	string GetLine();
 	long long GetNum();
 	int CypInit();
-	int RefreshUserSys(const Nusers :: TUsers &inProgressLib);
+    int RefreshUserSys(Nusers :: TUsers &inProgressLib);
     int InitUserSys(Nusers :: TUsers &inProgressLib);
-	int RefreshBookSys(const Nlibrary :: TLibrary &inProgressLib);
+    int RefreshBookSys(Nlibrary :: TLibrary &inProgressLib);
     int PrintUserSysRecordBorrow(long long userID , long long ISBN , Nusers :: TTime preTime);
     int PrintUserSysRecordReturn(long long userID , long long ISBN , Nusers :: TTime preTime);
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib);

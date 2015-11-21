@@ -1,4 +1,8 @@
-﻿基本的模块：
+﻿使用到的库:
+STL
+zlib
+
+基本的模块：
 schedule.cpp
 命名空间:Nschedule
 
