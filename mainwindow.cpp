@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui -> setupUi(this);
     this -> setWindowFlags(Qt :: FramelessWindowHint);
     this -> setStyleSheet("background:Azure");
-    this -> setGeometry(QRect(500, 300, 800, 600));
+    //this -> setGeometry(QRect(500, 300, 800, 600));
     btExit = new QPushButton(this);
     btExit -> setText("关闭");
     btExit -> setGeometry(QRect(600, 500, 141, 91));
