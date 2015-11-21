@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include "wlogin.h"
+#include "wsignin.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +27,12 @@ protected:
 private:
     Ui::MainWindow *ui;
     WLogin w2;
+    WSignin w3;
     QPushButton *btLogin, *btExit, *btSignin;
     QPoint last;
 private slots:
     void showw2();
+    void showw3();
 };
 
 #endif // MAINWINDOW_H

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui -> setupUi(this);
     this -> setWindowFlags(Qt :: FramelessWindowHint);
-    this -> setStyleSheet("background:Azure; border:8 outset RoyalBlue");
+    this -> setStyleSheet("background:Azure");
     this -> setGeometry(QRect(500, 300, 800, 600));
     btExit = new QPushButton(this);
     btExit -> setText("关闭");
@@ -32,8 +32,14 @@ MainWindow::MainWindow(QWidget *parent) :
     btLogin -> setGeometry(QRect(600, 400, 141, 91));
     btLogin -> setFont(btFont);
     btLogin -> setStyleSheet("background:LightCyan");
+    btSignin = new QPushButton(this);
+    btSignin -> setText("注册");
+    btSignin -> setGeometry(QRect(600, 100, 141, 91));
+    btSignin -> setFont(btFont);
+    btSignin -> setStyleSheet("background:LightCyan");
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
+    connect(btSignin, SIGNAL(clicked()), this, SLOT(showw3()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -55,6 +61,10 @@ void MainWindow :: mouseReleaseEvent(QMouseEvent *e)
 void MainWindow :: showw2()
 {
     w2.show();
+}
+void MainWindow :: showw3()
+{
+    w3.show();
 }
 
 MainWindow::~MainWindow()
