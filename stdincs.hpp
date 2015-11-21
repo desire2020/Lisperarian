@@ -10,6 +10,7 @@
 #include <map>
 #include <list>
 #include <utility>
+#include <queue>
 #include <stack>
 #include <algorithm>
 #include <set>
@@ -18,6 +19,14 @@ using namespace std;
 #include <QApplication>
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QWidget>
+#include <QLabel>
+#include <QGridLayout>
+#include <QLineEdit>
 #include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QMessageBox>
 #include "mainwindow.h"
+#include "interface.hpp"
 #endif

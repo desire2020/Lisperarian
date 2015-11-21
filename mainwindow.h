@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QPushButton>
+#include <QLabel>
+#include "wlogin.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,6 +17,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    QLabel *welcomeWord, *userName;
     ~MainWindow();
 protected:
     void mousePressEvent(QMouseEvent *e);
@@ -22,8 +25,11 @@ protected:
     void mouseReleaseEvent(QMouseEvent *e);
 private:
     Ui::MainWindow *ui;
+    WLogin w2;
     QPushButton *btLogin, *btExit;
     QPoint last;
+private slots:
+    void showw2();
 };
 
 #endif // MAINWINDOW_H

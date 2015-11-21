@@ -18,12 +18,17 @@ SOURCES += main.cpp\
     library.cpp \
     log.cpp \
     users.cpp \
-    users_md5.cpp
+    users_md5.cpp \
+    wlogin.cpp \
+    interface.cpp
 
 HEADERS  += mainwindow.h \
     classes.hpp \
     constants.hpp \
     globalvar.hpp \
-    stdincs.hpp
+    stdincs.hpp \
+    wlogin.h \
+    interface.hpp
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    wlogin.ui
