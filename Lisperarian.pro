@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     users_md5.cpp \
     wlogin.cpp \
     interface.cpp \
-    wsignin.cpp
+    wsignin.cpp \
+    wgeneral1num.cpp \
+    wsearch.cpp
 
 HEADERS  += mainwindow.h \
     classes.hpp \
@@ -30,8 +32,12 @@ HEADERS  += mainwindow.h \
     stdincs.hpp \
     wlogin.h \
     interface.hpp \
-    wsignin.h
+    wsignin.h \
+    wgeneral1num.h \
+    wsearch.h
 
 FORMS    += mainwindow.ui \
     wlogin.ui \
-    wsignin.ui
+    wsignin.ui \
+    wgeneral1num.ui \
+    wsearch.ui

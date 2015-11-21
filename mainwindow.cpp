@@ -3,7 +3,7 @@
 #include "classes.hpp"
 #include "ui_mainwindow.h"
 
-QFont btFont("微软雅黑", 22);
+QFont btFont("微软雅黑", 17);
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -37,9 +37,27 @@ MainWindow::MainWindow(QWidget *parent) :
     btSignin -> setGeometry(QRect(600, 100, 141, 91));
     btSignin -> setFont(btFont);
     btSignin -> setStyleSheet("background:LightCyan");
+    btRefresh = new QPushButton(this);
+    btRefresh -> setText("刷新");
+    btRefresh -> setGeometry(QRect(690, 20, 90, 70));
+    btRefresh -> setFont(btFont);
+    btRefresh -> setStyleSheet("background:LightCyan");
+    btBorBook = new QPushButton(this);
+    btBorBook -> setGeometry(QRect(380, 140, 151, 61));
+    btBorBook -> setText("借阅图书");
+    btBorBook -> setFont(btFont);
+    btBorBook -> setStyleSheet("background:LightCyan");
+    btRetBook = new QPushButton(this);
+    btRetBook -> setGeometry(QRect(380, 210, 151, 61));
+    btRetBook -> setText("归还图书");
+    btRetBook -> setFont(btFont);
+    btRetBook -> setStyleSheet("background:LightCyan");
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
     connect(btSignin, SIGNAL(clicked()), this, SLOT(showw3()));
+    connect(btRefresh, SIGNAL(clicked()), this, SLOT(Refresh()));
+    connect(btBorBook, SIGNAL(clicked()), this, SLOT(Borrow()));
+    connect(btRetBook, SIGNAL(clicked()), this, SLOT(GiveBack()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -60,13 +78,47 @@ void MainWindow :: mouseReleaseEvent(QMouseEvent *e)
 }
 void MainWindow :: showw2()
 {
-    w2.show();
+    if (CheckAuthority(1, inOperation))
+        w2.show();
+    else
+    {
+        Logout();
+        QMessageBox::warning(this,"成功","您已经登出 欢迎下次再来",QMessageBox::Yes);
+        btLogin -> setText("登录");
+        userName -> setText("游客");
+    }
 }
 void MainWindow :: showw3()
 {
-    w3.show();
+    if (CheckAuthority(0, inOperation))
+        w3.show();
+    else
+        QMessageBox::warning(this,"错误","您已经登录 不能注册",QMessageBox::Yes);
 }
+void MainWindow :: Refresh()
+{
+    Finalization();
+}
+void MainWindow :: Borrow()
+{
+    workingModeGer = 3;
 
+    if (CheckAuthority(3, inOperation))
+        w4.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: GiveBack()
+{
+    workingModeGer = 4;
+
+    if (CheckAuthority(4, inOperation))
+        w4.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
 MainWindow::~MainWindow()
 {
     delete ui;

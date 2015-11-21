@@ -28,7 +28,7 @@ namespace Nios
         
         second = time(NULL); //获取目前秒时间
         local = localtime(&second); //转为本地时间
-        strftime(buf, 64, "%Y %m %d", local);
+        strftime(buf, 64, "%Y-%m-%d %H:%M:%S", local);
         time_str = buf;
         return time_str;
     }
@@ -216,7 +216,7 @@ namespace Nios
     int InitUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
 	{
 		inUIDandISBNTree.clear();
-        ifstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
+        ifstream theFile((currentDir + "users\\UIDandISBNTree.ini").c_str());
 		{
 			Nusers :: UIDandISBN temp1;
 			Nusers :: TTime temp2;
@@ -235,7 +235,7 @@ namespace Nios
 	
     int RefreshUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
 	{
-        ofstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
+        ofstream theFile((currentDir + "users\\UIDandISBNTree.ini").c_str());
 		{
 			Nusers :: TInnerUIDandISBNTree :: iterator it;
 			for (it = inUIDandISBNTree.begin(); it != inUIDandISBNTree.end(); ++it)
@@ -328,14 +328,6 @@ namespace Nios
 	int ShowBookRequired()
 	{
 		return 0;
-	}
-    void ErrorInvalidTarget(MainWindow &w)
-	{
-        QMessageBox :: warning(&w, "警告", "操作对象错误!!!", QMessageBox::Yes);
-	}
-    void ErrorIncorrectOperation(MainWindow &w)
-	{
-
 	}
 	int Welcome(const string &nickname)
 	{

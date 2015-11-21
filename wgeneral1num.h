@@ -1,5 +1,5 @@
-#ifndef WSIGNIN_H
-#define WSIGNIN_H
+#ifndef WGENERAL1NUM_H
+#define WGENERAL1NUM_H
 
 #include <QWidget>
 #include <QLabel>
@@ -11,23 +11,21 @@
 #include <QMessageBox>
 
 namespace Ui {
-class WSignin;
+class WGeneral1Num;
 }
 
-class WSignin : public QWidget
+class WGeneral1Num : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit WSignin(QWidget *parent = 0);
-    ~WSignin();
+    explicit WGeneral1Num(QWidget *parent = 0);
+    ~WGeneral1Num();
 
 private:
-    Ui::WSignin *ui;
-    QLineEdit *usrLineEdit;
-    QLineEdit *pwd1LineEdit, *nameLineEdit, *teleLineEdit, *idenLineEdit;
-    QLabel *usrLabel;
-    QLabel *pwd1Label, *teleLabel, *nameLabel, *idenLabel;
+    Ui::WGeneral1Num *ui;
+    QLineEdit *numLineEdit;
+    QLabel *numLabel;
     QGridLayout *gridlayout;
     QPushButton *okBtn;
     QPushButton *cancelBtn;
@@ -36,4 +34,4 @@ private slots:
     virtual void accept();
 };
 
-#endif // WSIGNIN_H
+#endif // WGENERAL1NUM_H

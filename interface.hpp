@@ -24,5 +24,6 @@ int DelUser();
 int ChangeUserAuthority();
 int SearchBookByKeyword();
 int procFunc(int p);
+
 #endif // INTERFACE_HPP
 

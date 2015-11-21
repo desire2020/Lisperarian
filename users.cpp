@@ -25,7 +25,9 @@ namespace Nusers
 	{
 		TUser &temp = inPendingUser;
 		temp.userPassword = EncryptingWithMd5(temp.userPassword);
-		UIDTree[++presentUID] = inPendingUser;
+        UIDTree[presentUID] = inPendingUser;
+        UIDTree[presentUID].userID = presentUID;
+        presentUID++;
 		return 0;
 	}
 	
@@ -127,7 +129,7 @@ namespace Nusers
 	
     bool TUsers :: KeepingTimedOut(long long UID)
 	{
-		if (!CheckUID(UID)) return -1;
+        if (!CheckUID(UID)) return false;
         TUser temp = GetUser(UID);
 		set<long long> :: iterator it;
 		for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
@@ -145,6 +147,6 @@ namespace Nusers
 				if (preTime.year == nowTime.year && nowTime.yday - preTime.yday > keepPeriod) return true;
 			}
 		}
-		return true;
+        return false;
 	}
 }

@@ -106,8 +106,6 @@ namespace Nios
     int PrintUserSysRecordReturn(long long userID , long long ISBN , Nusers :: TTime preTime);
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib);
 	int Welcome(const string &nickname);
-    void ErrorInvalidTarget(MainWindow &w);
-    void ErrorIncorrectOperation(MainWindow &w);
     int ShowBookRequired();
 }
 #endif

@@ -18,7 +18,7 @@ WLogin::WLogin(QWidget *parent) :
     pwdLineEdit = new QLineEdit;
     pwdLineEdit->setEchoMode(QLineEdit::Password);
     usrLineEdit->setMaxLength(12);
-    pwdLineEdit->setMaxLength(12);
+    pwdLineEdit->setMaxLength(24);
     gridlayout = new QGridLayout;
     gridlayout->addWidget(usrLabel,0,0,1,1);
     gridlayout->addWidget(usrLineEdit,0,1,1,1);
@@ -41,6 +41,18 @@ WLogin::WLogin(QWidget *parent) :
 
 
 }
+string level(long long auth)
+{
+    switch(auth)
+    {
+    case 3 : return string("馆长"); break;
+    case 2 : return string("管理员"); break;
+    case -1 : return string("被封禁的普通用户"); break;
+    case 1 : return string("普通用户"); break;
+    case 0 : return string("游客"); break;
+    }
+}
+
 void WLogin :: accept()
 {
     int message;
@@ -53,13 +65,20 @@ void WLogin :: accept()
     message = procFunc(1);
     if(message == 0)
     {
-        www -> userName -> setText(("当前用户 " + inOperation.userNickname).c_str());
+        www -> btLogin -> setText("登出");
         QMessageBox::warning(this,"登录成功",("欢迎您， " + inOperation.userNickname).c_str(),QMessageBox::Yes);
+        if ((inOperation.authority <= 1) && (EUsers.KeepingTimedOut(inOperation.userID)))
+        {
+            QMessageBox::warning(this,"警告","由于逾期未归还书籍，您已经被封禁，请联系馆长或代馆长",QMessageBox::Yes);
+            if (inOperation.authority > 0)
+                EUsers.SetUserAuthority(inOperation.userID, -inOperation.authority);
+        }
+        www -> userName -> setText(("当前用户 " + level(inOperation.authority) + inOperation.userNickname).c_str());
         QWidget::close();
     }
     else
     {
-        QMessageBox::warning(this,"","",QMessageBox::Yes);
+        QMessageBox::warning(this,"","用户名或密码错误",QMessageBox::Yes);
         usrLineEdit->setFocus();
     }
 }

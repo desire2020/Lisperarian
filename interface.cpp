@@ -11,6 +11,7 @@ Nusers :: TInnerUIDandISBNTree UIDandISBNTree;
 Nusers :: TUser inOperation;
 queue<long long> queueNum;
 queue<string> queueStr;
+int workingModeGer;
 
 
 int Initialization()
@@ -60,13 +61,10 @@ int SignIn()
     Nusers :: TUser inPending;
     inPending.userNickname = Nios :: GetLine();
     inPending.userPassword = Nios :: GetLine();
+    inPending.authority = 1;
     inPending.occupiedBooks.clear();
     inPending.privateInf.realName = Nios :: GetLine();
-    do
-    {
-        inPending.privateInf.telephoneNumber = Nios :: GetNum();
-    }
-    while(inPending.privateInf.telephoneNumber == -1);
+    inPending.privateInf.telephoneNumber = Nios :: GetNum();
     inPending.privateInf.identificationNumber = Nios :: GetLine();
     EUsers.AddUser(inPending, 0);
     Nlog :: RecordEvent(0, presentUID - 1, presentUID - 1);

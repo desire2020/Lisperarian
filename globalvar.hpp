@@ -14,4 +14,5 @@ extern long long presentUID;
 extern Nusers :: TInnerUIDandISBNTree UIDandISBNTree;
 extern Nusers :: TUser inOperation;
 extern MainWindow *www;
+extern int workingModeGer;
 #endif
