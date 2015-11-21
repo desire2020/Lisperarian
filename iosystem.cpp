@@ -279,13 +279,13 @@ namespace Nios
 	long long GetNum()
 	{
         long long GottenInt = queueNum.front();
-        queueNum.pop();
+        //queueNum.pop();
 		return GottenInt;
 	}
 	string GetLine()
 	{
         string GottenStr = queueStr.front();
-        queueStr.pop();
+        //queueStr.pop();
 		return GottenStr;
 	}	
 	int ShowBookRequired()

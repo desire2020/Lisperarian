@@ -53,7 +53,7 @@ namespace Nusers
 	bool TUsers :: TestPassword(long long UID, TPassword passGiven)
 	{
 		if (!CheckUID(UID)) return false;
-		if (passGiven != EncryptingWithMd5(UIDTree[UID].userPassword)) return false;
+        if (UIDTree[UID].userPassword != EncryptingWithMd5(passGiven)) return false;
 		return true;
 	}
 	

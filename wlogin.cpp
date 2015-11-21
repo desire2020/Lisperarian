@@ -57,10 +57,7 @@ void WLogin :: accept()
     }
     else
     {
-        if (str != "admin")
-        QMessageBox::warning(this,"警告","用户名或密码错误!!!",QMessageBox::Yes);
-        else
-            QMessageBox::warning(this,"警告","用户名 错误!!!",QMessageBox::Yes);
+        QMessageBox::warning(this,"","",QMessageBox::Yes);
         usrLineEdit->setFocus();
     }
 }
