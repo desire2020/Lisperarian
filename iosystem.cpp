@@ -180,8 +180,6 @@ namespace Nios
             PrintTheFileOfInf(it -> second);
             PrintTheFileOfOccupiedBooks(it -> second);
         }
-
-
 		return 0;
 	}
 	
@@ -214,6 +212,45 @@ namespace Nios
 		}
         return 0;
 	}
+	
+	int RefreshUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
+	{
+		inUIDandISBNTree.clear();
+		ofstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
+		{
+			Nusers :: UIDandISBN temp1;
+			Nusers :: TTime temp2;
+			while (theFile >> temp1.fisrt)
+			{
+				theFile >> temp1.second;
+				theFile >> temp2.year;
+				theFile >> temp2.month;
+				theFile >> temp2.day;
+				theFile >> temp2.yday;
+				inUIDandISBNTree[temp1] = temp2;
+			}
+		}
+		theFile.close();
+	}
+	
+	int InitUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
+	{
+		ifstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
+		{
+			Nusers :: TInnerUIDandISBNTree :: iterator it;
+			for (it = inUIDandISBNTree.begin(); it != inUIDandISBNTree.end(); ++it)
+			{
+				theFile << (*it).first.first << ' ';
+				theFile << (*it).first.second << ' ';
+				theFile << (*it).second.year << ' ';
+				theFile << (*it).second.month << ' ';
+				theFile << (*it).second.day << ' ';
+				theFile << (*it).second.yday << endl;
+			}
+		}
+		theFile.close();
+	}
+	
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib)
     {
         fstream theFile((currentDir + "library\\Book.db").c_str(), ios :: in);

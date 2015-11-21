@@ -27,6 +27,7 @@ int Initialization()
     ios :: sync_with_stdio(false);
     Nios :: InitUserSys(EUsers);
     Nios :: InitBookSys(ELibrary);
+    Nios :: InitUIDandISBNTree(UIDandISBNTree);
     if (presentUID == Nusers :: INITOFSUM)
     {
         EUsers.AddUser(defaultAdmin, 0);
@@ -37,6 +38,7 @@ int Finalization()
 {
     Nios :: RefreshUserSys(EUsers);
     Nios :: RefreshBookSys(ELibrary);
+    Nios :: RefreshUIDandISBNTree(UIDandISBNTree);
     return 0;
 }
 bool CheckAuthority(int Event, const Nusers :: TUser &inOp)

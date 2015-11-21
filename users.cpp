@@ -87,7 +87,7 @@ namespace Nusers
 	int TUsers :: BorrowOneSpecificBook(long long tgISBN, long long UID) 
 	{
 		if (!CheckUID(UID)) return -1;
-		UIDandISBN temp = make_pair(UID, tgISBN);
+		UIDandISBN temp(UID, tgISBN);
         TInnerUIDandISBNTree :: iterator it;
         it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) 
@@ -104,7 +104,7 @@ namespace Nusers
 	int TUsers :: ReturnOneSpecificBook(long long tgISBN, long long UID) 
 	{
 		if (!CheckUID(UID)) return -1;
-		UIDandISBN temp = make_pair(UID, tgISBN);
+		UIDandISBN temp(UID, tgISBN);
         TInnerUIDandISBNTree :: iterator it;
 		it = UIDandISBNTree.find(temp);
 		if (it == UIDandISBNTree.end()) return -1;
