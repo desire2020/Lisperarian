@@ -12,20 +12,25 @@ WSignin::WSignin(QWidget *parent) :
     setMinimumSize(280,150);
     setMaximumSize(280,150);
     this -> setStyleSheet("background:Azure");
-    usrLabel = new QLabel(tr("userID："));
-    pwd1Label = new QLabel(tr("密　码："));
+    usrLabel = new QLabel(tr("英文昵称："));
+    pwd1Label = new QLabel(tr("密　　码："));
     pwd2Label = new QLabel(tr("确认密码："));
     usrLineEdit = new QLineEdit;
-    pwdLineEdit = new QLineEdit;
-    pwdLineEdit->setEchoMode(QLineEdit::Password);
     usrLineEdit->setMaxLength(12);
-    pwdLineEdit->setMaxLength(12);
+    pwd1LineEdit = new QLineEdit;
+    pwd1LineEdit->setEchoMode(QLineEdit::Password);
+    pwd2LineEdit = new QLineEdit;
+    pwd2LineEdit->setEchoMode(QLineEdit::Password);
+    pwd1LineEdit->setMaxLength(12);
+    pwd2LineEdit->setMaxLength(12);
     gridlayout = new QGridLayout;
     gridlayout->addWidget(usrLabel,0,0,1,1);
     gridlayout->addWidget(usrLineEdit,0,1,1,1);
     gridlayout->setSpacing(20);
-    gridlayout->addWidget(pwdLabel,1,0,1,1);
-    gridlayout->addWidget(pwdLineEdit,1,1,1,1);
+    gridlayout->addWidget(pwd1Label,1,0,1,1);
+    gridlayout->addWidget(pwd1LineEdit,1,1,1,1);
+    gridlayout->addWidget(pwd2Label,2,0,1,1);
+    gridlayout->addWidget(pwd2LineEdit,2,1,1,1);
     okBtn = new QPushButton(tr("确定"));
     cancelBtn = new QPushButton(tr("取消"));
     connect(okBtn,SIGNAL(clicked()),this,SLOT(accept()));
@@ -43,14 +48,9 @@ WSignin::WSignin(QWidget *parent) :
 
 }
 void WSignin :: accept()
-{
+{/*
     int message;
-    long long num;
-    string str;
-    num = Nios :: StrNum(usrLineEdit->text().trimmed().toStdString());
-    str = pwdLineEdit -> text().trimmed().toStdString();
-    queueNum.push(num);
-    queueStr.push(str);
+    queueStr.push(pwdLineEdit -> text().trimmed().toStdString());
     message = procFunc(1);
     if(message == 0)
     {
@@ -62,7 +62,7 @@ void WSignin :: accept()
     {
         QMessageBox::warning(this,"","",QMessageBox::Yes);
         usrLineEdit->setFocus();
-    }
+    }*/
 }
 WSignin::~WSignin()
 {

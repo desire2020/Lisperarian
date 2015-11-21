@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>WSignin</class>
  <widget class="QWidget" name="WSignin">
   <property name="geometry">
@@ -13,9 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>注册</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../ShElTeR/icon.png</normaloff>../ShElTeR/icon.png</iconset>
   </property>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

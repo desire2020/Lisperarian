@@ -26,7 +26,7 @@ protected:
 private:
     Ui::MainWindow *ui;
     WLogin w2;
-    QPushButton *btLogin, *btExit;
+    QPushButton *btLogin, *btExit, *btSignin;
     QPoint last;
 private slots:
     void showw2();

@@ -213,14 +213,14 @@ namespace Nios
         return 0;
 	}
 	
-	int RefreshUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
+    int InitUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
 	{
 		inUIDandISBNTree.clear();
-		ofstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
+        ifstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
 		{
 			Nusers :: UIDandISBN temp1;
 			Nusers :: TTime temp2;
-			while (theFile >> temp1.fisrt)
+            while (theFile >> temp1.first)
 			{
 				theFile >> temp1.second;
 				theFile >> temp2.year;
@@ -233,9 +233,9 @@ namespace Nios
 		theFile.close();
 	}
 	
-	int InitUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
+    int RefreshUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
 	{
-		ifstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
+        ofstream theFile((currentDir + "UIDandISBNTree.ini").c_str());
 		{
 			Nusers :: TInnerUIDandISBNTree :: iterator it;
 			for (it = inUIDandISBNTree.begin(); it != inUIDandISBNTree.end(); ++it)
