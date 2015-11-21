@@ -1,0 +1,32 @@
+#ifndef DEF_STDINCS
+#define DEF_STDINCS
+#include <string>
+#include <utility>
+#include <cstring>
+#include <ctime>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+#include <map>
+#include <list>
+#include <utility>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <set>
+#include <fstream>
+using namespace std;
+#include <QApplication>
+#include <QMainWindow>
+#include <QMouseEvent>
+#include <QWidget>
+#include <QLabel>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QMessageBox>
+#include "mainwindow.h"
+#include "interface.hpp"
+#endif
