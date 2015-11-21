@@ -125,15 +125,15 @@ namespace Nusers
 		return 0;
 	}
 	
-	bool KeepingTimedOut(long long UID)
+    bool TUsers :: KeepingTimedOut(long long UID)
 	{
 		if (!CheckUID(UID)) return -1;
-		TUser &temp = GetUser(UID);
+        TUser temp = GetUser(UID);
 		set<long long> :: iterator it;
 		for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
 		{
 			long long ISBN = *it;
-			UIDandISBN wht = make_pair(UID , ISBN);
+            UIDandISBN now(UID, ISBN);
 			TInnerUIDandISBNTree :: iterator its;
 			its = UIDandISBNTree.find(now);
 			if (its != UIDandISBNTree.end()) 
