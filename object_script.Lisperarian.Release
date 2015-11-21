@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\iosystem.o
+./release\library.o
+./release\log.o
+./release\users.o
+./release\users_md5.o
+./release\wlogin.o
+./release\interface.o
+./release\wsignin.o
+./release\moc_mainwindow.o
+./release\moc_wlogin.o
+./release\moc_wsignin.o
+);

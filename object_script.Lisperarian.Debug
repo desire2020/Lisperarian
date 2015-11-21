@@ -1,0 +1,15 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\iosystem.o
+./debug\library.o
+./debug\log.o
+./debug\users.o
+./debug\users_md5.o
+./debug\wlogin.o
+./debug\interface.o
+./debug\wsignin.o
+./debug\moc_mainwindow.o
+./debug\moc_wlogin.o
+./debug\moc_wsignin.o
+);
