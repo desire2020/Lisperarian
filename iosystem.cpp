@@ -210,6 +210,7 @@ namespace Nios
             ScanTheUIDInf(i, inProgressLib);
             ScanTheUIDOccupiedBooks(i, inProgressLib);
 		}
+        return 0;
 	}
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib)
     {
@@ -258,6 +259,7 @@ namespace Nios
 			fout << *it << endl;
 		}
 		fout << -1 << endl;
+        return 0;
 	}
 	int RefreshBookSys(Nlibrary :: TLibrary &inProgressLib)
 	{
