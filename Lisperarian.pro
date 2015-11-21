@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     interface.cpp \
     wsignin.cpp \
     wgeneral1num.cpp \
-    wsearch.cpp
+    wsearch.cpp \
+    wnickname.cpp
 
 HEADERS  += mainwindow.h \
     classes.hpp \
@@ -34,10 +35,12 @@ HEADERS  += mainwindow.h \
     interface.hpp \
     wsignin.h \
     wgeneral1num.h \
-    wsearch.h
+    wsearch.h \
+    wnickname.h
 
 FORMS    += mainwindow.ui \
     wlogin.ui \
     wsignin.ui \
     wgeneral1num.ui \
-    wsearch.ui
+    wsearch.ui \
+    wnickname.ui

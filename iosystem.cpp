@@ -345,5 +345,34 @@ namespace Nios
         }
         return ss;
     }
+    string level(long long auth)
+    {
+        switch(auth)
+        {
+        case 3 : return string("馆长"); break;
+        case 2 : return string("管理员"); break;
+        case -1 : return string("被封禁的普通用户"); break;
+        case 1 : return string("普通用户"); break;
+        case 0 : return string("游客"); break;
+        }
+    }
+    string ShowOneBookRequired()
+    {
+        string ss("");
+        if (ResultStack.empty())
+        {
+            return string("没有符合条件的书。");
+        }
+        Nlibrary :: TBook inProc;
+        inProc = ResultStack.top();
+        ResultStack.pop();
+        ss += "书名: " + inProc.title + "\n";
+        ss += "ISBN: " + NumStr(inProc.ISBN) + "\n";
+        ss += "作者: " + inProc.author + "\n";
+        ss += "简介: " + inProc.description + "\n";
+        ss += "库存: " + NumStr(inProc.avaliableNum) + "\n";
+        ss += "需要权限: " + level(inProc.lowerBoundOfAuthority) + "\n";
+        return ss;
+    }
 }
 #endif

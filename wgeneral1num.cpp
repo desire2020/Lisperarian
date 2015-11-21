@@ -9,6 +9,7 @@ WGeneral1Num::WGeneral1Num(QWidget *parent) :
     ui(new Ui::WGeneral1Num)
 {
     ui->setupUi(this);
+    this -> setStyleSheet("background:Azure");
     setMinimumSize(800,100);
     setMaximumSize(800,100);
     setWindowTitle("");
@@ -42,7 +43,10 @@ void WGeneral1Num :: accept()
     message = procFunc(workingModeGer);
     if (message == 0)
     {
-        QMessageBox::warning(this,"成功","成功完成",QMessageBox::Yes);
+        if (workingModeGer == -4)
+            QMessageBox::warning(this,"",Nios :: ShowOneBookRequired().c_str(),QMessageBox::Yes);
+        else
+            QMessageBox::warning(this,"成功","成功完成",QMessageBox::Yes);
         QWidget::close();
     }
     else

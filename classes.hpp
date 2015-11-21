@@ -107,5 +107,7 @@ namespace Nios
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib);
 	int Welcome(const string &nickname);
     string ShowBookRequired();
+    string level(long long auth);
+    string ShowOneBookRequired();
 }
 #endif

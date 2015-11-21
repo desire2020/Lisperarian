@@ -204,8 +204,30 @@ int EditBook()
     inputNewBook.description = Nios :: GetLine();
     inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
     if (ELibrary.EditBookProperty(targetISBN, inOperation.userID, inputNewBook) == 0)
-        Nlog :: RecordEvent(8, targetISBN, inOperation.userID);
-    return 0;
+	{
+		Nlog :: RecordEvent(8, targetISBN, inOperation.userID);
+		return 0;
+	}
+	else
+	{
+		return -1;
+	}
+}
+int ShowSpecificBook()
+{
+	long long targetISBN;
+	targetISBN = Nios :: GetNum();
+	Nlibrary :: TInnerStruct :: iterator it;
+	it = ELibrary.ISBNTree.find(targetISBN);
+	if (it == ELibrary.ISBNTree.end())
+	{
+		return -1;
+	}
+	else
+	{
+		ResultStack.push(it -> second);
+		return 0;
+	}
 }
 int DelBook()
 {
@@ -262,6 +284,7 @@ int procFunc(int p)
         case -3 : message = SearchBookByKeyword();break;
         case 3 : message = BorBook(); break;
         case 4 : message = RetBook(); break;
+		case -4 : message = ShowSpecificBook(); break;
         case 5 : message = ChangeNickName(); break;
         case 6 : message = ChangePassword(); break;
         case 7 : message = AddBook(); break;

@@ -57,6 +57,17 @@ MainWindow::MainWindow(QWidget *parent) :
     btSearchBook -> setText("搜索图书");
     btSearchBook -> setFont(btFont);
     btSearchBook -> setStyleSheet("background:LightCyan");
+    btDetail = new QPushButton(this);
+    btDetail -> setText("图书详情");
+    btDetail -> setGeometry(QRect(380, 280, 151, 61));
+    btDetail -> setFont(btFont);
+    btDetail -> setStyleSheet("background:LightCyan");
+    btNickName = new QPushButton(this);
+    btNickName -> setText("更改昵称");
+    btNickName -> setGeometry(QRect(200, 210, 151, 61));
+    btNickName -> setFont(btFont);
+    btNickName -> setStyleSheet("background:LightCyan");
+
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
     connect(btSignin, SIGNAL(clicked()), this, SLOT(showw3()));
@@ -64,6 +75,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(btBorBook, SIGNAL(clicked()), this, SLOT(Borrow()));
     connect(btRetBook, SIGNAL(clicked()), this, SLOT(GiveBack()));
     connect(btSearchBook, SIGNAL(clicked()), this, SLOT(SearchB()));
+    connect(btDetail, SIGNAL(clicked()), this, SLOT(Details()));
+    connect(btNickName, SIGNAL(clicked()), this, SLOT(NickName()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -129,6 +142,23 @@ void MainWindow :: SearchB()
 {
     if (CheckAuthority(-3, inOperation))
         w5.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: Details()
+{
+    workingModeGer = -4;
+    if (CheckAuthority(-4, inOperation))
+        w4.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: NickName()
+{
+    if (CheckAuthority(5, inOperation))
+        w6.show();
     else
         QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
 
