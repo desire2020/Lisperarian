@@ -1,30 +1,36 @@
-#include "wlogin.h"
+#include "wpasswd.h"
 #include "interface.hpp"
 #include "classes.hpp"
 #include "globalvar.hpp"
-#include "ui_wlogin.h"
+#include "ui_wpasswd.h"
 
-WLogin::WLogin(QWidget *parent) :
+WPasswd::WPasswd(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::WLogin)
+    ui(new Ui::WPasswd)
 {
     ui->setupUi(this);
-    setMinimumSize(280,150);
-    setMaximumSize(280,150);
+    setMinimumSize(480,270);
+    setMaximumSize(480,270);
     this -> setStyleSheet("background:Azure");
     usrLabel = new QLabel(tr("userID："));
-    pwdLabel = new QLabel(tr("密　码："));
+    pwdLabel = new QLabel(tr("新密码："));
+    pwrLabel = new QLabel(tr("重复密码："));
     usrLineEdit = new QLineEdit;
     pwdLineEdit = new QLineEdit;
     pwdLineEdit->setEchoMode(QLineEdit::Password);
+    pwrLineEdit = new QLineEdit;
+    pwrLineEdit->setEchoMode(QLineEdit::Password);
     usrLineEdit->setMaxLength(12);
     pwdLineEdit->setMaxLength(24);
+    pwrLineEdit->setMaxLength(24);
     gridlayout = new QGridLayout;
     gridlayout->addWidget(usrLabel,0,0,1,1);
     gridlayout->addWidget(usrLineEdit,0,1,1,1);
     gridlayout->setSpacing(20);
     gridlayout->addWidget(pwdLabel,1,0,1,1);
     gridlayout->addWidget(pwdLineEdit,1,1,1,1);
+    gridlayout->addWidget(pwrLabel,2,0,1,1);
+    gridlayout->addWidget(pwrLineEdit,2,1,1,1);
     okBtn = new QPushButton(tr("确定"));
     cancelBtn = new QPushButton(tr("取消"));
     connect(okBtn,SIGNAL(clicked()),this,SLOT(accept()));
@@ -37,40 +43,33 @@ WLogin::WLogin(QWidget *parent) :
     vboxLayout->addLayout(gridlayout);
     vboxLayout->addLayout(hboxLayout);
     this->setLayout(vboxLayout);
-
-
-
 }
-void WLogin :: accept()
+void WPasswd :: accept()
 {
     int message;
     long long num;
-    string str;
+    string str, strr;
     num = Nios :: StrNum(usrLineEdit->text().trimmed().toStdString());
     str = pwdLineEdit -> text().trimmed().toStdString();
+    strr = pwrLineEdit -> text().trimmed().toStdString();
     queueNum.push(num);
     queueStr.push(str);
-    message = procFunc(1);
-    if(message == 0)
+    queueStr.push(strr);
+    message = procFunc(6);
+    if (message == 0)
     {
-        www -> btLogin -> setText("登出");
-        QMessageBox::warning(this,"登录成功",("欢迎您， " + inOperation.userNickname).c_str(),QMessageBox::Yes);
-        if ((inOperation.authority <= 1) && (EUsers.KeepingTimedOut(inOperation.userID)))
-        {
-            QMessageBox::warning(this,"警告","由于逾期未归还书籍，您已经被封禁，请联系馆长或代馆长",QMessageBox::Yes);
-            if (inOperation.authority > 0)
-                EUsers.SetUserAuthority(inOperation.userID, -inOperation.authority);
-        }
-        www -> userName -> setText(("当前用户 " + Nios :: level(inOperation.authority) + inOperation.userNickname).c_str());
+        QMessageBox::warning(this,"","修改成功",QMessageBox::Yes);
+        inOperation = EUsers.GetUser(inOperation.userID);
         QWidget::close();
     }
     else
     {
-        QMessageBox::warning(this,"","用户名或密码错误",QMessageBox::Yes);
+        QMessageBox::warning(this,"","两次密码不一致或没有找到这个用户。",QMessageBox::Yes);
         usrLineEdit->setFocus();
     }
 }
-WLogin::~WLogin()
+
+WPasswd::~WPasswd()
 {
     delete ui;
 }

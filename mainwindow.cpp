@@ -67,6 +67,34 @@ MainWindow::MainWindow(QWidget *parent) :
     btNickName -> setGeometry(QRect(200, 210, 151, 61));
     btNickName -> setFont(btFont);
     btNickName -> setStyleSheet("background:LightCyan");
+    btPasswd = new QPushButton(this);
+    btPasswd -> setText("更改密码");
+    btPasswd -> setGeometry(QRect(200, 280, 151, 61));
+    btPasswd -> setFont(btFont);
+    btPasswd -> setStyleSheet("background:LightCyan");
+    btAdd = new QPushButton(this);
+    btAdd -> setText("录入书籍");
+    btAdd -> setGeometry(QRect(380, 350, 151, 61));
+    btAdd -> setFont(btFont);
+    btAdd -> setStyleSheet("background:LightCyan");
+
+    btEditf = new QPushButton(this);
+    btEditf -> setText("更正图书信息");
+    btEditf -> setGeometry(QRect(380, 420, 151, 61));
+    btEditf -> setFont(btFont);
+    btEditf -> setStyleSheet("background:LightCyan");
+
+    btDel = new QPushButton(this);
+    btDel -> setText("删除书籍");
+    btDel -> setGeometry(QRect(380, 490, 151, 61));
+    btDel -> setFont(btFont);
+    btDel -> setStyleSheet("background:LightCyan");
+
+    btDelUser = new QPushButton(this);
+    btDelUser -> setText("删除用户");
+    btDelUser -> setGeometry(QRect(200, 350, 151, 61));
+    btDelUser -> setFont(btFont);
+    btDelUser -> setStyleSheet("background:LightCyan");
 
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
@@ -77,6 +105,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(btSearchBook, SIGNAL(clicked()), this, SLOT(SearchB()));
     connect(btDetail, SIGNAL(clicked()), this, SLOT(Details()));
     connect(btNickName, SIGNAL(clicked()), this, SLOT(NickName()));
+    connect(btPasswd, SIGNAL(clicked()), this, SLOT(Passwd()));
+    connect(btAdd, SIGNAL(clicked()), this, SLOT(AddBk()));
+    connect(btEditf, SIGNAL(clicked()), this, SLOT(EditBk()));
+    connect(btDel, SIGNAL(clicked()), this, SLOT(DelBk()));
+    connect(btDelUser, SIGNAL(clicked()), this, SLOT(DelUr()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -161,6 +194,52 @@ void MainWindow :: NickName()
         w6.show();
     else
         QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: Passwd()
+{
+    if (CheckAuthority(6, inOperation))
+        w7.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: AddBk()
+{
+    workingModeGer = 7;
+    if (CheckAuthority(7, inOperation))
+        w8.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: DelBk()
+{
+    workingModeGer = 8;
+    if (CheckAuthority(8, inOperation))
+        w4.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+}
+void MainWindow :: EditBk()
+{
+    workingModeGer = 9;
+    if (CheckAuthority(9, inOperation))
+        w8.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+
+}
+void MainWindow :: DelUr()
+{
+    workingModeGer = 10;
+    if (CheckAuthority(10, inOperation))
+        w4.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+}
+void MainWindow :: Upgrade()
+{
 
 }
 

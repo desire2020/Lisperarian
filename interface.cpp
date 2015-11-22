@@ -186,8 +186,8 @@ int AddBook()
     inputNewBook.ISBN = Nios :: GetNum();
     inputNewBook.author = Nios :: GetLine();
     inputNewBook.description = Nios :: GetLine();
-    inputNewBook.avaliableNum = int(Nios :: GetNum());
-    inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
+    inputNewBook.avaliableNum = (Nios :: GetNum());
+    inputNewBook.lowerBoundOfAuthority = (Nios :: GetNum());
     inputNewBook.occupyingUsers.clear();
     ELibrary.AddBook(inputNewBook, inOperation.userID);
     Nlog :: RecordEvent(7, inputNewBook.ISBN, inOperation.userID);
@@ -202,7 +202,8 @@ int EditBook()
     inputNewBook.author = Nios :: GetLine();
     inputNewBook.ISBN = targetISBN;
     inputNewBook.description = Nios :: GetLine();
-    inputNewBook.lowerBoundOfAuthority = int(Nios :: GetNum());
+	inputNewBook.avaliableNum = (Nios :: GetNum());
+    inputNewBook.lowerBoundOfAuthority = (Nios :: GetNum());
     if (ELibrary.EditBookProperty(targetISBN, inOperation.userID, inputNewBook) == 0)
 	{
 		Nlog :: RecordEvent(8, targetISBN, inOperation.userID);

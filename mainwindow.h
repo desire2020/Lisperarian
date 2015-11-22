@@ -10,6 +10,8 @@
 #include "wgeneral1num.h"
 #include "wsearch.h"
 #include "wnickname.h"
+#include "wpasswd.h"
+#include "wbookedit.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +25,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QLabel *welcomeWord, *userName;
     QPushButton *btLogin, *btExit, *btSignin, *btRefresh;
-    QPushButton *btBorBook, *btRetBook, *btSearchBook, *btDetail, *btAdd, *btDel, *btEdit;
+    QPushButton *btBorBook, *btRetBook, *btSearchBook, *btDetail, *btAdd, *btDel, *btEditf;
     QPushButton *btNickName, *btPasswd, *btDelUser, *btUpgrade;
     ~MainWindow();
 protected:
@@ -37,6 +39,8 @@ private:
     WGeneral1Num w4;
     WSearch w5;
     WNickName w6;
+    WPasswd w7;
+    WBookEdit w8;
     QPoint last;
 private slots:
     void showw2();
@@ -47,6 +51,12 @@ private slots:
     void SearchB();
     void Details();
     void NickName();
+    void Passwd();
+    void AddBk();
+    void EditBk();
+    void DelBk();
+    void DelUr();
+    void Upgrade();
 };
 
 #endif // MAINWINDOW_H

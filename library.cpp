@@ -69,6 +69,7 @@ namespace Nlibrary
                 fo.open(("\\books\\" + NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
 				fo << Nios :: SysDateStr() << " " << NumStr(userID) << endl;
                 fo.close();
+                return 0;
 			}
 		}
 	}
@@ -83,6 +84,7 @@ namespace Nlibrary
 			{
                 (*it).second.avaliableNum++;
                 (*it).second.occupyingUsers.erase((*it).second.occupyingUsers.find(userID));
+                return 0;
 			}
 		}
 		else return -2;
@@ -110,6 +112,7 @@ namespace Nlibrary
                     it -> second.author = newBook.author;
 				if (newBook.description != "")
                     it -> second.description = newBook.description;
+				it -> second.avaliableNum += newBook.avaliableNum;
 				if (newBook.lowerBoundOfAuthority != -1)
                     it -> second.lowerBoundOfAuthority = newBook.lowerBoundOfAuthority;
 			}

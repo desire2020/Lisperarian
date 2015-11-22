@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     wsignin.cpp \
     wgeneral1num.cpp \
     wsearch.cpp \
-    wnickname.cpp
+    wnickname.cpp \
+    wpasswd.cpp \
+    wbookedit.cpp
 
 HEADERS  += mainwindow.h \
     classes.hpp \
@@ -36,11 +38,15 @@ HEADERS  += mainwindow.h \
     wsignin.h \
     wgeneral1num.h \
     wsearch.h \
-    wnickname.h
+    wnickname.h \
+    wpasswd.h \
+    wbookedit.h
 
 FORMS    += mainwindow.ui \
     wlogin.ui \
     wsignin.ui \
     wgeneral1num.ui \
     wsearch.ui \
-    wnickname.ui
+    wnickname.ui \
+    wpasswd.ui \
+    wbookedit.ui

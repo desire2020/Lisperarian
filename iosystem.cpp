@@ -263,11 +263,12 @@ namespace Nios
 		Nlibrary :: TBook inProgressBook;
 		while(!theFile.eof())
 		{
-			long long ll;
+            long long ll;
+            theFile >> inProgressBook.ISBN;
+            if (inProgressBook.ISBN == -2)
+                break;
 			getline(theFile, inProgressBook.title);
-            if (theFile.eof())
-                return 0;
-			theFile >> inProgressBook.ISBN;
+            getline(theFile, inProgressBook.title);
 			getline(theFile, inProgressBook.author);
 			getline(theFile, inProgressBook.description);
             theFile >> inProgressBook.avaliableNum;
@@ -288,10 +289,10 @@ namespace Nios
     }
 	int PrintOneSpecificBook(fstream &fout, Nlibrary :: TBook &targetBook)
 	{
-		fout << targetBook.title << endl;
-		fout << targetBook.ISBN << endl;
+        fout << targetBook.ISBN << endl;
+        fout << targetBook.title << endl;
 		fout << targetBook.author << endl;
-		fout << targetBook.description << endl;
+        fout << targetBook.description << endl;
 		fout << targetBook.avaliableNum << endl;
 		fout << targetBook.lowerBoundOfAuthority << endl;
 		set<long long> :: iterator it;
@@ -310,6 +311,7 @@ namespace Nios
 		{
             PrintOneSpecificBook(theFile, it -> second);
 		}
+        theFile << -2 << endl;
 		theFile.close();
 		return 0;
 	}

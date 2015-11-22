@@ -51,7 +51,7 @@ void WGeneral1Num :: accept()
     }
     else
     {
-        QMessageBox::warning(this,"失败","此书不存在或者您没有权限访问，也可能是没有库存了",QMessageBox::Yes);
+        QMessageBox::warning(this,"失败","此对象不存在或者您没有权限访问",QMessageBox::Yes);
         numLineEdit->setFocus();
     }
 }
