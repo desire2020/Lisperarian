@@ -11,7 +11,7 @@ WLogin::WLogin(QWidget *parent) :
     ui->setupUi(this);
     setMinimumSize(280,150);
     setMaximumSize(280,150);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
     usrLabel = new QLabel(tr("userID："));
     pwdLabel = new QLabel(tr("密　码："));
     usrLineEdit = new QLineEdit;
@@ -61,7 +61,7 @@ void WLogin :: accept()
             if (inOperation.authority > 0)
                 EUsers.SetUserAuthority(inOperation.userID, -inOperation.authority);
         }
-        www -> userName -> setText(("当前用户 " + Nios :: level(inOperation.authority) + inOperation.userNickname).c_str());
+        www -> userName -> setText(("当前用户 " + Nios :: level(inOperation.authority) + " : " + inOperation.userNickname).c_str());
         QWidget::close();
     }
     else

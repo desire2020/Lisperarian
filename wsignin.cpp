@@ -11,7 +11,7 @@ WSignin::WSignin(QWidget *parent) :
     ui->setupUi(this);
     setMinimumSize(640,360);
     setMaximumSize(640,360);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
     usrLabel = new QLabel(tr("昵　　称："));
     pwd1Label = new QLabel(tr("密　　码："));
     nameLabel = new QLabel(tr("真实姓名："));

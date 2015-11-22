@@ -6,7 +6,7 @@ Namespace: Nios;
 *****************************************************/
 #ifndef DEF_IOSYSTEM
 #define DEF_IOSYSTEM
-#define currentDir string("D:\\")
+#define currentDir string("")
 #include "stdincs.hpp"
 #include "classes.hpp"
 #include "constants.hpp"

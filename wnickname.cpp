@@ -11,7 +11,7 @@ WNickName::WNickName(QWidget *parent) :
     ui->setupUi(this);
     setMinimumSize(280,150);
     setMaximumSize(280,150);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
     usrLabel = new QLabel(tr("userID："));
     pwdLabel = new QLabel(tr("新的昵称："));
     usrLineEdit = new QLineEdit;

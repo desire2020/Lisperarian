@@ -11,7 +11,7 @@ WUpgrade::WUpgrade(QWidget *parent) :
     ui->setupUi(this);
     setMinimumSize(640,360);
     setMaximumSize(640,360);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
 
     usrLabel = new QLabel(tr("userID:"));
     autLabel = new QLabel(tr("权限:"));

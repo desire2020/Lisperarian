@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
     Initialization();
     QApplication a(argc, argv);
     MainWindow w;
+    w.setStyleSheet("MainWindow{background-image: url(:/new/prefix1/back.bmp);}");
     www = &w;
     w.show();
 	p = a.exec();

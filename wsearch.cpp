@@ -9,7 +9,7 @@ WSearch::WSearch(QWidget *parent) :
     ui(new Ui::WSearch)
 {
     ui->setupUi(this);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
     wd1Label = new QLabel(tr("关键词1:"));
     wd2Label = new QLabel(tr("关键词2:"));
     wd3Label = new QLabel(tr("关键词3:"));

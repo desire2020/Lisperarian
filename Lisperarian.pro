@@ -53,3 +53,11 @@ FORMS    += mainwindow.ui \
     wpasswd.ui \
     wbookedit.ui \
     wupgrade.ui
+
+RC_FILE = graph.rc
+
+DISTFILES += \
+    graph.rc
+
+RESOURCES += \
+    background.qrc

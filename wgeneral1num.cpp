@@ -9,7 +9,7 @@ WGeneral1Num::WGeneral1Num(QWidget *parent) :
     ui(new Ui::WGeneral1Num)
 {
     ui->setupUi(this);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
     setMinimumSize(800,100);
     setMaximumSize(800,100);
     setWindowTitle("");

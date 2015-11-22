@@ -11,7 +11,7 @@ WPasswd::WPasswd(QWidget *parent) :
     ui->setupUi(this);
     setMinimumSize(480,270);
     setMaximumSize(480,270);
-    this -> setStyleSheet("background:Azure");
+    this -> setStyleSheet("background:White");
     usrLabel = new QLabel(tr("userID："));
     pwdLabel = new QLabel(tr("新密码："));
     pwrLabel = new QLabel(tr("重复密码："));
