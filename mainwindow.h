@@ -12,6 +12,7 @@
 #include "wnickname.h"
 #include "wpasswd.h"
 #include "wbookedit.h"
+#include "wupgrade.h"
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +42,7 @@ private:
     WNickName w6;
     WPasswd w7;
     WBookEdit w8;
+    WUpgrade w9;
     QPoint last;
 private slots:
     void showw2();

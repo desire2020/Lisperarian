@@ -68,7 +68,7 @@ namespace Nlog
                 fileLogs<<"ISBN : "<< ID1<< "    is deleted by   "<<"AdminID : "<< ID2;
                 break;
             case 9:
-                fileLogs<<"ISBN : "<< ID1<< "    is set by   "<<"AdminID : "<< ID2;
+                fileLogs<<"ISBN : "<< ID1<< "    is edited by   "<<"AdminID : "<< ID2;
                 break;
             case 10:
                 fileLogs<<"UserID : "<< ID1<< "    is deleted by   "<<"AdminID : "<< ID2;

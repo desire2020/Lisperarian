@@ -206,7 +206,7 @@ int EditBook()
     inputNewBook.lowerBoundOfAuthority = (Nios :: GetNum());
     if (ELibrary.EditBookProperty(targetISBN, inOperation.userID, inputNewBook) == 0)
 	{
-		Nlog :: RecordEvent(8, targetISBN, inOperation.userID);
+        Nlog :: RecordEvent(9, targetISBN, inOperation.userID);
 		return 0;
 	}
 	else
@@ -235,14 +235,20 @@ int DelBook()
     long long targetISBN;
     targetISBN = Nios :: GetNum();
     ELibrary.DeleteBookByISBN(targetISBN, inOperation.userID);
-    Nlog :: RecordEvent(9, targetISBN, inOperation.userID);
+    Nlog :: RecordEvent(8, targetISBN, inOperation.userID);
     return 0;
 }
 int DelUser()
 {
     long long targetUID;
     targetUID = Nios :: GetNum();
-    return (EUsers.DeleteUserByUID(targetUID, inOperation.userID));
+    int message;
+    message = EUsers.DeleteUserByUID(targetUID, inOperation.userID);
+    if (message == 0)
+    {
+        Nlog :: RecordEvent(10, targetUID, inOperation.userID);
+    }
+    return message;
 }
 int ChangeUserAuthority()
 {
@@ -255,12 +261,13 @@ int ChangeUserAuthority()
     workingMode = Nios :: GetNum();
     switch(workingMode)
     {
-        case MODE_BAN : EUsers.SetUserAuthority(targetUID, -targetUser.authority); break;
+        case MODE_BAN : EUsers.SetUserAuthority(targetUID, -1); break;
         case MODE_UPGRADE : EUsers.SetUserAuthority(targetUID, 2); break;
         case MODE_DEGRADE : EUsers.SetUserAuthority(targetUID, 1); break;
         case MODE_ASSITANT : EUsers.SetUserAuthority(targetUID, 3); break;
         default : break;
     }
+    Nlog :: RecordEvent(11, targetUID, inOperation.userID);
     return 0;
 }
 int SearchBookByKeyword()

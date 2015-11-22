@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     wsearch.cpp \
     wnickname.cpp \
     wpasswd.cpp \
-    wbookedit.cpp
+    wbookedit.cpp \
+    wupgrade.cpp
 
 HEADERS  += mainwindow.h \
     classes.hpp \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     wsearch.h \
     wnickname.h \
     wpasswd.h \
-    wbookedit.h
+    wbookedit.h \
+    wupgrade.h
 
 FORMS    += mainwindow.ui \
     wlogin.ui \
@@ -49,4 +51,5 @@ FORMS    += mainwindow.ui \
     wsearch.ui \
     wnickname.ui \
     wpasswd.ui \
-    wbookedit.ui
+    wbookedit.ui \
+    wupgrade.ui

@@ -11,7 +11,7 @@ ypes of users.
 #define nil NULL
 const int ISBNLEN = 13;
 const int FLAG_GUEST = 0, FLAG_USER = 1, FLAG_POWERUSER = 2, FLAG_ADMIN = 3; 
-const int MODE_BAN = 0, MODE_DEGRADE = 3, MODE_UPGRADE = 1, MODE_ASSITANT = 2;
+const int MODE_BAN = -1, MODE_DEGRADE = 1, MODE_UPGRADE = 2, MODE_ASSITANT = 3;
 const char easyKey = 0;
 namespace Nusers
 {

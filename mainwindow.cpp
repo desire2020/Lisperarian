@@ -96,6 +96,12 @@ MainWindow::MainWindow(QWidget *parent) :
     btDelUser -> setFont(btFont);
     btDelUser -> setStyleSheet("background:LightCyan");
 
+    btUpgrade = new QPushButton(this);
+    btUpgrade -> setText("更改用户权限");
+    btUpgrade -> setGeometry(QRect(200, 420, 151, 61));
+    btUpgrade -> setFont(btFont);
+    btUpgrade -> setStyleSheet("background:LightCyan");
+
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
     connect(btSignin, SIGNAL(clicked()), this, SLOT(showw3()));
@@ -110,6 +116,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(btEditf, SIGNAL(clicked()), this, SLOT(EditBk()));
     connect(btDel, SIGNAL(clicked()), this, SLOT(DelBk()));
     connect(btDelUser, SIGNAL(clicked()), this, SLOT(DelUr()));
+    connect(btUpgrade, SIGNAL(clicked()), this, SLOT(Upgrade()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -240,6 +247,10 @@ void MainWindow :: DelUr()
 }
 void MainWindow :: Upgrade()
 {
+    if (CheckAuthority(11, inOperation))
+        w9.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
 
 }
 
