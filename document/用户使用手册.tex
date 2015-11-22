@@ -1,0 +1,153 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass[11pt, fleqn, a4paper]{report}
+%a4paper : 21.0cm * 29.7cm
+
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts}
+\usepackage{tabularx}
+%\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage{upquote}
+\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+\usepackage{ltxtable, filecontents}
+
+\setlength{\topmargin}{0cm}
+
+\setlength{\oddsidemargin}{0.4cm}
+\setlength{\evensidemargin}{0.4cm}
+\setlength{\hoffset}{-0.2in}
+\setlength{\textwidth}{440pt}
+\setlength{\textheight}{650pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+\setlength{\mathindent}{0pt}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{lightgray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+	basicstyle=\footnotesize,
+	breaklines=true,
+	commentstyle=\color{mygreen},
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	stringstyle=\color{mymauve},
+	showstringspaces=false,
+	showspaces=false,
+	showtabs=false,
+	tabsize=2,
+	framexleftmargin=10mm,
+	frame=none,
+	backgroundcolor=\color[RGB]{245,245,244},
+	keywordstyle=\bf\color{blue},
+	identifierstyle=\bf,
+	numberstyle=\color[RGB]{0,192,192},
+	commentstyle=\it\color[RGB]{0,96,96},
+	stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}
+}
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\begin{document}
+\hypersetup{CJKbookmarks=true}
+
+\begin{titlepage}
+\vspace*{40mm}
+\begin{center}
+{\heiti \Huge Lisperarian:用户使用手册 \quad}\\[30mm]
+{\Large 2015 ACM Honoured Class}\\[3mm]
+{黄子璇\;\;卢思迪\;\;游志宇\;\;盛佩瑶\;\;曹孟尧}\\[3mm]
+
+2015.11.24
+
+\end{center}
+\end{titlepage}
+
+\begin{center}
+    \includegraphics[width = 110mm]{main.png}\\
+    \footnotesize Lisperarian主界面
+\end{center}
+\section*{\Large Fresh From Here……}
+    欢迎来到Lisperarian。\par
+    首先完成注册吧——
+    \begin{itemize}
+      \setlength{\itemindent}{2em}
+      \footnotesize
+      \item 昵称只支持英文，请为自己取个好听的名字吧；
+      \item 成功注册后，您将会拥有一个独一无二的ID号，请牢牢记住它和自己的密码；
+      \item 请保护好自己的账号与密码，我们的系统也将会给您的个人信息绝对的保护。
+    \end{itemize}
+    \begin{center}
+    \includegraphics[width = 110mm]{register.png}\\
+    \footnotesize 注册界面
+    \end{center}
+    \begin{center}
+    \includegraphics[width = 55mm]{login.png}\\
+    \footnotesize 登陆界面
+    \end{center}
+\section*{\Large Start With The First Borrow……}
+    可以从此开始您美妙的阅读体验了。\par
+    我们承诺，在这里您可以便捷地找到自己的情有独钟——
+    \begin{itemize}
+      \setlength{\itemindent}{2em}
+      \footnotesize
+      \item 当您有明确的目标时，输入ISBN编码是检索的不二首选；
+      \item 当然，详实的书籍信息也会引领您的步伐；
+      \item 不必担心，我们提供关键字检索，在相似的书籍里多给您一些犹豫选择的机会。
+    \end{itemize}
+    \vspace*{5mm}
+    \begin{center}
+    \includegraphics[width = 110mm]{ISBN.png}\\
+    \footnotesize ISBN编码查询借阅书籍
+    \end{center}
+    \begin{center}
+    \includegraphics[width = 110mm]{keyword.png}\\
+    \footnotesize 关键词检索书籍
+    \end{center}
+\section*{\Large Oops！ I Forget To Return My Book……}
+
+    请您在规定的时限之内归还书籍。\par
+    Lisperarian的图书资源是属于每一个爱书的大家的——
+    \begin{itemize}
+      \setlength{\itemindent}{2em}
+      \footnotesize
+      \item 不小心误了归还日期？没关系，5日之内不会有进一步的惩罚；
+      \item 不过5日之后您的账号将会被暂时封禁，此时您需要与馆长或代馆长联系解决账号问题；
+      \item 由此造成的不便，我们深表歉意，更希望您能妥善安排自己的书籍借阅，共建良性的借阅环境。
+    \end{itemize}
+    \vspace*{5mm}
+    \begin{center}
+    \includegraphics[width = 110mm]{password.png}\\
+    \footnotesize 修改密码界面
+    \end{center}
+\section*{\Large Books Are The Ladder Of Human Progress……}
+
+    感谢您对我们尚且稚嫩的Lisperarian的支持。\par
+    书是人类进步的阶梯，你们是我们进步最大的动力。\par
+\vspace*{20mm}
+\begin{center}
+    {\small We are all looking forward to better than better.}
+\end{center}
+
+
+\end{document}

@@ -1,0 +1,165 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass[11pt, fleqn, a4paper]{report}
+%a4paper : 21.0cm * 29.7cm
+
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts}
+\usepackage{tabularx}
+%\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage{upquote}
+\usepackage[colorlinks, linkcolor=blue, anchorcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+\usepackage{ltxtable, filecontents}
+
+\setlength{\topmargin}{0cm}
+
+\setlength{\oddsidemargin}{0.4cm}
+\setlength{\evensidemargin}{0.4cm}
+\setlength{\hoffset}{-0.2in}
+\setlength{\textwidth}{440pt}
+\setlength{\textheight}{650pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+\setlength{\mathindent}{0pt}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{lightgray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+	basicstyle=\footnotesize,
+	breaklines=true,
+	commentstyle=\color{mygreen},
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	stringstyle=\color{mymauve},
+	showstringspaces=false,
+	showspaces=false,
+	showtabs=false,
+	tabsize=2,
+	framexleftmargin=10mm,
+	frame=none,
+	backgroundcolor=\color[RGB]{245,245,244},
+	keywordstyle=\bf\color{blue},
+	identifierstyle=\bf,
+	numberstyle=\color[RGB]{0,192,192},
+	commentstyle=\it\color[RGB]{0,96,96},
+	stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}
+}
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\begin{document}
+\hypersetup{CJKbookmarks=true}
+
+\begin{titlepage}
+\vspace*{40mm}
+\begin{center}
+{\heiti \Huge Lisperarian：设计说明 \quad}\\[30mm]
+{\Large 2015 ACM Honoured Class}\\[3mm]
+{黄子璇\;\;卢思迪\;\;游志宇\;\;盛佩瑶\;\;曹孟尧}\\[3mm]
+
+2015.11.24
+
+\end{center}
+\end{titlepage}
+
+\section*{0 写在前面}
+
+    这是进入大学以来第一个不同于机考、小作业的项目。可以说这是一种全不同于之前学习生涯的体验。本次的Group Project的项目是做一个Library System。我们使用了C++ STL外部库实现了本次代码，并且整个项目完美支持跨平台。从各个功能、方向的实现，主要有：
+    \begin{itemize}
+      \setlength{\itemindent}{0.5em}
+      \small
+      \item 数据系统
+      \item 用户资料保护
+      \item 借、还图书过程
+    \end{itemize}\par
+    以下，就是我们的
+    \begin{center}
+      \textbf {\emph {\large {Lisperarian}}}
+    \end{center}
+
+\section*{1 数据系统}
+
+    图书馆系统中，数据系统主要用于存储用户与图书两方面的信息。
+\subsection*{1.1 图书信息}
+    我们存储的每本图书信息包含：ISBN编码，书名，作者，出版社与其他（关键词等）。在读者需要检索图书时，他可以根据前三者进行较为精确的检索，也可以按自己的兴趣与希望书籍的方向进行关键字的检索以获得自己想要的书籍。
+\subsection*{1.2 用户信息}
+    用户信息包括昵称、密码与系统给予的独特的UID。昵称部分只实现了支持英语，不支持有汉字。
+
+\section*{2 用户资料保护}
+
+    不同于图书信息的存储，用户资料的存储需要极大的安全性以保护用户个人隐私与账户的安全。因此用户的个人信息只能用户个人查看。
+\subsection*{2.1 加密算法}
+    \subsubsection*{普适加密}
+    对于用户的昵称等其他数据，我们进行的普适加密算法为：逐字符地异或一个密钥。做一个简单而可靠的加密。
+    \subsubsection*{对密码的加密}
+    区别于用户的其他数据，个人的密码需要更安全复杂的加密算法。我们采用了MD5双重加密技术（只能加密不能解密）。\par
+    用户的密码就是以MD5经加密后存储在文件系统中。当用户登录的时候，系统把用户输入的密码计算成MD5值，然后再去和保存在文件系统中的MD5值进行比较，进而确定输入的密码是否正确。\par
+    通过这样的步骤，系统在并不知道用户密码的明码的情况下就可以确定用户登录系统的合法性。这不但可以避免用户的密码被具有系统管理员权限的用户知道，而且还在一定程度上增加了密码被破解的难度。\par
+\subsection*{2.2 图书馆人员权限}
+    用户的密码显然只有自己知道，同时，用户自己的个人信息也只有自己可以查看。
+    \subsubsection{管理员权限}
+    管理员高于用户的权限仅在于管理图书，并不能对于用户做任何，包括查看信息的操作。（不过管理员可以对用户昵称与密码进行重写）
+    \subsubsection{（代）馆长权限}
+    （代）馆长既可管理图书，又可管理用户。在某些事情发生后，（代）馆长可对用户进行提取、封禁与删除等操作，不过依旧不能得知用户的密码。
+\vspace*{5mm}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+权限级别 & 查看个人信息 & 查看其他用户信息 & 管理图书 & 管理用户 & 得知他人密码 \\
+\hline
+普通用户 & 1 & 0 & 0 & 0 & 0 \\
+\hline
+管理员 & 1 & 0 & 1 & 0 & 0 \\
+\hline
+（代）馆长 & 1 & 1 & 1 & 1 & 0 \\
+\hline
+\end{tabular}
+\vspace*{5mm}
+\small 附：权限表（1：允许\;0：不允许）
+\end{center}
+
+\section*{3 借、还图书过程}
+
+    在完成了用户与图书两方面的工作之后，将图书与用户联系在一起的借还图书过程也是十分重要的一环。
+\subsection*{3.1 借阅日志记录}
+    我们在全局中加入映射(map)，以储存借阅事件与具体时间，从而将两者结合在一起，构成借阅日志的记录。
+\subsection*{3.2 归还惩罚系统}
+    每次借阅事件都有借阅书籍的时限，如果超过时限后，用户没有归还图书，将会收到一定的惩罚。我们考虑到用户的体验，作出一定的人性化调整。\par
+    在规定归还日期的5日之内，我们不会对用户作出任何惩罚；若5日之后还没有归还图书，系统或是（代）馆长将会采取封号措施。用户可以再要求解封自己的账号，但必须获得（代）馆长的许可，由（代）馆长进行解封等操作。\par
+    （代）馆长对于用户的管理的操作（如提取、封禁与删除等）可以从此看出。
+
+\section*{∞\ 最后}
+
+    有句话说的好：理想很丰满，现实很骨感。\par
+    开始的时候，我们设想了许多脑洞，但最终因许许多多方面太过稚嫩而放弃。\par
+    不管怎样不很成功，Lisprarian是我们从此一切的开始。\par
+    感谢所有的小组成员，感谢助教的批评建议与支持，感谢翁老师的教导。\par
+
+\vspace*{25mm}
+
+\begin{center}
+    \footnotesize We are all looking forward to better than better.
+\end{center}
+
+\end{document}
