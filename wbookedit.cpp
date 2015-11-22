@@ -11,6 +11,7 @@ WBookEdit::WBookEdit(QWidget *parent) :
     ui->setupUi(this);
     setMinimumSize(800,360);
     setMaximumSize(600,360);
+    this -> setStyleSheet("background:Azure");
     titLabel = new QLabel(tr("书　名："));
     ISBNLabel = new QLabel(tr("ISBN  :"));
     autLabel = new QLabel(tr("作　者："));
