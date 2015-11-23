@@ -68,6 +68,7 @@ namespace Nusers
 	int TUsers :: ChangePassword(long long UID, TPassword newPassword) 
 	{
 		if (!CheckUID(UID)) return -1;
+        if (UIDTree[UID].authority > inOperation.authority) return -2;
 		UIDTree[UID].userPassword = EncryptingWithMd5(newPassword);
 		return 0;
 	}

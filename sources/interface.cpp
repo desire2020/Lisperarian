@@ -168,11 +168,14 @@ int ChangePassword()
         inputNewPassword2 = Nios :: GetLine();
         if (inputNewPassword == inputNewPassword2)
         {
-            EUsers.ChangePassword(targetUID, inputNewPassword);
-            if (inOperation.userID == targetUID)
-                inOperation = EUsers.GetUser(targetUID);
-            Nlog :: RecordEvent(6, targetUID, inOperation.userID);
-            return 0;
+            if (EUsers.ChangePassword(targetUID, inputNewPassword) == 0)
+            {
+                if (inOperation.userID == targetUID)
+                    inOperation = EUsers.GetUser(targetUID);
+                Nlog :: RecordEvent(6, targetUID, inOperation.userID);
+                return 0;
+            }
+            else return -2;
         }
         else
             return -2;

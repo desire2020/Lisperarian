@@ -357,7 +357,9 @@ namespace Nios
         {
             inProc = ResultStack.top();
             ResultStack.pop();
+            ss += "书名: " + inProc.title + "\n";
             ss += "ISBN: " + NumStr(inProc.ISBN) + "\n";
+
         }
         return ss;
     }

@@ -49,7 +49,7 @@ void WNickName :: accept()
     {
         QMessageBox::warning(this,"","修改成功",QMessageBox::Yes);
         inOperation = EUsers.GetUser(inOperation.userID);
-        www -> userName -> setText(("当前用户 " + Nios :: level(inOperation.authority) + inOperation.userNickname).c_str());
+        www -> userName -> setText(("当前用户 " + Nios :: level(inOperation.authority)  + " : " +  inOperation.userNickname).c_str());
         QWidget::close();
     }
     else
