@@ -66,7 +66,7 @@ namespace Nlibrary
 			{
                 (*it).second.avaliableNum--;
                 (*it).second.occupyingUsers.insert(userID);
-                fo.open(("\\books\\" + NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
+                fo.open(("/books/" + NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
 				fo << Nios :: SysDateStr() << " " << NumStr(userID) << endl;
                 fo.close();
                 return 0;

@@ -84,7 +84,7 @@ namespace Nios
 	
     int PrintTheFileOfInf(TUser temp)
 	{
-        ofstream theFile((currentDir + "users\\usersInf\\" + NumStr(temp.userID) + ".log").c_str());
+        ofstream theFile((currentDir + "users/usersInf/" + NumStr(temp.userID) + ".log").c_str());
         {
             theFile << SysInfEncry(NumStr(temp.userID)) << endl;
             theFile << SysInfEncry(temp.userNickname) << endl;
@@ -100,7 +100,7 @@ namespace Nios
 	
 	int PrintTheFileOfOccupiedBooks(TUser temp) 
 	{
-        ofstream theFile((currentDir + "users\\usersOccupiedBooks\\" + NumStr(temp.userID) + ".log").c_str());
+        ofstream theFile((currentDir + "users/usersOccupiedBooks/" + NumStr(temp.userID) + ".log").c_str());
 		{
 			set<long long> :: iterator it;
 			for (it = temp.occupiedBooks.begin(); it != temp.occupiedBooks.end(); ++it)
@@ -114,7 +114,7 @@ namespace Nios
 	
     int ScanTheUIDInf(long long userID, Nusers :: TUsers &inProgressLib)
 	{
-        ifstream theFile((currentDir + "users\\usersInf\\" + NumStr(userID) + ".log").c_str());
+        ifstream theFile((currentDir + "users/usersInf/" + NumStr(userID) + ".log").c_str());
 		{
 			if (!theFile) return -1;
 			string str;
@@ -132,7 +132,7 @@ namespace Nios
 	
     int ScanTheUIDOccupiedBooks(long long userID, Nusers :: TUsers &inProgressLib)
 	{
-        ifstream theFile((currentDir + "users\\usersOccupiedBooks\\" + NumStr(userID) + ".log").c_str());
+        ifstream theFile((currentDir + "users/usersOccupiedBooks/" + NumStr(userID) + ".log").c_str());
 		{
 			if (!theFile) return -1;
 			long long tgISBN;
@@ -147,7 +147,7 @@ namespace Nios
 	
 	int PrintUserSysRecordBorrow(long long userID, long long ISBN, Nusers :: TTime preTime)
 	{
-        ofstream theFile((currentDir + "users\\usersRB\\" + NumStr(userID) + ".log").c_str(), ios :: app);
+        ofstream theFile((currentDir + "users/usersRB/" + NumStr(userID) + ".log").c_str(), ios :: app);
             theFile << "用户ID：" << userID << "  借书" << endl;
             theFile << "    书籍ISBN：" << ISBN;
 			theFile << "    日期：" << preTime.year << "." << preTime.month << "." << preTime.day << endl;
@@ -157,7 +157,7 @@ namespace Nios
 	
 	int PrintUserSysRecordReturn(long long userID, long long ISBN, Nusers :: TTime preTime)
 	{
-        ofstream theFile((currentDir + "users\\usersRB\\" + NumStr(userID) + ".log").c_str(), ios :: app);
+        ofstream theFile((currentDir + "users/usersRB/" + NumStr(userID) + ".log").c_str(), ios :: app);
 		{
             theFile << "用户ID：" << userID << "  还书" << endl;
             theFile << "    书籍ISBN：" << ISBN;
@@ -169,7 +169,7 @@ namespace Nios
 	
     int RefreshUserSys(Nusers :: TUsers &inProgressLib)
 	{
-        ofstream theFile((currentDir + "users\\globalvar.ini").c_str());
+        ofstream theFile((currentDir + "users/globalvar.ini").c_str());
 		{
             theFile << presentUID << endl;
 		}
@@ -185,10 +185,10 @@ namespace Nios
 	
     int InitUserSys(Nusers :: TUsers &inProgressLib)
 	{
-        fstream theFile((currentDir + "users\\globalvar.ini").c_str(), ios :: in);
+        fstream theFile((currentDir + "users/globalvar.ini").c_str(), ios :: in);
 		if (!theFile)
 		{
-            theFile.open((currentDir + "users\\globalvar.ini").c_str(), ios :: out);
+            theFile.open((currentDir + "users/globalvar.ini").c_str(), ios :: out);
             presentUID = Nusers :: INITOFSUM;
             theFile << presentUID << endl;
 			theFile.close();
@@ -202,7 +202,7 @@ namespace Nios
         inProgressLib.UIDTree.clear();
         for (long long i = Nusers :: INITOFSUM; i <= presentUID; ++i)
 		{
-            ifstream it((currentDir + "users\\usersInf\\" + NumStr(i) + ".log").c_str());
+            ifstream it((currentDir + "users/usersInf/" + NumStr(i) + ".log").c_str());
 			{
 				if (!it) continue;
 			}
@@ -216,7 +216,7 @@ namespace Nios
     int InitUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
 	{
 		inUIDandISBNTree.clear();
-        ifstream theFile((currentDir + "users\\UIDandISBNTree.ini").c_str());
+        ifstream theFile((currentDir + "users/UIDandISBNTree.ini").c_str());
 		{
 			Nusers :: UIDandISBN temp1;
 			Nusers :: TTime temp2;
@@ -235,7 +235,7 @@ namespace Nios
 	
     int RefreshUIDandISBNTree(Nusers :: TInnerUIDandISBNTree &inUIDandISBNTree)
 	{
-        ofstream theFile((currentDir + "users\\UIDandISBNTree.ini").c_str());
+        ofstream theFile((currentDir + "users/UIDandISBNTree.ini").c_str());
 		{
 			Nusers :: TInnerUIDandISBNTree :: iterator it;
 			for (it = inUIDandISBNTree.begin(); it != inUIDandISBNTree.end(); ++it)
@@ -253,10 +253,10 @@ namespace Nios
 	
     int InitBookSys(Nlibrary :: TLibrary &inProgressLib)
     {
-        fstream ff((currentDir + "library\\settings.ini").c_str(), ios :: in);
+        fstream ff((currentDir + "library/settings.ini").c_str(), ios :: in);
         if (!ff)
         {
-            ff.open((currentDir + "library\\settings.ini").c_str(), ios :: out);
+            ff.open((currentDir + "library/settings.ini").c_str(), ios :: out);
             ff << 14 << endl;
             keepPeriod = 14 + 5;
             ff.close();
@@ -267,10 +267,10 @@ namespace Nios
             keepPeriod += 5;
             ff.close();
         }
-        fstream theFile((currentDir + "library\\Book.db").c_str(), ios :: in);
+        fstream theFile((currentDir + "library/Book.db").c_str(), ios :: in);
 		if (!theFile)
 		{
-            theFile.open((currentDir + "library\\Book.db").c_str(), ios :: out);
+            theFile.open((currentDir + "library/Book.db").c_str(), ios :: out);
 			theFile.close();
 			return 0;
 		}
@@ -319,7 +319,7 @@ namespace Nios
 	}
 	int RefreshBookSys(Nlibrary :: TLibrary &inProgressLib)
 	{
-        fstream theFile((currentDir + "library\\Book.db").c_str(), ios :: out);
+        fstream theFile((currentDir + "library/Book.db").c_str(), ios :: out);
 		Nlibrary :: TInnerStruct :: iterator it;
 		for (it = inProgressLib.ISBNTree.begin(); it != inProgressLib.ISBNTree.end(); it++)
 		{
