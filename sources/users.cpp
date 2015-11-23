@@ -46,9 +46,9 @@ namespace Nusers
 		TInnerStruct :: iterator it;
 		it = UIDTree.find(tgUID);
 		UIDTree.erase(it);
-        remove(("usersusersRB" + Nios :: NumStr(tgUID) + ".log").c_str());
-        remove(("usersusersInf" + Nios :: NumStr(tgUID) + ".log").c_str());
-        remove(("usersusersOccupiedBooks" + Nios :: NumStr(tgUID) + ".log").c_str());
+        remove(("/usersusersRB/" + Nios :: NumStr(tgUID) + ".log").c_str());
+        remove(("/usersusersInf/" + Nios :: NumStr(tgUID) + ".log").c_str());
+        remove(("/usersusersOccupiedBooks/" + Nios :: NumStr(tgUID) + ".log").c_str());
 		return 0;
 	}
 	
