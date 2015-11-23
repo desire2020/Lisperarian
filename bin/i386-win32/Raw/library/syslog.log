@@ -25,3 +25,16 @@
 2015-11-24 00:49:07    ISBN : 1    is borrowed by   UserID : 100000
 2015-11-24 00:49:15    ISBN : 1    is returned by   UserID : 100000
 2015-11-24 00:49:32    UserID : 100000    Logout Completed
+2015-11-24 00:51:53    UserID : 100000    Login Completed
+2015-11-24 00:51:58    ISBN : 1    is borrowed by   UserID : 100000
+2015-11-24 00:52:06    UserID : 100000    Logout Completed
+2015-11-24 00:54:13    UserID : 100000    Login Completed
+2015-11-24 00:55:36    ISBN : 1    is returned by   UserID : 100000
+2015-11-24 00:55:39    ISBN : 1    is borrowed by   UserID : 100000
+2015-11-24 00:58:43    UserID : 100000    Login Completed
+2015-11-24 00:58:45    ISBN : 1    is returned by   UserID : 100000
+2015-11-24 00:58:47    ISBN : 1    is borrowed by   UserID : 100000
+2015-11-24 00:58:56    ISBN : 1    is returned by   UserID : 100000
+2015-11-24 00:58:57    ISBN : 1    is borrowed by   UserID : 100000
+2015-11-24 00:59:36    UserID : 100000    Logout Completed
+2015-11-24 01:01:51    UserID : 100000    Login Completed

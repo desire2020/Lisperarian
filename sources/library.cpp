@@ -10,17 +10,6 @@ Namespace: Nlibrary;
 #include "constants.hpp"
 namespace Nlibrary
 {
-	string TLibrary :: NumStr(long long tgNum)
-	{
-        static string p;
-        p = "";
-		long long PS = tgNum;
-		for (int i = 0; i < ISBNLEN; i++)
-		{
-			p = char(PS % 10 + '0') + p;
-		}
-		return p;
-	}
     int TLibrary :: AddBook(const TBook &inPendingBook, long long userID)
 	{
 		TInnerStruct :: iterator it;
@@ -66,8 +55,8 @@ namespace Nlibrary
 			{
                 (*it).second.avaliableNum--;
                 (*it).second.occupyingUsers.insert(userID);
-                fo.open(("/library/" + NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
-				fo << Nios :: SysDateStr() << " " << NumStr(userID) << endl;
+                fo.open(("./library/" + Nios :: NumStr(tgISBN) + ".log").c_str(), ios :: app | ios :: out);
+                fo << Nios :: SysDateStr() << " " << Nios :: NumStr(userID) << endl;
                 fo.close();
                 return 0;
 			}
