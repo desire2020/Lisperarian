@@ -1,7 +1,7 @@
 /*****************************
  调用说明：
  RecordEvent(int Event, long long ID1; long long ID2)
-/*****************************
+
  日志记录类型：
  0:新用户注册。
  1:老用户登录。
@@ -20,7 +20,7 @@
 #include "globalvar.hpp"
 #include "constants.hpp"
 #include "classes.hpp"
-#define currentDir string("library\\")
+#define currentDir string("./library/")
 namespace Nlog
 {
     
