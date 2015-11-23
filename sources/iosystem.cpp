@@ -392,5 +392,29 @@ namespace Nios
         ss += "需要权限: " + level(inProc.lowerBoundOfAuthority) + "\n";
         return ss;
     }
+    string ShowUserRequired()
+    {
+        string ss("");
+        long long targetUID = GetNum();
+        if (!EUsers.CheckUID(targetUID))
+        {
+            return string("没有符合条件的用户。");
+        }
+        Nusers :: TUser inProc;
+        set<long long> :: iterator it;
+        inProc = EUsers.GetUser(targetUID);
+        ss += "昵称: " + inProc.userNickname + "\n";
+        ss += "userID: " + NumStr(inProc.userID) + "\n";
+        ss += "已借阅图书：\n";
+        for (it = inProc.occupiedBooks.begin(); it != inProc.occupiedBooks.end(); it++)
+        {
+            ss += ELibrary.ISBNTree[*it].title + '\n';
+        }
+        ss += "权限: " + level(inProc.authority) + '\n';
+        ss += "真名: " + inProc.privateInf.realName + "\n";
+        ss += "电话: " + NumStr(inProc.privateInf.telephoneNumber) + "\n";
+        ss += "身份证号:" + inProc.privateInf.identificationNumber + "\n";
+        return ss;
+    }
 }
 #endif

@@ -46,6 +46,9 @@ void WGeneral1Num :: accept()
         if (workingModeGer == -4)
             QMessageBox::warning(this,"",Nios :: ShowOneBookRequired().c_str(),QMessageBox::Yes);
         else
+            if (workingModeGer == -10)
+                QMessageBox::warning(this,"",Nios :: ShowUserRequired().c_str(),QMessageBox::Yes);
+        else
             QMessageBox::warning(this,"成功","成功完成",QMessageBox::Yes);
         QWidget::close();
     }

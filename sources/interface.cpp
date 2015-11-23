@@ -302,6 +302,7 @@ int procFunc(int p)
         case 8 : message = DelBook(); break;
         case 9 : message = EditBook(); break;
         case 10 : message = DelUser(); break;
+        case -10 : message = 0; break;
         case 11 : message = ChangeUserAuthority(); break;
         default : break;
     }

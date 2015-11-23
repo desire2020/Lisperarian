@@ -101,6 +101,12 @@ MainWindow::MainWindow(QWidget *parent) :
     btUpgrade -> setFont(btFont);
     btUpgrade -> setStyleSheet("background:LightBlue");
 
+    btShowUsr = new QPushButton(this);
+    btShowUsr -> setText("查看用户信息");
+    btShowUsr -> setGeometry(QRect(200, 490, 151, 61));
+    btShowUsr -> setFont(btFont);
+    btShowUsr -> setStyleSheet("background:LightBlue");
+
     connect(btExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(btLogin, SIGNAL(clicked()), this, SLOT(showw2()));
     connect(btSignin, SIGNAL(clicked()), this, SLOT(showw3()));
@@ -116,6 +122,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(btDel, SIGNAL(clicked()), this, SLOT(DelBk()));
     connect(btDelUser, SIGNAL(clicked()), this, SLOT(DelUr()));
     connect(btUpgrade, SIGNAL(clicked()), this, SLOT(Upgrade()));
+    connect(btShowUsr, SIGNAL(clicked()), this, SLOT(ShowUsr()));
 }
 void MainWindow :: mousePressEvent(QMouseEvent *e)
 {
@@ -227,6 +234,7 @@ void MainWindow :: DelBk()
     else
         QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
 }
+
 void MainWindow :: EditBk()
 {
     workingModeGer = 9;
@@ -240,6 +248,14 @@ void MainWindow :: DelUr()
 {
     workingModeGer = 10;
     if (CheckAuthority(10, inOperation))
+        w4.show();
+    else
+        QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);
+}
+void MainWindow :: ShowUsr()
+{
+    workingModeGer = -10;
+    if (CheckAuthority(-10, inOperation))
         w4.show();
     else
         QMessageBox::warning(this,"错误","您没有权限进行这个操作",QMessageBox::Yes);

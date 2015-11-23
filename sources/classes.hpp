@@ -109,5 +109,6 @@ namespace Nios
     string ShowBookRequired();
     string level(long long auth);
     string ShowOneBookRequired();
+    string ShowUserRequired();
 }
 #endif

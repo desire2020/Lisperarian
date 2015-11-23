@@ -27,7 +27,7 @@ public:
     QLabel *welcomeWord, *userName;
     QPushButton *btLogin, *btExit, *btSignin, *btRefresh;
     QPushButton *btBorBook, *btRetBook, *btSearchBook, *btDetail, *btAdd, *btDel, *btEditf;
-    QPushButton *btNickName, *btPasswd, *btDelUser, *btUpgrade;
+    QPushButton *btNickName, *btPasswd, *btDelUser, *btUpgrade, *btShowUsr;
     ~MainWindow();
 protected:
     void mousePressEvent(QMouseEvent *e);
@@ -59,6 +59,7 @@ private slots:
     void DelBk();
     void DelUr();
     void Upgrade();
+    void ShowUsr();
 };
 
 #endif // MAINWINDOW_H
