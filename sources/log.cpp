@@ -20,11 +20,7 @@
 #include "globalvar.hpp"
 #include "constants.hpp"
 #include "classes.hpp"
-<<<<<<< HEAD
-#define currentDir string("library/")
-=======
 #define currentDir string("./library/")
->>>>>>> origin/master
 namespace Nlog
 {
     
